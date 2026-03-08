@@ -1,0 +1,9 @@
+defaults:
+  - experiment: baseline
+  - agent: persona_loop
+  - llm: hf_mistral
+  - memory: chroma
+  - consistency: deberta_base
+  - context_builder: priority
+  - dataset: toy_persona
+  - _self_

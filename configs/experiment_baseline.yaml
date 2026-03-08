@@ -1,0 +1,32 @@
+experiment:
+  run_name: baseline_persona_loop
+  seed: 42
+  k: 8
+
+agent:
+  name: persona_loop
+
+llm:
+  provider: hf
+  model_name: mistral-7b-instruct
+
+memory:
+  type: chroma
+
+consistency:
+  enabled: true
+  type: deberta
+  model_name: cross-encoder/nli-deberta-v3-base
+
+context_builder:
+  name: priority
+  max_history_turns: 3
+
+dataset:
+  persona_facts:
+    - I am patient and detail-oriented.
+    - I like practical examples.
+  samples:
+    - Help me plan a one-week study schedule.
+    - I changed my preference to shorter answers.
+    - Summarize what you know about my preferences.

@@ -1,0 +1,3 @@
+enabled: true
+type: deberta
+model_name: cross-encoder/nli-deberta-v3-base
