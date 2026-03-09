@@ -13,6 +13,7 @@ from persona_loop.consistency.base_checker import BaseChecker
 from persona_loop.consistency.deberta_checker import DebertaChecker
 from persona_loop.llm.base_llm import BaseLLM
 from persona_loop.llm.hf_llm import HuggingFaceLLM
+from persona_loop.llm.kimi_llm import KimiLLM
 from persona_loop.llm.openai_llm import OpenAILLM
 from persona_loop.memory.base_memory import BaseMemory
 from persona_loop.memory.chroma_memory import ChromaMemory
@@ -30,6 +31,7 @@ AGENT_REGISTRY: Dict[str, Type[BaseAgent]] = {
 LLM_REGISTRY: Dict[str, Type[BaseLLM]] = {
     "openai": OpenAILLM,
     "hf": HuggingFaceLLM,
+    "kimi": KimiLLM,
 }
 
 MEMORY_REGISTRY: Dict[str, Type[BaseMemory]] = {

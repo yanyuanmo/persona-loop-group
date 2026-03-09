@@ -7,12 +7,11 @@ from persona_loop.agents.base_agent import BaseAgent
 
 class SlidingWindowAgent(BaseAgent):
     def run_turn(self, prompt: str, context: str) -> Dict[str, Any]:
-        trimmed_context = context[-300:]
-        response = self.llm.generate(prompt=prompt, context=trimmed_context)
+        response = self.llm.generate(prompt=prompt, context=context)
         return {
             "agent": "sliding_window",
             "prompt": prompt,
-            "context": trimmed_context,
+            "context": context,
             "response": response,
             "consistency": None,
         }

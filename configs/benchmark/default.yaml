@@ -1,0 +1,18 @@
+continuous:
+  include_persona: true
+  history_turns: 1000
+
+sliding_window:
+  include_persona: false
+  history_turns: 3
+
+periodic_remind:
+  interval: 3
+  include_persona_on_non_periodic: false
+  history_turns: 6
+
+rag:
+  history_turns: 2
+
+ppa:
+  history_turns: 6

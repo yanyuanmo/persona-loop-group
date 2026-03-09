@@ -1,0 +1,2 @@
+provider: hf
+model_name: Qwen/Qwen2.5-7B-Instruct

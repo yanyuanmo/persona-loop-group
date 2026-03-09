@@ -1,9 +1,10 @@
 defaults:
   - experiment: baseline
   - agent: persona_loop
-  - llm: hf_mistral
+  - llm: qwen_local_7b
   - memory: chroma
   - consistency: deberta_base
+  - benchmark: default
   - context_builder: priority
   - dataset: toy_persona
   - _self_

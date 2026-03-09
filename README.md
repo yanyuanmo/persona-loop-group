@@ -87,6 +87,46 @@ Run RAG baseline:
 python run_experiment.py agent=rag
 ```
 
+Run direct full-context baseline:
+
+```powershell
+python run_experiment.py agent=continuous experiment.run_name=baseline_continuous
+```
+
+Run sliding-window baseline with custom window size:
+
+```powershell
+python run_experiment.py agent=sliding_window benchmark.sliding_window.history_turns=5
+```
+
+Run periodic-reminder baseline with K-turn reminder interval:
+
+```powershell
+python run_experiment.py agent=periodic_remind benchmark.periodic_remind.interval=4
+```
+
+## LoCoMo Consistency Evaluation
+
+Run QA + real NLI consistency evaluation on local LoCoMo JSON:
+
+```powershell
+python scripts/run_locomo_eval.py --data data/locomo10.json --agent continuous --max-turns 100 --max-samples 2
+```
+
+Main outputs:
+
+- `artifacts/locomo_eval/qa_predictions.json`
+- `artifacts/locomo_eval/qa_metrics.json`
+
+Metrics focus on consistency:
+
+- `nli_entailment_gold` (higher is better)
+- `nli_contradiction_gold` (lower is better)
+- `nli_entailment_adv` (lower is better)
+- `nli_contradiction_adv` (higher is better)
+
+`em`/`f1` are auxiliary QA sanity metrics.
+
 Disable NLI checker:
 
 ```powershell
@@ -104,6 +144,20 @@ Use OpenAI backend config:
 ```powershell
 python run_experiment.py llm=openai_gpt4o_mini
 ```
+
+Use local Qwen backend (default):
+
+```powershell
+python run_experiment.py llm=qwen_local_7b
+```
+
+Use Kimi backend:
+
+```powershell
+python run_experiment.py llm=kimi_kimi_latest
+```
+
+Kimi requires `KIMI_API_KEY` in `.env` (never commit real keys).
 
 Change run name and K directly:
 

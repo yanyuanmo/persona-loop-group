@@ -14,6 +14,8 @@ class RAGAgent(BaseAgent):
 
         merged_context = f"{context}\n[RAG]{retrieved}".strip()
         response = self.llm.generate(prompt=prompt, context=merged_context)
+        if self.memory is not None:
+            self.memory.add(text=response)
         return {
             "agent": "rag",
             "prompt": prompt,

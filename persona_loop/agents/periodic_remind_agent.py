@@ -7,7 +7,7 @@ from persona_loop.agents.base_agent import BaseAgent
 
 class PeriodicRemindAgent(BaseAgent):
     def run_turn(self, prompt: str, context: str) -> Dict[str, Any]:
-        response = self.llm.generate(prompt=f"[REMIND] {prompt}", context=context)
+        response = self.llm.generate(prompt=prompt, context=context)
         return {
             "agent": "periodic_remind",
             "prompt": prompt,

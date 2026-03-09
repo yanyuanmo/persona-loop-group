@@ -5,20 +5,21 @@ import os
 from persona_loop.llm.base_llm import BaseLLM
 
 
-class OpenAILLM(BaseLLM):
+class KimiLLM(BaseLLM):
     def __init__(self, model_name: str):
         super().__init__(model_name)
         try:
             from openai import OpenAI
         except ImportError as exc:
             raise RuntimeError(
-                "OpenAI backend requires openai package. Install with: pip install openai"
+                "Kimi backend requires openai package. Install with: pip install openai"
             ) from exc
 
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("KIMI_API_KEY")
         if not api_key:
-            raise RuntimeError("OPENAI_API_KEY is not set.")
-        base_url = os.getenv("OPENAI_BASE_URL")
+            raise RuntimeError("KIMI_API_KEY is not set.")
+
+        base_url = os.getenv("KIMI_BASE_URL", "https://api.moonshot.cn/v1")
         self._client = OpenAI(api_key=api_key, base_url=base_url)
 
     def generate(self, prompt: str, context: str) -> str:

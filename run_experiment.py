@@ -22,6 +22,83 @@ def set_global_seed(seed: int) -> None:
     np.random.seed(seed)
 
 
+def _join_prefixed(prefix: str, items: List[str]) -> List[str]:
+    return [f"[{prefix}] {x}" for x in items]
+
+
+def build_agent_context(
+    cfg: DictConfig,
+    agent_name: str,
+    prompt: str,
+    turn_id: int,
+    persona_facts: List[str],
+    corrections: List[str],
+    history: List[str],
+) -> str:
+    if agent_name == "persona_loop":
+        return build_priority_context(
+            persona_facts=persona_facts,
+            corrections=corrections,
+            history=history[-int(cfg.context_builder.max_history_turns) :],
+            recent_turn=prompt,
+            max_items=int(cfg.experiment.k),
+        )
+
+    if agent_name == "continuous":
+        hist = history[-int(cfg.benchmark.continuous.history_turns) :]
+        blocks: List[str] = []
+        if bool(cfg.benchmark.continuous.include_persona):
+            blocks.extend(_join_prefixed("PERSONA", persona_facts))
+        blocks.extend(_join_prefixed("HISTORY", hist))
+        blocks.append(f"[USER] {prompt}")
+        return "\n".join(blocks)
+
+    if agent_name == "sliding_window":
+        hist = history[-int(cfg.benchmark.sliding_window.history_turns) :]
+        blocks = []
+        if bool(cfg.benchmark.sliding_window.include_persona):
+            blocks.extend(_join_prefixed("PERSONA", persona_facts))
+        blocks.extend(_join_prefixed("HISTORY", hist))
+        blocks.append(f"[USER] {prompt}")
+        return "\n".join(blocks)
+
+    if agent_name == "periodic_remind":
+        hist = history[-int(cfg.benchmark.periodic_remind.history_turns) :]
+        interval = max(1, int(cfg.benchmark.periodic_remind.interval))
+        include_persona = turn_id % interval == 0
+        include_persona = include_persona or bool(
+            cfg.benchmark.periodic_remind.include_persona_on_non_periodic
+        )
+        blocks = []
+        if include_persona:
+            blocks.extend(_join_prefixed("PERSONA", persona_facts))
+        blocks.extend(_join_prefixed("HISTORY", hist))
+        blocks.append(f"[USER] {prompt}")
+        return "\n".join(blocks)
+
+    if agent_name == "rag":
+        hist = history[-int(cfg.benchmark.rag.history_turns) :]
+        blocks = _join_prefixed("HISTORY", hist)
+        blocks.append(f"[USER] {prompt}")
+        return "\n".join(blocks)
+
+    if agent_name == "ppa":
+        hist = history[-int(cfg.benchmark.ppa.history_turns) :]
+        blocks = _join_prefixed("PERSONA", persona_facts)
+        blocks.extend(_join_prefixed("HISTORY", hist))
+        blocks.append("[INSTRUCTION] Prefer persona-aligned and stable answers.")
+        blocks.append(f"[USER] {prompt}")
+        return "\n".join(blocks)
+
+    return build_priority_context(
+        persona_facts=persona_facts,
+        corrections=corrections,
+        history=history[-int(cfg.context_builder.max_history_turns) :],
+        recent_turn=prompt,
+        max_items=int(cfg.experiment.k),
+    )
+
+
 @hydra.main(version_base=None, config_path="configs", config_name="config")
 def main(cfg: DictConfig) -> None:
     set_global_seed(int(cfg.experiment.seed))
@@ -40,15 +117,20 @@ def main(cfg: DictConfig) -> None:
     agent = create_agent(name=cfg.agent.name, llm=llm, memory=memory, checker=checker)
 
     prompts: List[str] = list(cfg.dataset.samples)
+    persona_facts: List[str] = list(cfg.dataset.persona_facts)
+    corrections: List[str] = list(getattr(cfg.dataset, "corrections", []))
     outputs: List[Dict[str, object]] = []
 
     for turn_id, prompt in enumerate(prompts):
-        context = build_priority_context(
-            persona_facts=list(cfg.dataset.persona_facts),
-            corrections=[],
-            history=[o["response"] for o in outputs[-int(cfg.context_builder.max_history_turns) :]],
-            recent_turn=prompt,
-            max_items=int(cfg.experiment.k),
+        history = [str(o["response"]) for o in outputs]
+        context = build_agent_context(
+            cfg=cfg,
+            agent_name=str(cfg.agent.name),
+            prompt=prompt,
+            turn_id=turn_id,
+            persona_facts=persona_facts,
+            corrections=corrections,
+            history=history,
         )
         result = agent.run_turn(prompt=prompt, context=context)
         outputs.append({"turn_id": turn_id, **result})
