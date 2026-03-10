@@ -127,6 +127,42 @@ Metrics focus on consistency:
 
 `em`/`f1` are auxiliary QA sanity metrics.
 
+### LoCoMo Benchmark Presets
+
+Use matrix presets to run all `agent x eval_mode` combinations with one command.
+
+Quick sanity run (fast):
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset quick -SkipNli
+```
+
+Formal single-sample run (with NLI):
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset formal
+```
+
+Multi-sample run (more stable):
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset multisample
+```
+
+Adversarial-focused slice:
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset advslice
+```
+
+Override model/backend:
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset quick -LlmProvider openai -LlmModel gpt-4o-mini
+```
+
+All preset runs generate `summary.csv` and `summary.json` under their `artifacts/locomo_matrix_preset_*` output folder.
+
 Disable NLI checker:
 
 ```powershell
