@@ -17,6 +17,8 @@ from persona_loop.core.factories import create_agent
 from persona_loop.core.factories import create_llm
 from persona_loop.core.factories import create_memory
 from persona_loop.eval.nli_scorer import NLIScorer
+from persona_loop.eval.persona_extractor import extract_persona_facts
+from persona_loop.eval.persona_metrics import compute_persona_metrics
 from persona_loop.eval.qa_metrics import qa_scores
 
 
@@ -52,6 +54,48 @@ def answer_question(agent, question: str, history: List[str]) -> str:
     return str(result["response"])
 
 
+def _dia_id_from_history_item(item: str) -> str:
+    parts = item.split(" ", 1)
+    return parts[0] if parts else ""
+
+
+def _is_evidence_visible(history: List[str], evidence_ids: List[str]) -> bool:
+    if not evidence_ids:
+        return False
+    visible_ids = {_dia_id_from_history_item(item) for item in history}
+    return any(e in visible_ids for e in evidence_ids)
+
+
+def _build_eval_history(
+    eval_mode: str,
+    question: str,
+    visible_turns: List[Dict[str, str]],
+    evidence_ids: List[str],
+    max_turns: int,
+    retrieval_topk: int,
+) -> List[str]:
+    if eval_mode == "open_book":
+        return build_history(visible_turns, max_turns=max_turns)
+
+    if eval_mode == "hide_evidence":
+        filtered_turns = [t for t in visible_turns if str(t.get("dia_id", "")) not in set(evidence_ids)]
+        return build_history(filtered_turns, max_turns=max_turns)
+
+    # eval_mode == memory_only
+    memory = create_memory(memory_type="chroma")
+    if memory is None:
+        return []
+
+    for turn in visible_turns:
+        dia_id = str(turn.get("dia_id", ""))
+        text = str(turn.get("text", "")).strip()
+        if dia_id and text:
+            memory.add(text=f"{dia_id} {text}")
+
+    hits = memory.search(query=question, top_k=max(1, retrieval_topk))
+    return [str(h).strip() for h in hits if str(h).strip()]
+
+
 def print_progress_bar(current: int, total: int, start_time: float, width: int = 30) -> None:
     if total <= 0:
         return
@@ -75,9 +119,17 @@ def main() -> None:
     parser.add_argument("--max-turns", type=int, default=100)
     parser.add_argument("--max-samples", type=int, default=0)
     parser.add_argument("--max-qa", type=int, default=0)
+    parser.add_argument("--max-qa-per-sample", type=int, default=0)
+    parser.add_argument("--qa-offset", type=int, default=0)
     parser.add_argument("--skip-nli", action="store_true")
+    parser.add_argument("--eval-mode", choices=["open_book", "hide_evidence", "memory_only"], default="open_book")
+    parser.add_argument("--retrieval-topk", type=int, default=3)
     parser.add_argument("--progress-every", type=int, default=10)
     parser.add_argument("--no-progress-bar", action="store_true")
+    parser.add_argument("--persona-mode", choices=["off", "derived", "file"], default="derived")
+    parser.add_argument("--persona-file", default="")
+    parser.add_argument("--persona-topk", type=int, default=5)
+    parser.add_argument("--persona-max-facts", type=int, default=24)
     parser.add_argument("--output", default="artifacts/locomo_eval")
     args = parser.parse_args()
 
@@ -91,28 +143,49 @@ def main() -> None:
     nli = None if args.skip_nli else NLIScorer(model_name=args.nli_model)
 
     rows: List[Dict[str, object]] = []
+    persona_debug_rows: List[Dict[str, object]] = []
     samples = load_locomo(data_path)
     if args.max_samples > 0:
         samples = samples[: args.max_samples]
 
-    total_qa = sum(len(sample.get("qa", [])) for sample in samples)
+    total_qa = 0
+    for sample in samples:
+        qas = list(sample.get("qa", []))
+        if args.qa_offset > 0:
+            qas = qas[args.qa_offset :]
+        if args.max_qa_per_sample > 0:
+            qas = qas[: args.max_qa_per_sample]
+        total_qa += len(qas)
     if args.max_qa > 0:
         total_qa = min(total_qa, args.max_qa)
 
     print(
         f"Starting LoCoMo eval: samples={len(samples)}, target_qa={total_qa}, "
-        f"agent={args.agent}, llm={args.llm_provider}:{args.llm_model}, skip_nli={args.skip_nli}"
+        f"agent={args.agent}, llm={args.llm_provider}:{args.llm_model}, "
+        f"eval_mode={args.eval_mode}, skip_nli={args.skip_nli}"
     )
     start_time = time.time()
     processed = 0
     stopped_early = False
+    persona_file_map: Dict[str, List[Dict[str, object]]] = {}
+    if args.persona_mode == "file":
+        if not args.persona_file:
+            raise ValueError("--persona-file is required when --persona-mode=file")
+        persona_file_path = Path(args.persona_file)
+        persona_file_map = json.loads(persona_file_path.read_text(encoding="utf-8"))
 
     for sample in samples:
+        sample_id = str(sample.get("sample_id", ""))
         conv = sample.get("conversation", {})
         turns = flatten_conversation(conv)
         dia2idx = {t["dia_id"]: i for i, t in enumerate(turns)}
+        qas = list(sample.get("qa", []))
+        if args.qa_offset > 0:
+            qas = qas[args.qa_offset :]
+        if args.max_qa_per_sample > 0:
+            qas = qas[: args.max_qa_per_sample]
 
-        for qa in sample.get("qa", []):
+        for qa in qas:
             if args.max_qa > 0 and processed >= args.max_qa:
                 stopped_early = True
                 break
@@ -128,19 +201,48 @@ def main() -> None:
             else:
                 visible_turns = turns
 
-            history = build_history(visible_turns, max_turns=args.max_turns)
+            history = _build_eval_history(
+                eval_mode=args.eval_mode,
+                question=question,
+                visible_turns=visible_turns,
+                evidence_ids=evidence,
+                max_turns=args.max_turns,
+                retrieval_topk=args.retrieval_topk,
+            )
+            evidence_visible = _is_evidence_visible(history=history, evidence_ids=evidence)
             prediction = answer_question(agent=agent, question=question, history=history)
+
+            fact_bank: List[Dict[str, object]] = []
+            if args.persona_mode == "derived":
+                fact_bank = extract_persona_facts(
+                    visible_turns=visible_turns,
+                    max_facts=args.persona_max_facts,
+                )
+            elif args.persona_mode == "file":
+                fact_bank = list(persona_file_map.get(sample_id, []))
+
+            persona_metrics = compute_persona_metrics(
+                prediction=prediction,
+                fact_bank=fact_bank,
+                nli=nli,
+                top_k=args.persona_topk,
+            )
 
             gold = qa.get("answer")
             adv = qa.get("adversarial_answer")
             row: Dict[str, object] = {
-                "sample_id": sample.get("sample_id", ""),
+                "sample_id": sample_id,
                 "category": int(qa.get("category", -1)),
                 "question": question,
                 "prediction": prediction,
                 "gold_answer": gold,
                 "adversarial_answer": adv,
+                "persona_mode": args.persona_mode,
+                "eval_mode": args.eval_mode,
+                "history_items": len(history),
+                "evidence_visible": evidence_visible,
             }
+            row.update(persona_metrics)
 
             if isinstance(gold, str) and gold.strip():
                 row.update(qa_scores(prediction, gold))
@@ -156,6 +258,18 @@ def main() -> None:
                     row["nli_contradiction_adv"] = nli_adv["contradiction"]
 
             rows.append(row)
+            persona_debug_rows.append(
+                {
+                    "sample_id": sample_id,
+                    "question": question,
+                    "persona_mode": args.persona_mode,
+                    "eval_mode": args.eval_mode,
+                    "evidence_visible": evidence_visible,
+                    "persona_facts_total": row.get("persona_facts_total", 0),
+                    "persona_facts_used": row.get("persona_facts_used", 0),
+                    "persona_fact_texts": row.get("persona_fact_texts", []),
+                }
+            )
             processed += 1
 
             if not args.no_progress_bar:
@@ -185,9 +299,22 @@ def main() -> None:
         "nli_contradiction_gold": avg("nli_contradiction_gold"),
         "nli_entailment_adv": avg("nli_entailment_adv"),
         "nli_contradiction_adv": avg("nli_contradiction_adv"),
+        "persona_entailment": avg("persona_entailment"),
+        "persona_contradiction": avg("persona_contradiction"),
+        "persona_supported_ratio": avg("persona_supported_ratio"),
+        "persona_conflict_ratio": avg("persona_conflict_ratio"),
+        "persona_pcs": avg("persona_pcs"),
+        "persona_facts_total_avg": avg("persona_facts_total"),
+        "persona_facts_used_avg": avg("persona_facts_used"),
+        "evidence_visible_ratio": avg("evidence_visible"),
+        "history_items_avg": avg("history_items"),
+        "adversarial_count": int(sum(1 for r in rows if isinstance(r.get("adversarial_answer"), str) and str(r.get("adversarial_answer", "")).strip())),
     }
 
     (output_dir / "qa_predictions.json").write_text(json.dumps(rows, indent=2), encoding="utf-8")
+    (output_dir / "persona_facts_debug.json").write_text(
+        json.dumps(persona_debug_rows, indent=2), encoding="utf-8"
+    )
     (output_dir / "qa_metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
 
     if not args.no_progress_bar:
