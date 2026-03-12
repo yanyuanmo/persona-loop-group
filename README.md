@@ -131,6 +131,12 @@ Metrics focus on consistency:
 
 Use matrix presets to run all `agent x eval_mode` combinations with one command.
 
+Build reproducible slice files first (generated under `configs/benchmark/slices/`):
+
+```powershell
+python scripts/build_locomo_slices.py --data data/locomo10.json --out-dir configs/benchmark/slices
+```
+
 Quick sanity run (fast):
 
 ```powershell
@@ -162,6 +168,7 @@ Override model/backend:
 ```
 
 All preset runs generate `summary.csv` and `summary.json` under their `artifacts/locomo_matrix_preset_*` output folder.
+Each run also exports a `run_manifest.json` (arguments, git commit, and output pointers) for reproducibility.
 
 Disable NLI checker:
 
@@ -179,6 +186,33 @@ Use OpenAI backend config:
 
 ```powershell
 python run_experiment.py llm=openai_gpt4o_mini
+```
+
+Use local llama.cpp server (OpenAI-compatible API):
+
+1. Start local server (Windows + AMD recommended with Vulkan build):
+
+```powershell
+./scripts/run_local_llamacpp_server.ps1 -ModelPath D:\models\qwen2.5-7b-instruct-q4_k_m.gguf
+```
+
+2. Set local endpoint env vars in `.env`:
+
+```text
+OPENAI_BASE_URL=http://127.0.0.1:8080/v1
+OPENAI_API_KEY=dummy
+```
+
+3. Run with local OpenAI-compatible config:
+
+```powershell
+python run_experiment.py llm=openai_local_llamacpp
+```
+
+4. Run benchmark preset against local backend:
+
+```powershell
+./scripts/run_locomo_preset.ps1 -Preset quick -LlmProvider openai -LlmModel qwen2.5-7b-instruct-q4_k_m -SkipNli
 ```
 
 Use local Qwen backend (default):

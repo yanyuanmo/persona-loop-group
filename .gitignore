@@ -43,3 +43,7 @@ secrets.*
 
 # Notebook checkpoints
 .ipynb_checkpoints/
+
+# Local LLM assets
+models/
+tools/llama.cpp/
