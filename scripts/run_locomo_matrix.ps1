@@ -8,6 +8,7 @@ param(
     [int]$MaxQa = 20,
     [int]$MaxQaPerSample = 0,
     [int]$QaOffset = 0,
+    [string]$SliceFile = "",
     [int]$RetrievalTopK = 3,
     [switch]$SkipNli = $true,
     [string]$OutRoot = "artifacts/locomo_matrix_quick"
@@ -21,6 +22,13 @@ $modes = @('open_book', 'hide_evidence', 'memory_only')
 New-Item -ItemType Directory -Force -Path $OutRoot | Out-Null
 
 $rows = @()
+$runStartedAt = (Get-Date).ToUniversalTime().ToString("o")
+$gitCommit = "unknown"
+try {
+    $gitCommit = (git rev-parse HEAD).Trim()
+} catch {
+    $gitCommit = "unknown"
+}
 
 foreach ($agent in $agents) {
     foreach ($mode in $modes) {
@@ -43,6 +51,10 @@ foreach ($agent in $agents) {
             '--retrieval-topk', $RetrievalTopK,
             '--output', $outDir
         )
+
+        if ($SliceFile) {
+            $args += @('--slice-file', $SliceFile)
+        }
 
         if ($SkipNli) {
             $args += '--skip-nli'
@@ -81,5 +93,34 @@ $jsonPath = Join-Path $OutRoot 'summary.json'
 $rows | Export-Csv -Path $csvPath -NoTypeInformation -Encoding UTF8
 $rows | ConvertTo-Json -Depth 5 | Set-Content -Path $jsonPath -Encoding UTF8
 
+$manifest = [PSCustomObject]@{
+    created_at_utc = (Get-Date).ToUniversalTime().ToString("o")
+    started_at_utc = $runStartedAt
+    git_commit = $gitCommit
+    script = "scripts/run_locomo_matrix.ps1"
+    args = [PSCustomObject]@{
+        CondaEnv = $CondaEnv
+        Data = $Data
+        LlmProvider = $LlmProvider
+        LlmModel = $LlmModel
+        MaxTurns = $MaxTurns
+        MaxSamples = $MaxSamples
+        MaxQa = $MaxQa
+        MaxQaPerSample = $MaxQaPerSample
+        QaOffset = $QaOffset
+        SliceFile = $SliceFile
+        RetrievalTopK = $RetrievalTopK
+        SkipNli = [bool]$SkipNli
+        OutRoot = $OutRoot
+    }
+    summary_csv = $csvPath
+    summary_json = $jsonPath
+    runs = $rows
+}
+
+$manifestPath = Join-Path $OutRoot 'run_manifest.json'
+$manifest | ConvertTo-Json -Depth 8 | Set-Content -Path $manifestPath -Encoding UTF8
+
 Write-Host "[DONE] Summary CSV: $csvPath"
 Write-Host "[DONE] Summary JSON: $jsonPath"
+Write-Host "[DONE] Manifest: $manifestPath"

@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean
 import time
@@ -24,6 +27,38 @@ from persona_loop.eval.qa_metrics import qa_scores
 
 def load_locomo(path: Path) -> List[Dict[str, object]]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def get_git_commit(root: Path) -> str:
+    try:
+        out = subprocess.check_output(
+            ["git", "-C", str(root), "rev-parse", "HEAD"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
+        return out.strip()
+    except Exception:  # noqa: BLE001
+        return "unknown"
+
+
+def load_slice_entries(path: Path) -> List[Dict[str, object]]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(raw, dict):
+        entries = raw.get("entries", [])
+        if not isinstance(entries, list):
+            raise ValueError("Slice file entries must be a list")
+        return entries
+    if isinstance(raw, list):
+        return raw
+    raise ValueError("Slice file must be a list or an object with an 'entries' list")
 
 
 def flatten_conversation(conv: Dict[str, object]) -> List[Dict[str, str]]:
@@ -121,6 +156,7 @@ def main() -> None:
     parser.add_argument("--max-qa", type=int, default=0)
     parser.add_argument("--max-qa-per-sample", type=int, default=0)
     parser.add_argument("--qa-offset", type=int, default=0)
+    parser.add_argument("--slice-file", default="")
     parser.add_argument("--skip-nli", action="store_true")
     parser.add_argument("--eval-mode", choices=["open_book", "hide_evidence", "memory_only"], default="open_book")
     parser.add_argument("--retrieval-topk", type=int, default=3)
@@ -148,14 +184,35 @@ def main() -> None:
     if args.max_samples > 0:
         samples = samples[: args.max_samples]
 
+    slice_map: Dict[str, List[int]] = {}
+    if args.slice_file:
+        slice_path = Path(args.slice_file)
+        entries = load_slice_entries(slice_path)
+        grouped: Dict[str, List[int]] = {}
+        for entry in entries:
+            sample_id = str(entry.get("sample_id", "")).strip()
+            if not sample_id:
+                continue
+            qa_index = int(entry.get("qa_index", -1))
+            if qa_index < 0:
+                continue
+            grouped.setdefault(sample_id, []).append(qa_index)
+        for sample_id, idxs in grouped.items():
+            slice_map[sample_id] = sorted(set(idxs))
+
     total_qa = 0
     for sample in samples:
+        sample_id = str(sample.get("sample_id", "")).strip()
         qas = list(sample.get("qa", []))
-        if args.qa_offset > 0:
-            qas = qas[args.qa_offset :]
-        if args.max_qa_per_sample > 0:
-            qas = qas[: args.max_qa_per_sample]
-        total_qa += len(qas)
+        if slice_map:
+            sel = [i for i in slice_map.get(sample_id, []) if 0 <= i < len(qas)]
+            total_qa += len(sel)
+        else:
+            if args.qa_offset > 0:
+                qas = qas[args.qa_offset :]
+            if args.max_qa_per_sample > 0:
+                qas = qas[: args.max_qa_per_sample]
+            total_qa += len(qas)
     if args.max_qa > 0:
         total_qa = min(total_qa, args.max_qa)
 
@@ -180,12 +237,19 @@ def main() -> None:
         turns = flatten_conversation(conv)
         dia2idx = {t["dia_id"]: i for i, t in enumerate(turns)}
         qas = list(sample.get("qa", []))
-        if args.qa_offset > 0:
-            qas = qas[args.qa_offset :]
-        if args.max_qa_per_sample > 0:
-            qas = qas[: args.max_qa_per_sample]
+        qa_pairs: List[tuple[int, Dict[str, object]]] = []
+        if slice_map:
+            for idx in slice_map.get(sample_id, []):
+                if 0 <= idx < len(qas):
+                    qa_pairs.append((idx, qas[idx]))
+        else:
+            start = max(0, int(args.qa_offset))
+            trimmed = qas[start:]
+            if args.max_qa_per_sample > 0:
+                trimmed = trimmed[: args.max_qa_per_sample]
+            qa_pairs = [(start + i, qa) for i, qa in enumerate(trimmed)]
 
-        for qa in qas:
+        for qa_index, qa in qa_pairs:
             if args.max_qa > 0 and processed >= args.max_qa:
                 stopped_early = True
                 break
@@ -233,6 +297,7 @@ def main() -> None:
             row: Dict[str, object] = {
                 "sample_id": sample_id,
                 "category": int(qa.get("category", -1)),
+                "qa_index": qa_index,
                 "question": question,
                 "prediction": prediction,
                 "gold_answer": gold,
@@ -316,6 +381,20 @@ def main() -> None:
         json.dumps(persona_debug_rows, indent=2), encoding="utf-8"
     )
     (output_dir / "qa_metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+
+    run_manifest = {
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "git_commit": get_git_commit(ROOT),
+        "script": "scripts/run_locomo_eval.py",
+        "args": vars(args),
+        "data_path": str(data_path),
+        "data_sha256": file_sha256(data_path) if data_path.exists() else "missing",
+        "slice_file": args.slice_file,
+        "slice_count": int(sum(len(v) for v in slice_map.values())),
+        "result_count": len(rows),
+        "metrics_file": str(output_dir / "qa_metrics.json"),
+    }
+    (output_dir / "run_manifest.json").write_text(json.dumps(run_manifest, indent=2), encoding="utf-8")
 
     if not args.no_progress_bar:
         print()

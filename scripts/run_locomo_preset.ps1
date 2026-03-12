@@ -17,7 +17,11 @@ $ErrorActionPreference = 'Stop'
 if (Test-Path '.env') {
     Get-Content .env | ForEach-Object {
         if ($_ -match '^\s*([^#][^=]*)=(.*)$') {
-            [Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim(), 'Process')
+            $key = $matches[1].Trim()
+            $val = $matches[2].Trim()
+            if ($val -ne '') {
+                [Environment]::SetEnvironmentVariable($key, $val, 'Process')
+            }
         }
     }
 }
@@ -26,33 +30,42 @@ $maxSamples = 1
 $maxQa = 10
 $maxQaPerSample = 0
 $qaOffset = 0
+$sliceFile = ""
 
 switch ($Preset) {
     'quick' {
-        $maxSamples = 1
-        $maxQa = 10
-        $maxQaPerSample = 10
+        $maxSamples = 0
+        $maxQa = 0
+        $maxQaPerSample = 0
+        $sliceFile = 'configs/benchmark/slices/quick.json'
         if (-not $OutRoot) { $OutRoot = 'artifacts/locomo_matrix_preset_quick' }
     }
     'formal' {
-        $maxSamples = 1
-        $maxQa = 50
-        $maxQaPerSample = 50
+        $maxSamples = 0
+        $maxQa = 0
+        $maxQaPerSample = 0
+        $sliceFile = 'configs/benchmark/slices/formal.json'
         if (-not $OutRoot) { $OutRoot = 'artifacts/locomo_matrix_preset_formal' }
     }
     'multisample' {
-        $maxSamples = 2
-        $maxQa = 40
-        $maxQaPerSample = 20
+        $maxSamples = 0
+        $maxQa = 0
+        $maxQaPerSample = 0
+        $sliceFile = 'configs/benchmark/slices/multisample.json'
         if (-not $OutRoot) { $OutRoot = 'artifacts/locomo_matrix_preset_multisample' }
     }
     'advslice' {
-        $maxSamples = 1
-        $maxQa = 20
-        $maxQaPerSample = 20
-        $qaOffset = 152
+        $maxSamples = 0
+        $maxQa = 0
+        $maxQaPerSample = 0
+        $qaOffset = 0
+        $sliceFile = 'configs/benchmark/slices/advslice.json'
         if (-not $OutRoot) { $OutRoot = 'artifacts/locomo_matrix_preset_advslice' }
     }
+}
+
+if ($sliceFile -and -not (Test-Path $sliceFile)) {
+    throw "Missing slice file: $sliceFile. Run scripts/build_locomo_slices.py first."
 }
 
 $matrixArgs = @{
@@ -65,6 +78,7 @@ $matrixArgs = @{
     MaxQa = $maxQa
     MaxQaPerSample = $maxQaPerSample
     QaOffset = $qaOffset
+    SliceFile = $sliceFile
     RetrievalTopK = $RetrievalTopK
     OutRoot = $OutRoot
     SkipNli = [bool]$SkipNli
