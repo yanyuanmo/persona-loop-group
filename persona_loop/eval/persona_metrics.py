@@ -33,8 +33,34 @@ def compute_persona_metrics(
     top_k: int = 5,
     support_threshold: float = 0.5,
     conflict_threshold: float = 0.5,
+    question_subjects: Optional[List[str]] = None,
+    allowed_slots: Optional[set[str]] = None,
+    min_filtered_facts: int = 2,
 ) -> Dict[str, object]:
-    selected = _select_relevant_facts(prediction=prediction, facts=fact_bank, top_k=top_k)
+    pool = list(fact_bank)
+
+    # Optional relevance constraints for evaluation: prefer facts tied to
+    # question subjects/slots, but back off if filtering becomes too sparse.
+    if question_subjects:
+        subj_lc = {s.strip().lower() for s in question_subjects if str(s).strip()}
+        by_owner = [
+            f
+            for f in pool
+            if str(f.get("owner", "")).strip().lower() in subj_lc
+        ]
+        if len(by_owner) >= int(min_filtered_facts):
+            pool = by_owner
+
+    if allowed_slots:
+        by_slot = [
+            f
+            for f in pool
+            if str(f.get("slot", "")).strip() in allowed_slots
+        ]
+        if len(by_slot) >= int(min_filtered_facts):
+            pool = by_slot
+
+    selected = _select_relevant_facts(prediction=prediction, facts=pool, top_k=top_k)
 
     if not selected or nli is None:
         return {

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 class BaseLLM(ABC):
@@ -10,3 +11,6 @@ class BaseLLM(ABC):
     @abstractmethod
     def generate(self, prompt: str, context: str) -> str:
         raise NotImplementedError
+
+    def generate_json(self, prompt: str, context: str) -> Optional[dict]:
+        return None

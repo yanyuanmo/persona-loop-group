@@ -1,1 +1,6 @@
 name: persona_loop
+loop_interval: 8
+retrieval_top_k: 3
+recent_turns: 3
+nli_threshold: 0.2
+max_corrections: 2

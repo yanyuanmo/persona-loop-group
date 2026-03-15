@@ -50,9 +50,9 @@ def _assert_known(name: str, registry: Dict[str, Any], kind: str) -> None:
         raise ValueError(f"Unknown {kind}: '{name}'. Allowed: {allowed}")
 
 
-def create_llm(provider: str, model_name: str) -> BaseLLM:
+def create_llm(provider: str, model_name: str, **kwargs) -> BaseLLM:
     _assert_known(provider, LLM_REGISTRY, "llm provider")
-    return LLM_REGISTRY[provider](model_name=model_name)
+    return LLM_REGISTRY[provider](model_name=model_name, **kwargs)
 
 
 def create_memory(memory_type: Optional[str]) -> Optional[BaseMemory]:
@@ -73,6 +73,12 @@ def create_checker(enabled: bool, checker_type: Optional[str], model_name: Optio
     return CHECKER_REGISTRY[checker_type](model_name=model_name)
 
 
-def create_agent(name: str, llm: BaseLLM, memory: Optional[BaseMemory], checker: Optional[BaseChecker]) -> BaseAgent:
+def create_agent(
+    name: str,
+    llm: BaseLLM,
+    memory: Optional[BaseMemory],
+    checker: Optional[BaseChecker],
+    **kwargs,
+) -> BaseAgent:
     _assert_known(name, AGENT_REGISTRY, "agent")
-    return AGENT_REGISTRY[name](llm=llm, memory=memory, checker=checker)
+    return AGENT_REGISTRY[name](llm=llm, memory=memory, checker=checker, **kwargs)

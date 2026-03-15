@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import random
+import time
 from pathlib import Path
 from typing import Dict, List
 
@@ -114,12 +115,37 @@ def main(cfg: DictConfig) -> None:
         checker_type=cfg.consistency.type,
         model_name=cfg.consistency.model_name,
     )
-    agent = create_agent(name=cfg.agent.name, llm=llm, memory=memory, checker=checker)
+    agent_kwargs: Dict[str, object] = {}
+    if str(cfg.agent.name) == "persona_loop":
+        agent_kwargs = {
+            "loop_interval": int(getattr(cfg.agent, "loop_interval", cfg.experiment.k)),
+            "retrieval_top_k": int(getattr(cfg.agent, "retrieval_top_k", 3)),
+            "recent_turns": int(getattr(cfg.agent, "recent_turns", 3)),
+            "nli_threshold": float(getattr(cfg.agent, "nli_threshold", 0.2)),
+            "max_corrections": int(getattr(cfg.agent, "max_corrections", 2)),
+        }
+
+    agent = create_agent(
+        name=cfg.agent.name,
+        llm=llm,
+        memory=memory,
+        checker=checker,
+        **agent_kwargs,
+    )
 
     prompts: List[str] = list(cfg.dataset.samples)
     persona_facts: List[str] = list(cfg.dataset.persona_facts)
     corrections: List[str] = list(getattr(cfg.dataset, "corrections", []))
     outputs: List[Dict[str, object]] = []
+    progress_every = max(1, int(getattr(cfg.experiment, "progress_every", 1)))
+    total_turns = len(prompts)
+    start_time = time.time()
+
+    print(
+        f"Starting run: run_name={run_name}, agent={cfg.agent.name}, turns={total_turns}, "
+        f"progress_every={progress_every}",
+        flush=True,
+    )
 
     for turn_id, prompt in enumerate(prompts):
         history = [str(o["response"]) for o in outputs]
@@ -135,6 +161,15 @@ def main(cfg: DictConfig) -> None:
         result = agent.run_turn(prompt=prompt, context=context)
         outputs.append({"turn_id": turn_id, **result})
 
+        done = turn_id + 1
+        if done % progress_every == 0 or done == total_turns:
+            elapsed = time.time() - start_time
+            rate = done / elapsed if elapsed > 0 else 0.0
+            print(
+                f"Progress: {done}/{total_turns} turns, elapsed={elapsed:.1f}s, rate={rate:.2f} turn/s",
+                flush=True,
+            )
+
     metrics = compute_consistency_metrics(outputs)
 
     resolved_cfg = OmegaConf.to_container(cfg, resolve=True)
@@ -148,9 +183,10 @@ def main(cfg: DictConfig) -> None:
         json.dumps(metrics, indent=2), encoding="utf-8"
     )
 
-    print(f"Run complete: {run_name}")
-    print(f"Artifacts: {artifact_dir}")
-    print(f"Metrics: {metrics}")
+    elapsed = time.time() - start_time
+    print(f"Run complete: {run_name} in {elapsed:.1f}s", flush=True)
+    print(f"Artifacts: {artifact_dir}", flush=True)
+    print(f"Metrics: {metrics}", flush=True)
 
 
 if __name__ == "__main__":

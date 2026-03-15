@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import os
+from typing import Any
 
 from persona_loop.llm.base_llm import BaseLLM
 
+_UNSET: Any = object()  # sentinel: distinguish "not passed" from explicit None/""
+
 
 class OpenAILLM(BaseLLM):
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, base_url: Any = _UNSET, api_key: Any = _UNSET):
         super().__init__(model_name)
         try:
             from openai import OpenAI
@@ -15,19 +18,29 @@ class OpenAILLM(BaseLLM):
                 "OpenAI backend requires openai package. Install with: pip install openai"
             ) from exc
 
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
+        resolved_api_key = api_key if api_key is not _UNSET else os.getenv("OPENAI_API_KEY")
+        if not resolved_api_key:
             raise RuntimeError("OPENAI_API_KEY is not set.")
-        base_url = os.getenv("OPENAI_BASE_URL")
-        self._client = OpenAI(api_key=api_key, base_url=base_url)
 
-    def generate(self, prompt: str, context: str) -> str:
-        message = (
+        if base_url is _UNSET:
+            # Not explicitly passed: inherit OPENAI_BASE_URL env var (may be None).
+            resolved_base_url = os.getenv("OPENAI_BASE_URL") or None
+        else:
+            # Explicitly passed: '' means real OpenAI (no override); any URL means use it.
+            resolved_base_url = base_url or None
+
+        self._client = OpenAI(api_key=resolved_api_key, base_url=resolved_base_url)
+
+    def _build_message(self, prompt: str, context: str) -> str:
+        return (
             "You are an assistant in a persona consistency benchmark. "
             "Answer based on context and keep it concise.\n\n"
             f"Context:\n{context}\n\n"
             f"Question:\n{prompt}"
         )
+
+    def generate(self, prompt: str, context: str) -> str:
+        message = self._build_message(prompt=prompt, context=context)
         resp = self._client.chat.completions.create(
             model=self.model_name,
             messages=[{"role": "user", "content": message}],
@@ -35,3 +48,43 @@ class OpenAILLM(BaseLLM):
             max_tokens=128,
         )
         return (resp.choices[0].message.content or "").strip()
+
+    def generate_json(self, prompt: str, context: str) -> dict | None:
+        message = self._build_message(prompt=prompt, context=context)
+        schema = {
+            "name": "persona_facts",
+            "strict": True,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "facts": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "slot": {"type": "string"},
+                                "value": {"type": "string"},
+                                "dia_id": {"type": "string"},
+                                "confidence": {"type": "number"},
+                            },
+                            "required": ["slot", "value", "dia_id", "confidence"],
+                            "additionalProperties": False,
+                        },
+                    }
+                },
+                "required": ["facts"],
+                "additionalProperties": False,
+            },
+        }
+        try:
+            resp = self._client.chat.completions.create(
+                model=self.model_name,
+                messages=[{"role": "user", "content": message}],
+                temperature=0,
+                max_tokens=512,
+                response_format={"type": "json_schema", "json_schema": schema},
+            )
+            content = (resp.choices[0].message.content or "").strip()
+            return None if not content else __import__("json").loads(content)
+        except Exception:  # noqa: BLE001
+            return None
