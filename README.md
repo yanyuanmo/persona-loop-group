@@ -113,6 +113,41 @@ Run QA + real NLI consistency evaluation on local LoCoMo JSON:
 python scripts/run_locomo_eval.py --data data/locomo10.json --agent continuous --max-turns 100 --max-samples 2
 ```
 
+Persona Loop ablation (disable one or more components):
+
+```powershell
+python scripts/run_locomo_eval.py --data data/locomo10.json --agent persona_loop --loop-ablation disable_persona_persist,disable_corrections
+```
+
+Supported ablation tokens: `disable_persona_persist`, `disable_nli_rerank`, `disable_corrections`.
+
+Fairness switch for apples-to-apples comparison across agents:
+
+```powershell
+python scripts/run_locomo_eval.py --data data/locomo10.json --agent continuous --inject-persona-for-all-agents --persona-min-history 0
+```
+
+- `--inject-persona-for-all-agents`: inject persona lines for non-`persona_loop` agents as well.
+- Use together with `--persona-min-history` to control when persona injection starts.
+
+Save full per-turn debugging payloads during benchmark:
+
+```powershell
+python scripts/run_locomo_eval.py --data data/locomo10.json --agent persona_loop --save-turn-debug
+```
+
+- Writes `turn_debug.json` with per-QA context used, persona lines injected, loop counters, prediction, and score.
+- Persona facts are owner-aware when speaker is available, and injection is filtered by question subject (e.g., `Caroline`/`Melanie`) before formatting persona lines.
+
+History-aware gating (recommended when short-context performance is unstable):
+
+```powershell
+python scripts/run_locomo_eval.py --data data/locomo10.json --agent persona_loop --loop-min-history 25 --persona-min-history 25
+```
+
+- `--loop-min-history`: only allow Persona Loop reset when visible history length reaches this threshold.
+- `--persona-min-history`: only inject `[PERSONA]` lines when visible history length reaches this threshold.
+
 Main outputs:
 
 - `artifacts/locomo_eval/qa_predictions.json`

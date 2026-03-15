@@ -5,6 +5,12 @@ param(
     [string]$Data = 'data/locomo10.json',
     [string]$LlmProvider = 'kimi',
     [string]$LlmModel = 'moonshot-v1-8k',
+    [string]$LlmBaseUrl = '__inherit__',
+    [string]$PersonaLlmProvider = '',
+    [string]$PersonaLlmModel = '',
+    [string]$PersonaLlmBaseUrl = '__inherit__',
+    [string]$PersonaCache = '',
+    [string]$PersonaMode = 'derived',
     [int]$MaxTurns = 50,
     [int]$RetrievalTopK = 3,
     [switch]$SkipNli = $false,
@@ -73,6 +79,12 @@ $matrixArgs = @{
     Data = $Data
     LlmProvider = $LlmProvider
     LlmModel = $LlmModel
+    LlmBaseUrl = $LlmBaseUrl
+    PersonaLlmProvider = $PersonaLlmProvider
+    PersonaLlmModel = $PersonaLlmModel
+    PersonaLlmBaseUrl = $PersonaLlmBaseUrl
+    PersonaCache = $PersonaCache
+    PersonaMode = $PersonaMode
     MaxTurns = $MaxTurns
     MaxSamples = $maxSamples
     MaxQa = $maxQa
@@ -86,6 +98,9 @@ $matrixArgs = @{
 
 Write-Host "[PRESET] $Preset"
 Write-Host "[MODEL] provider=$LlmProvider model=$LlmModel"
+if ($PersonaLlmProvider -and $PersonaLlmModel) {
+    Write-Host "[PERSONA_MODEL] provider=$PersonaLlmProvider model=$PersonaLlmModel"
+}
 Write-Host "[RUN] OutRoot=$OutRoot"
 
 & "$PSScriptRoot/run_locomo_matrix.ps1" @matrixArgs

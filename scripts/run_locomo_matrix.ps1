@@ -3,6 +3,12 @@ param(
     [string]$Data = "data/locomo10.json",
     [string]$LlmProvider = "hf",
     [string]$LlmModel = "Qwen/Qwen2.5-0.5B-Instruct",
+    [string]$LlmBaseUrl = "__inherit__",
+    [string]$PersonaLlmProvider = "",
+    [string]$PersonaLlmModel = "",
+    [string]$PersonaLlmBaseUrl = "__inherit__",
+    [string]$PersonaCache = "",
+    [string]$PersonaMode = "derived",
     [int]$MaxTurns = 50,
     [int]$MaxSamples = 1,
     [int]$MaxQa = 20,
@@ -36,8 +42,8 @@ foreach ($agent in $agents) {
         $outDir = Join-Path $OutRoot $runName
 
         $args = @(
-            'run', '-n', $CondaEnv,
-            'python', 'scripts/run_locomo_eval.py',
+            'run', '--no-capture-output', '-n', $CondaEnv,
+            'python', '-u', 'scripts/run_locomo_eval.py',
             '--data', $Data,
             '--agent', $agent,
             '--llm-provider', $LlmProvider,
@@ -49,11 +55,36 @@ foreach ($agent in $agents) {
             '--qa-offset', $QaOffset,
             '--eval-mode', $mode,
             '--retrieval-topk', $RetrievalTopK,
-            '--output', $outDir
+            '--output', $outDir,
+            '--progress-every', '5',
+            '--no-progress-bar'
         )
+
+        $args += @('--persona-mode', $PersonaMode)
+
+        if ($LlmBaseUrl -eq '') {
+            $args += '--llm-base-url'
+        } elseif ($LlmBaseUrl -ne '__inherit__') {
+            $args += @('--llm-base-url', $LlmBaseUrl)
+        }
 
         if ($SliceFile) {
             $args += @('--slice-file', $SliceFile)
+        }
+
+        if ($PersonaLlmProvider -and $PersonaLlmModel) {
+            $args += @('--persona-llm-provider', $PersonaLlmProvider, '--persona-llm-model', $PersonaLlmModel)
+            # PersonaLlmBaseUrl: '__inherit__' = don't pass flag (inherit OPENAI_BASE_URL).
+            # '' = bare flag (no value) = real OpenAI. Any other value = use as-is.
+            if ($PersonaLlmBaseUrl -eq '') {
+                $args += '--persona-llm-base-url'  # bare flag, const=''
+            } elseif ($PersonaLlmBaseUrl -ne '__inherit__') {
+                $args += @('--persona-llm-base-url', $PersonaLlmBaseUrl)
+            }
+        }
+
+        if ($PersonaCache) {
+            $args += @('--persona-cache', $PersonaCache)
         }
 
         if ($SkipNli) {
@@ -103,6 +134,12 @@ $manifest = [PSCustomObject]@{
         Data = $Data
         LlmProvider = $LlmProvider
         LlmModel = $LlmModel
+        LlmBaseUrl = $LlmBaseUrl
+        PersonaLlmProvider = $PersonaLlmProvider
+        PersonaLlmModel = $PersonaLlmModel
+        PersonaLlmBaseUrl = $PersonaLlmBaseUrl
+        PersonaCache = $PersonaCache
+        PersonaMode = $PersonaMode
         MaxTurns = $MaxTurns
         MaxSamples = $MaxSamples
         MaxQa = $MaxQa
