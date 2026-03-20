@@ -48,6 +48,75 @@ class PersonaLoopAgent(BaseAgent):
 
         self._turn_count = 0
         self._dialogue_buffer: List[str] = []
+        # Set to True during QA evaluation to prevent loop resets from injecting
+        # accumulated (potentially erroneous) corrections into QA answers.
+        self._eval_mode: bool = False
+
+    @staticmethod
+    def _extract_persona_owners(persona_facts: List[str]) -> List[str]:
+        owners: List[str] = []
+        seen = set()
+        for fact in persona_facts:
+            m = re.match(r"\s*\[([^\]]+)\]", str(fact))
+            if not m:
+                continue
+            owner = m.group(1).strip()
+            if not owner:
+                continue
+            key = owner.lower()
+            if key in seen:
+                continue
+            owners.append(owner)
+            seen.add(key)
+        return owners
+
+    @staticmethod
+    def _owners_mentioned_in_text(text: str, owners: List[str]) -> List[str]:
+        out: List[str] = []
+        if not text:
+            return out
+        for owner in owners:
+            if re.search(rf"\b{re.escape(owner)}\b", text, flags=re.IGNORECASE):
+                out.append(owner)
+        return out
+
+    def _owner_aware_bonus(self, candidate: str, target_owners: List[str], all_owners: List[str]) -> float:
+        if not all_owners:
+            return 0.0
+
+        mentioned = {
+            owner.lower()
+            for owner in self._owners_mentioned_in_text(candidate, all_owners)
+        }
+        if not mentioned:
+            return 0.0
+
+        target = {owner.lower() for owner in target_owners}
+        if not target:
+            return 0.0
+
+        matched_target = len(mentioned.intersection(target))
+        matched_non_target = len(mentioned - target)
+        return (0.4 * matched_target) - (0.25 * matched_non_target)
+
+    def _persona_premise_for_owners(self, persona_facts: List[str], target_owners: List[str]) -> str:
+        if not persona_facts:
+            return ""
+        if not target_owners:
+            return " ".join(persona_facts).strip()
+
+        target = {owner.lower() for owner in target_owners}
+        selected = []
+        for fact in persona_facts:
+            m = re.match(r"\s*\[([^\]]+)\]", str(fact))
+            if not m:
+                continue
+            owner = m.group(1).strip().lower()
+            if owner in target:
+                selected.append(fact)
+        if selected:
+            return " ".join(selected).strip()
+        return " ".join(persona_facts).strip()
 
     @staticmethod
     def _tokenize(text: str) -> set[str]:
@@ -79,17 +148,49 @@ class PersonaLoopAgent(BaseAgent):
             return selected
         return snippets[-1:]
 
-    def _rerank_retrieved_snippets(self, query: str, persona_text: str, candidates: List[str]) -> List[str]:
+    def _rerank_retrieved_snippets(
+        self,
+        query: str,
+        prompt: str,
+        persona_text: str,
+        persona_facts: List[str],
+        candidates: List[str],
+    ) -> List[str]:
         if not candidates:
             return []
+
+        all_owners = self._extract_persona_owners(persona_facts)
+        target_owners = self._owners_mentioned_in_text(prompt, all_owners)
+        premise_for_support = self._persona_premise_for_owners(persona_facts, target_owners)
+        contradiction_threshold = -max(0.0, self.nli_threshold)
+
+        owner_weight = 0.2
+        contradiction_penalty_weight = 0.65
 
         ranked = []
         for idx, candidate in enumerate(candidates):
             relevance = self._keyword_relevance(query, candidate)
             support = 0.0
-            if self.checker is not None and persona_text:
+            if self.checker is not None and premise_for_support:
+                support = float(self.checker.score(premise=premise_for_support, hypothesis=candidate))
+            elif self.checker is not None and persona_text:
                 support = float(self.checker.score(premise=persona_text, hypothesis=candidate))
-            score = (self.rerank_relevance_weight * relevance) + (self.rerank_support_weight * support)
+
+            owner_bonus = self._owner_aware_bonus(
+                candidate=candidate,
+                target_owners=target_owners,
+                all_owners=all_owners,
+            )
+            contradiction_penalty = 0.0
+            if support < contradiction_threshold:
+                contradiction_penalty = contradiction_penalty_weight * abs(support - contradiction_threshold)
+
+            score = (
+                (self.rerank_relevance_weight * relevance)
+                + (self.rerank_support_weight * max(0.0, support))
+                + (owner_weight * owner_bonus)
+                - contradiction_penalty
+            )
             ranked.append((score, idx, candidate))
 
         ranked.sort(key=lambda x: (x[0], -x[1]), reverse=True)
@@ -104,19 +205,20 @@ class PersonaLoopAgent(BaseAgent):
                 break
         return out
 
-    @staticmethod
-    def _extract_prefixed_lines(context: str, prefix: str) -> List[str]:
-        out: List[str] = []
-        for line in context.splitlines():
-            line = line.strip()
-            if line.startswith(prefix):
-                out.append(line[len(prefix) :].strip())
-        return out
-
     def _history_count(self, context: str) -> int:
         return len(self._extract_prefixed_lines(context, "[HISTORY]"))
 
+    def set_eval_mode(self, enabled: bool) -> None:
+        """In eval mode, do memory retrieval on every QA turn (not just every
+        loop_interval turns) while suppressing correction injection (Stage B).
+        This maximises the benefit of embedded conversation memory at eval time
+        without contaminating QA prompts with potentially-wrong corrections."""
+        self._eval_mode = enabled
+
     def _should_reset_now(self, context: str) -> bool:
+        # In eval mode always retrieve from memory; Stage B is still suppressed.
+        if self._eval_mode and self.memory is not None:
+            return True
         history_count = self._history_count(context)
         cadence_ok = self._turn_count % self.loop_interval == 0
         if not cadence_ok or history_count < self.min_history_for_reset:
@@ -191,7 +293,14 @@ class PersonaLoopAgent(BaseAgent):
 
         # Stage A: persist recent K rounds into external memory.
         recent_k = history_lines[-self.loop_interval :] if history_lines else self._dialogue_buffer[-self.loop_interval :]
-        persist_candidates = self._select_persona_relevant_snippets(recent_k, persona_text)
+        # In eval mode persist ALL turns (not just persona-relevant ones) so that
+        # temporal/event answer turns are also available for Stage C retrieval.
+        # In production mode keep the original persona-relevance filter to avoid
+        # polluting long-running memory with unrelated dialogue.
+        if self._eval_mode:
+            persist_candidates = [s for s in recent_k if str(s).strip()]
+        else:
+            persist_candidates = self._select_persona_relevant_snippets(recent_k, persona_text)
         if self.disable_persona_persist:
             persist_candidates = []
         if self.memory is not None:
@@ -199,27 +308,27 @@ class PersonaLoopAgent(BaseAgent):
                 self.memory.add(text=snippet)
 
         # Stage B: detect low-consistency responses and convert them into compact repair hints.
+        # Skipped in eval mode — QA evaluation history is conversation turns, not agent
+        # answers, so correction hints based on them are noisy and inflate contradiction.
+        contradiction_threshold = -max(0.0, self.nli_threshold)
         corrections: List[str] = []
-        if (not self.disable_corrections) and self.checker is not None and persona_text:
+        if (not self.disable_corrections) and (not self._eval_mode) and self.checker is not None and persona_text:
             for snippet in recent_k:
                 score = float(self.checker.score(premise=persona_text, hypothesis=snippet))
-                if score < self.nli_threshold:
+                if score < contradiction_threshold:
                     short = snippet[:120].replace("\n", " ").strip()
-                    corrections.append(
-                        (
-                            "Potential mismatch with stable persona facts in recent context: "
-                            f"'{short}'. Keep the next answer focused on the user's question and avoid contradictions."
-                        )
-                    )
+                    corrections.append(f"Mismatch: '{short}'")
                     if len(corrections) >= self.max_corrections:
                         break
-        # Keep the instruction block compact to avoid flooding the reset context.
         corrections = list(dict.fromkeys(corrections))
 
         # Stage C: retrieve related long-term memory snippets.
         retrieved: List[str] = []
         if self.memory is not None:
-            query = f"{prompt} {persona_text}".strip()
+            # In eval mode use only the question as the retrieval query so that
+            # we fetch the conversation turns most likely to contain the answer,
+            # rather than generic persona-relevant snippets that may mislead.
+            query = prompt if self._eval_mode else f"{prompt} {persona_text}".strip()
             candidate_pool = self.memory.search(query=query, top_k=max(self.retrieval_top_k * 3, self.retrieval_top_k))
             filtered_candidates = [x for x in candidate_pool if str(x).strip()]
             if self.disable_nli_rerank:
@@ -227,20 +336,28 @@ class PersonaLoopAgent(BaseAgent):
             else:
                 retrieved = self._rerank_retrieved_snippets(
                     query=query,
+                    prompt=prompt,
                     persona_text=persona_text,
+                    persona_facts=persona_facts,
                     candidates=filtered_candidates,
                 )
 
-        # Stage D: rebuild a fresh prompt context with clear priority ordering.
+        # Stage D: rebuild context with clear priority ordering.
+        # Keep only the most recent `recent_turns` history lines verbatim; older
+        # history has already been persisted to memory in Stage A and can be
+        # recalled via Stage C retrieval.  This is the design from the proposal:
+        # context = [PERSONA] + [CORRECTION] + [MEMORY retrieved] + [HISTORY tail].
+        recent_history = history_lines[-self.recent_turns:] if history_lines else []
+        # Any history beyond recent_turns was already stored in Stage A; Stage C
+        # retrieves relevant snippets back as [MEMORY] so evidence is not lost.
         rebuilt_blocks: List[str] = []
         summary_lines = self._build_mid_summary(prompt=prompt, persona_text=persona_text, history_lines=history_lines)
         rebuilt_blocks.extend([f"[PERSONA] {x}" for x in persona_facts])
         rebuilt_blocks.extend([f"[SUMMARY] {x}" for x in summary_lines])
         rebuilt_blocks.extend([f"[CORRECTION] {x}" for x in corrections])
         rebuilt_blocks.extend([f"[MEMORY] {x}" for x in retrieved])
-        recent_blocks = history_lines[-self.recent_turns :] if history_lines else self._dialogue_buffer[-self.recent_turns :]
-        rebuilt_blocks.extend([f"[RECENT] {x}" for x in recent_blocks])
-        rebuilt_blocks.append(f"[USER] {prompt}")
+        rebuilt_blocks.extend([f"[HISTORY] {x}" for x in recent_history])
+        # Note: prompt is passed separately to llm.generate(); do NOT add [USER] here.
 
         return {
             "context": "\n".join(rebuilt_blocks),
@@ -276,10 +393,15 @@ class PersonaLoopAgent(BaseAgent):
             self._dialogue_buffer = self._dialogue_buffer[-self.loop_interval * 4 :]
 
         consistency_score = None
-        # Score only on reset turns: non-reset turns mirror continuous behavior and
-        # this avoids extra checker overhead on short contexts.
-        if self.checker is not None and do_reset:
-            consistency_score = self.checker.score(premise=used_context, hypothesis=response)
+        if self.checker is not None:
+            # Score against persona facts instead of full rebuilt context. This avoids
+            # long-premise truncation in NLI and gives a fair per-turn consistency signal.
+            persona_lines = self._extract_prefixed_lines(used_context, "[PERSONA]")
+            if not persona_lines:
+                persona_lines = self._extract_prefixed_lines(context, "[PERSONA]")
+            premise = " ".join(persona_lines).strip()
+            if premise:
+                consistency_score = self.checker.score(premise=premise, hypothesis=response)
 
         return {
             "agent": "persona_loop",

@@ -214,7 +214,7 @@ python run_experiment.py consistency=off
 Switch memory backend:
 
 ```powershell
-python run_experiment.py memory=faiss
+python run_experiment.py memory=chroma
 ```
 
 Use OpenAI backend config:

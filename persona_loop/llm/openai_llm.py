@@ -31,26 +31,18 @@ class OpenAILLM(BaseLLM):
 
         self._client = OpenAI(api_key=resolved_api_key, base_url=resolved_base_url)
 
-    def _build_message(self, prompt: str, context: str) -> str:
-        return (
-            "You are an assistant in a persona consistency benchmark. "
-            "Answer based on context and keep it concise.\n\n"
-            f"Context:\n{context}\n\n"
-            f"Question:\n{prompt}"
-        )
-
     def generate(self, prompt: str, context: str) -> str:
-        message = self._build_message(prompt=prompt, context=context)
+        message = self.build_message(prompt=prompt, context=context)
         resp = self._client.chat.completions.create(
             model=self.model_name,
             messages=[{"role": "user", "content": message}],
             temperature=0,
-            max_tokens=128,
+            max_tokens=256,
         )
         return (resp.choices[0].message.content or "").strip()
 
     def generate_json(self, prompt: str, context: str) -> dict | None:
-        message = self._build_message(prompt=prompt, context=context)
+        message = self.build_message(prompt=prompt, context=context)
         schema = {
             "name": "persona_facts",
             "strict": True,
@@ -81,7 +73,7 @@ class OpenAILLM(BaseLLM):
                 model=self.model_name,
                 messages=[{"role": "user", "content": message}],
                 temperature=0,
-                max_tokens=512,
+                max_tokens=1024,
                 response_format={"type": "json_schema", "json_schema": schema},
             )
             content = (resp.choices[0].message.content or "").strip()

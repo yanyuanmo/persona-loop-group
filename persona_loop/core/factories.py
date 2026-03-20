@@ -17,7 +17,7 @@ from persona_loop.llm.kimi_llm import KimiLLM
 from persona_loop.llm.openai_llm import OpenAILLM
 from persona_loop.memory.base_memory import BaseMemory
 from persona_loop.memory.chroma_memory import ChromaMemory
-from persona_loop.memory.faiss_memory import FaissMemory
+from persona_loop.memory.embedding_memory import EmbeddingMemory
 
 AGENT_REGISTRY: Dict[str, Type[BaseAgent]] = {
     "persona_loop": PersonaLoopAgent,
@@ -36,7 +36,8 @@ LLM_REGISTRY: Dict[str, Type[BaseLLM]] = {
 
 MEMORY_REGISTRY: Dict[str, Type[BaseMemory]] = {
     "chroma": ChromaMemory,
-    "faiss": FaissMemory,
+    "bm25": ChromaMemory,   # alias for --memory-backend bm25
+    "embedding": EmbeddingMemory,
 }
 
 CHECKER_REGISTRY: Dict[str, Type[BaseChecker]] = {

@@ -23,16 +23,11 @@ class KimiLLM(BaseLLM):
         self._client = OpenAI(api_key=api_key, base_url=base_url)
 
     def generate(self, prompt: str, context: str) -> str:
-        message = (
-            "You are an assistant in a persona consistency benchmark. "
-            "Answer based on context and keep it concise.\n\n"
-            f"Context:\n{context}\n\n"
-            f"Question:\n{prompt}"
-        )
+        message = self.build_message(prompt=prompt, context=context)
         resp = self._client.chat.completions.create(
             model=self.model_name,
             messages=[{"role": "user", "content": message}],
             temperature=0,
-            max_tokens=128,
+            max_tokens=256,
         )
         return (resp.choices[0].message.content or "").strip()

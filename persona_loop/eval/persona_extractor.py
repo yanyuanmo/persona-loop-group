@@ -79,7 +79,7 @@ def _make_fact(
     out = {
         "slot": slot,
         "value": value,
-        "fact_text": f"{slot.replace('_', ' ')}: {value}",
+        "fact_text": f"no longer {slot.replace('_', ' ')}: {value}" if polarity_norm < 0 else f"{slot.replace('_', ' ')}: {value}",
         "dia_id": dia_id,
         "confidence": norm_conf,
         "extract_confidence": norm_conf,
@@ -98,6 +98,8 @@ _SINGLETON_SLOTS = {
     "age",
     "location",
     "pet_name",
+    "my_goal",
+    "identity_role",
 }
 
 _REL_STATUS_MAP = {
@@ -285,13 +287,16 @@ def extract_persona_facts_with_stats(
 
     raw_candidates = len(facts)
 
-    # De-duplicate by semantic key (owner, slot, value, polarity, time_norm), keep latest.
+    # De-duplicate by semantic key (owner, slot, value, time_norm), keep latest.
+    # Polarity is intentionally excluded from the key so that a negation of the same
+    # value (e.g. "no longer likes hiking") supersedes the earlier affirmation via
+    # latest-wins, instead of both surviving as conflicting facts.
     dedup: Dict[str, Dict[str, object]] = {}
     for fact in facts:
         key = (
             f"{str(fact.get('owner', 'unknown')).lower()}::"
             f"{fact['slot']}::{str(fact['value']).lower()}::"
-            f"{int(fact.get('polarity', 1))}::{str(fact.get('time_norm', '')).lower()}"
+            f"{str(fact.get('time_norm', '')).lower()}"
         )
         old = dedup.get(key)
         if old is None:
@@ -371,6 +376,37 @@ def extract_persona_facts_with_stats(
 def extract_persona_facts(visible_turns: List[Dict[str, str]], max_facts: int = 24) -> List[Dict[str, object]]:
     """Backward-compatible wrapper returning only facts."""
     return list(extract_persona_facts_with_stats(visible_turns=visible_turns, max_facts=max_facts)["facts"])
+
+
+def extract_persona_facts_llm_with_stats(
+    visible_turns: List[Dict[str, str]],
+    llm: BaseLLM,
+    max_facts: int = 24,
+) -> Dict[str, object]:
+    """Pure LLM extraction — no regex rules, just prompt + grounding check."""
+    result = _llm_extract_persona_facts(visible_turns=visible_turns, llm=llm, max_facts=max_facts)
+    facts = list(result.get("facts", []))
+    debug = dict(result.get("debug", {}))
+    stats = {
+        "raw_candidates": int(debug.get("llm_candidate_count", 0)),
+        "dedup_candidates": int(debug.get("llm_valid_fact_count", 0)),
+        "unique_slots": len({str(f.get("slot", "")) for f in facts}),
+        "singleton_conflict_slots": 0,
+        "singleton_conflict_values": 0,
+        "unknown_owner_count": int(
+            sum(1 for f in facts if str(f.get("owner", "unknown")).strip().lower() in {"", "unknown"})
+        ),
+        "hybrid_used_llm": True,
+        "llm_raw_len": int(debug.get("llm_raw_len", 0)),
+        "llm_json_parsed": bool(debug.get("llm_json_parsed", False)),
+        "llm_structured_success": bool(debug.get("llm_structured_success", False)),
+        "llm_candidate_count": int(debug.get("llm_candidate_count", 0)),
+        "llm_valid_fact_count": int(debug.get("llm_valid_fact_count", 0)),
+        "llm_fallback_used": bool(debug.get("llm_fallback_used", False)),
+        "llm_repair_used": bool(debug.get("llm_repair_used", False)),
+        "llm_repair_success": bool(debug.get("llm_repair_success", False)),
+    }
+    return {"facts": facts, "stats": stats}
 
 
 def _build_llm_extract_prompt(max_facts: int) -> str:

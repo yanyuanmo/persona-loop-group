@@ -3,7 +3,7 @@ continuous:
   history_turns: 1000
 
 sliding_window:
-  include_persona: false
+  include_persona: true
   history_turns: 3
 
 periodic_remind:

@@ -10,12 +10,21 @@ def build_priority_context(
     recent_turn: str,
     max_items: int,
 ) -> str:
-    blocks: List[str] = []
+    if max_items <= 0:
+        return ""
 
-    # Priority order: persona -> corrections -> history -> recent turn
-    blocks.extend([f"[PERSONA] {x}" for x in persona_facts])
-    blocks.extend([f"[CORRECTION] {x}" for x in corrections])
-    blocks.extend([f"[HISTORY] {x}" for x in history])
-    blocks.append(f"[RECENT] {recent_turn}")
+    persona_blocks = [f"[PERSONA] {x}" for x in persona_facts]
+    correction_blocks = [f"[CORRECTION] {x}" for x in corrections]
+    recent_block = f"[RECENT] {recent_turn}"
 
-    return "\n".join(blocks[:max_items])
+    # Always preserve the current user turn. Fill remaining budget with
+    # persona/correction blocks first, then tail history.
+    if max_items == 1:
+        return recent_block
+
+    budget_before_recent = max_items - 1
+    prefix = (persona_blocks + correction_blocks)[:budget_before_recent]
+    remaining = budget_before_recent - len(prefix)
+    history_tail = [f"[HISTORY] {x}" for x in history[-remaining:]] if remaining > 0 else []
+
+    return "\n".join(prefix + history_tail + [recent_block])

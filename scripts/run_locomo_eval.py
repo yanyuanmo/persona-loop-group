@@ -23,7 +23,10 @@ from persona_loop.core.factories import create_checker
 from persona_loop.core.factories import create_llm
 from persona_loop.core.factories import create_memory
 from persona_loop.eval.nli_scorer import NLIScorer
-from persona_loop.eval.persona_extractor import extract_persona_facts_hybrid_with_stats
+from persona_loop.eval.persona_extractor import (
+    extract_persona_facts_hybrid_with_stats,
+    extract_persona_facts_llm_with_stats,
+)
 from persona_loop.eval.persona_extractor import extract_persona_facts_with_stats
 from persona_loop.eval.persona_metrics import compute_persona_metrics
 from persona_loop.eval.qa_metrics import qa_scores
@@ -96,13 +99,86 @@ def answer_question(
     question: str,
     history: List[str],
     persona_lines: Optional[List[str]] = None,
+    style_lines: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     blocks: List[str] = []
+    if style_lines:
+        blocks.extend([f"[STYLE] {x}" for x in style_lines])
     if persona_lines:
         blocks.extend([f"[PERSONA] {x}" for x in persona_lines])
     blocks.extend([f"[HISTORY] {x}" for x in history])
     context = "\n".join(blocks)
     return dict(agent.run_turn(prompt=question, context=context))
+
+
+def _build_style_hints(
+    visible_turns: List[Dict[str, str]],
+    subjects: List[str],
+    question_types: List[str],
+    max_hints: int,
+) -> List[str]:
+    # Style hints are soft constraints and must never override factual correctness.
+    if max_hints <= 0:
+        return []
+
+    scoped_turns = []
+    subject_lc = {s.strip().lower() for s in subjects if str(s).strip()}
+    for t in visible_turns:
+        speaker = str(t.get("speaker", "")).strip().lower()
+        text = str(t.get("text", "")).strip()
+        if not text:
+            continue
+        if subject_lc and speaker in subject_lc:
+            scoped_turns.append(text)
+        elif not subject_lc:
+            scoped_turns.append(text)
+
+    if not scoped_turns:
+        return []
+
+    total = len(scoped_turns)
+    avg_words = sum(len(re.findall(r"[a-zA-Z0-9']+", x)) for x in scoped_turns) / max(1, total)
+    exclam_ratio = sum(1 for x in scoped_turns if "!" in x) / max(1, total)
+    contraction_ratio = (
+        sum(len(re.findall(r"\b\w+'\w+\b", x)) for x in scoped_turns)
+        / max(1, sum(len(re.findall(r"\b\w+\b", x)) for x in scoped_turns))
+    )
+
+    hints: List[str] = [
+        "Prefer style consistency, but keep factual correctness as top priority.",
+        "Avoid inventing new persona events or timeline details.",
+    ]
+
+    qtypes = set(question_types)
+    factual_q = bool(qtypes & {"time", "location", "identity", "status", "occupation"})
+
+    if avg_words <= 14:
+        hints.append("Prefer concise sentence style.")
+    elif avg_words >= 22:
+        hints.append("Prefer moderately detailed sentence style.")
+    else:
+        hints.append("Prefer medium-length sentence style.")
+
+    if exclam_ratio >= 0.2 and not factual_q:
+        hints.append("Allow light expressive tone, but avoid dramatic phrasing.")
+    elif factual_q:
+        hints.append("Use neutral, direct wording for factual questions.")
+
+    if contraction_ratio >= 0.05 and not factual_q:
+        hints.append("Lean slightly conversational instead of overly formal wording.")
+
+    # De-duplicate while preserving order.
+    deduped: List[str] = []
+    seen = set()
+    for h in hints:
+        k = h.strip().lower()
+        if not k or k in seen:
+            continue
+        deduped.append(h)
+        seen.add(k)
+        if len(deduped) >= max_hints:
+            break
+    return deduped
 
 
 # ---------------------------------------------------------------------------
@@ -121,14 +197,16 @@ _QTYPE_TO_SLOTS: Dict[str, set] = {
 }
 
 _QTYPE_TO_INJECT_TOPK_DEFAULTS: Dict[str, int] = {
-    "time": 3,
-    "location": 3,
-    "identity": 4,
-    "preference": 5,
-    "status": 4,
-    "occupation": 4,
-    "event": 4,
-    "goal": 4,
+    # Factual recall questions: persona facts rarely help, reduce injection to avoid distraction.
+    "time": 1,
+    "event": 1,
+    "location": 2,
+    # Persona-identity questions: facts are directly useful, inject more.
+    "identity": 6,
+    "preference": 6,
+    "status": 6,
+    "occupation": 6,
+    "goal": 6,
 }
 
 
@@ -357,9 +435,33 @@ def _preinject_conflict_gate(
 ) -> tuple[List[Dict[str, object]], Dict[str, int]]:
     """Resolve owner-slot multi-value conflicts before ranking/injection.
 
-    For each conflicting owner+slot group, keep one best candidate by confidence
-    (and by time anchor / rule source as tie breakers) to reduce contradiction pressure.
+    Three layers of conflict resolution:
+    1. Singleton slots (age, location, occupation, …) always keep only the
+       most-recent highest-confidence value — regardless of scope.
+    2. For temporal/all groups: keep best per intra-slot conflict bucket.
+    3. Cross-slot opposites (likes vs dislikes for same owner+value): remove
+       the weaker side when the same value appears in an opposition pair.
     """
+    # Slots where only ONE value per owner makes sense — always resolve.
+    _SINGLETON = {
+        "name", "age", "gender", "relationship_status", "occupation",
+        "location", "my_goal", "identity_role",
+    }
+    # Slot pairs that are logical opposites: if the same value appears in both,
+    # remove the weaker one.
+    _OPPOSITES = [("likes", "dislikes"), ("supports", "opposes")]
+
+    def _score(f: Dict[str, object]) -> tuple:
+        """Higher = better candidate to keep."""
+        source_rule = 1 if str(f.get("source", "")).strip().lower() == "rule" else 0
+        last_seen = int(f.get("last_seen_turn", 0)) if f.get("last_seen_turn") is not None else 0
+        return (
+            _fact_confidence(f),
+            last_seen,                           # prefer most recent mention
+            1 if _fact_has_time_anchor(f) else 0,
+            source_rule,
+        )
+
     grouped: Dict[tuple, List[Dict[str, object]]] = {}
     for f in facts:
         key = (
@@ -372,36 +474,61 @@ def _preinject_conflict_gate(
     groups_resolved = 0
     facts_removed = 0
 
-    for (_, slot), bucket in grouped.items():
+    for (owner, slot), bucket in grouped.items():
         values = {
             str(x.get("value", "")).strip().lower()
             for x in bucket
             if str(x.get("value", "")).strip()
         }
         has_conflict = len(values) > 1
+        is_singleton = slot in _SINGLETON
         is_temporal_group = _is_temporal_slot(slot) or any(_fact_has_time_anchor(x) for x in bucket)
-        should_resolve = has_conflict and (scope == "all" or (scope == "time" and is_temporal_group))
+        should_resolve = has_conflict and (
+            is_singleton
+            or scope == "all"
+            or (scope == "time" and is_temporal_group)
+        )
 
         if not should_resolve:
             kept.extend(bucket)
             continue
 
         groups_resolved += 1
-
-        def _score(f: Dict[str, object]) -> tuple:
-            source = str(f.get("source", "")).strip().lower()
-            source_rule = 1 if source == "rule" else 0
-            return (
-                _fact_confidence(f),
-                1 if _fact_has_time_anchor(f) else 0,
-                source_rule,
-            )
-
         best = max(bucket, key=_score)
         kept.append(best)
         facts_removed += max(0, len(bucket) - 1)
 
-    return _dedup_facts_keep_high_confidence(kept), {
+    # Layer 3: cross-slot opposition dedup (likes/dislikes for same owner+value).
+    # Build a lookup: (owner, slot, value_lower) → best fact by _score.
+    by_osv: Dict[tuple, Dict[str, object]] = {}
+    for f in kept:
+        osv = (
+            str(f.get("owner", "")).strip().lower(),
+            str(f.get("slot", "")).strip().lower(),
+            str(f.get("value", "")).strip().lower(),
+        )
+        if osv not in by_osv or _score(f) > _score(by_osv[osv]):
+            by_osv[osv] = f
+
+    for slot_a, slot_b in _OPPOSITES:
+        owners = {k[0] for k in by_osv if k[1] in (slot_a, slot_b)}
+        for owner in owners:
+            # Collect all values present in BOTH opposing slots for this owner.
+            vals_a = {k[2] for k in by_osv if k[0] == owner and k[1] == slot_a}
+            vals_b = {k[2] for k in by_osv if k[0] == owner and k[1] == slot_b}
+            clash_values = vals_a & vals_b
+            for val in clash_values:
+                fa = by_osv.get((owner, slot_a, val))
+                fb = by_osv.get((owner, slot_b, val))
+                if fa is None or fb is None:
+                    continue
+                # Drop the weaker side (lower score).
+                loser_key = (owner, slot_a, val) if _score(fa) < _score(fb) else (owner, slot_b, val)
+                del by_osv[loser_key]
+                facts_removed += 1
+                groups_resolved += 1
+
+    return _dedup_facts_keep_high_confidence(list(by_osv.values())), {
         "groups_resolved": int(groups_resolved),
         "facts_removed": int(facts_removed),
     }
@@ -557,6 +684,7 @@ def _build_eval_history(
     evidence_ids: List[str],
     max_turns: int,
     retrieval_topk: int,
+    hybrid_extra_topk: int,
 ) -> List[str]:
     if eval_mode == "open_book":
         return build_history(visible_turns, max_turns=max_turns)
@@ -565,19 +693,32 @@ def _build_eval_history(
         filtered_turns = [t for t in visible_turns if str(t.get("dia_id", "")) not in set(evidence_ids)]
         return build_history(filtered_turns, max_turns=max_turns)
 
+    if eval_mode == "hybrid_window":
+        recent = build_history(visible_turns, max_turns=max_turns)
+        memory = create_memory(memory_type="chroma")  # hybrid_window always uses BM25
+        if memory is None:
+            return recent
+
+        for turn in visible_turns:
+            dia_id = str(turn.get("dia_id", ""))
+            text = str(turn.get("text", "")).strip()
+            if dia_id and text:
+                memory.add(text=f"{dia_id} {text}")
+
+        extra_hits = memory.search(query=question, top_k=max(0, int(hybrid_extra_topk)))
+        merged: List[str] = []
+        seen = set()
+        for item in recent + [str(h).strip() for h in extra_hits if str(h).strip()]:
+            if item in seen:
+                continue
+            merged.append(item)
+            seen.add(item)
+        return merged
+
     # eval_mode == memory_only
-    memory = create_memory(memory_type="chroma")
-    if memory is None:
-        return []
-
-    for turn in visible_turns:
-        dia_id = str(turn.get("dia_id", ""))
-        text = str(turn.get("text", "")).strip()
-        if dia_id and text:
-            memory.add(text=f"{dia_id} {text}")
-
-    hits = memory.search(query=question, top_k=max(1, retrieval_topk))
-    return [str(h).strip() for h in hits if str(h).strip()]
+    # Return only recent turns; retrieval is handled by the agent's own memory.
+    recent_n = max(1, retrieval_topk)
+    return build_history(visible_turns, max_turns=recent_n)
 
 
 def _enrich_fact_owners(fact_bank: List[Dict[str, object]], visible_turns: List[Dict[str, str]]) -> List[Dict[str, object]]:
@@ -627,11 +768,17 @@ def main() -> None:
     parser.add_argument("--qa-offset", type=int, default=0)
     parser.add_argument("--slice-file", default="")
     parser.add_argument("--skip-nli", action="store_true")
-    parser.add_argument("--eval-mode", choices=["open_book", "hide_evidence", "memory_only"], default="open_book")
+    parser.add_argument("--eval-mode", choices=["open_book", "hide_evidence", "memory_only", "hybrid_window"], default="open_book")
     parser.add_argument("--retrieval-topk", type=int, default=3)
+    parser.add_argument(
+        "--hybrid-extra-topk",
+        type=int,
+        default=3,
+        help="Extra memory retrieval hits appended in hybrid_window mode.",
+    )
     parser.add_argument("--progress-every", type=int, default=10)
     parser.add_argument("--no-progress-bar", action="store_true")
-    parser.add_argument("--persona-mode", choices=["off", "derived", "hybrid", "file"], default="derived")
+    parser.add_argument("--persona-mode", choices=["off", "derived", "hybrid", "llm", "file"], default="derived")
     parser.add_argument("--persona-file", default="")
     parser.add_argument("--persona-topk", type=int, default=5)
     parser.add_argument(
@@ -701,7 +848,14 @@ def main() -> None:
     parser.add_argument(
         "--persona-preinject-conflict-gate",
         action="store_true",
-        help="Resolve owner-slot conflicting persona values before ranking/injection.",
+        default=True,
+        help="Resolve owner-slot conflicting persona values before ranking/injection (default: on).",
+    )
+    parser.add_argument(
+        "--no-persona-preinject-conflict-gate",
+        dest="persona_preinject_conflict_gate",
+        action="store_false",
+        help="Disable conflict gate (keep all conflicting persona values).",
     )
     parser.add_argument(
         "--persona-preinject-conflict-scope",
@@ -752,6 +906,17 @@ def main() -> None:
         choices=["tagged", "plain"],
         default="tagged",
         help="Format style for injected persona lines.",
+    )
+    parser.add_argument(
+        "--persona-style-hints",
+        action="store_true",
+        help="Inject soft style-hint lines in a separate [STYLE] channel.",
+    )
+    parser.add_argument(
+        "--persona-style-max-hints",
+        type=int,
+        default=4,
+        help="Maximum number of soft style hints to inject when --persona-style-hints is enabled.",
     )
     parser.add_argument(
         "--inject-persona-for-all-agents",
@@ -817,6 +982,12 @@ def main() -> None:
             "disable_persona_persist,disable_nli_rerank,disable_corrections"
         ),
     )
+    parser.add_argument(
+        "--memory-backend",
+        choices=["bm25", "embedding"],
+        default="bm25",
+        help="Memory backend for RAG/Persona Loop: 'bm25' (default, ChromaMemory) or 'embedding' (sentence-transformers).",
+    )
     parser.add_argument("--output", default="artifacts/locomo_eval")
     args = parser.parse_args()
 
@@ -864,7 +1035,8 @@ def main() -> None:
         )
 
     def _build_eval_agent():
-        memory = create_memory(memory_type="chroma" if args.agent in {"rag", "persona_loop"} else None)
+        _backend = args.memory_backend if args.memory_backend == "embedding" else "chroma"
+        memory = create_memory(memory_type=_backend if args.agent in {"rag", "persona_loop"} else None)
         loop_checker = None
         if args.agent == "persona_loop":
             # Keep loop contradiction detection on by default to match the proposal behavior.
@@ -978,6 +1150,16 @@ def main() -> None:
         conv = sample.get("conversation", {})
         turns = flatten_conversation(conv)
         dia2idx = {t["dia_id"]: i for i, t in enumerate(turns)}
+
+        # In memory_only mode, ingest the full conversation into the agent's
+        # own memory so that each agent's retrieval strategy is exercised.
+        if args.eval_mode == "memory_only" and agent.memory is not None:
+            for turn in turns:
+                dia_id = str(turn.get("dia_id", ""))
+                text = str(turn.get("text", "")).strip()
+                if dia_id and text:
+                    agent.memory.add(text=f"{dia_id} {text}")
+
         qas = list(sample.get("qa", []))
         qa_pairs: List[tuple[int, Dict[str, object]]] = []
         if slice_map:
@@ -990,6 +1172,12 @@ def main() -> None:
             if args.max_qa_per_sample > 0:
                 trimmed = trimmed[: args.max_qa_per_sample]
             qa_pairs = [(start + i, qa) for i, qa in enumerate(trimmed)]
+
+        # Freeze persona_loop's internal loop-reset logic during QA evaluation.
+        # Loop resets during QA inject accumulated (potentially stale/wrong)
+        # corrections into the prompt and inflate persona_contradiction scores.
+        if hasattr(agent, "set_eval_mode"):
+            agent.set_eval_mode(True)
 
         for qa_index, qa in qa_pairs:
             if args.max_qa > 0 and processed >= args.max_qa:
@@ -1014,6 +1202,7 @@ def main() -> None:
                 evidence_ids=evidence,
                 max_turns=args.max_turns,
                 retrieval_topk=args.retrieval_topk,
+                hybrid_extra_topk=args.hybrid_extra_topk,
             )
             evidence_visible = _is_evidence_visible(history=history, evidence_ids=evidence)
 
@@ -1055,6 +1244,17 @@ def main() -> None:
                 fact_bank = list(extracted.get("facts", []))
                 persona_extract_stats = dict(extracted.get("stats", {}))
                 hybrid_used_llm_runtime = bool(persona_extract_stats.get("hybrid_used_llm", False))
+            elif args.persona_mode == "llm":
+                if persona_cache_path:
+                    persona_cache_misses += 1
+                extracted = extract_persona_facts_llm_with_stats(
+                    visible_turns=visible_turns,
+                    llm=persona_llm,
+                    max_facts=args.persona_max_facts,
+                )
+                fact_bank = list(extracted.get("facts", []))
+                persona_extract_stats = dict(extracted.get("stats", {}))
+                hybrid_used_llm_runtime = True
             elif args.persona_mode == "file":
                 fact_bank = list(persona_file_map.get(sample_id, []))
 
@@ -1134,14 +1334,23 @@ def main() -> None:
                 line_style=str(args.persona_line_style),
             )
             persona_lines_for_turn: Optional[List[str]] = None
+            style_lines_for_turn: Optional[List[str]] = None
             should_inject_persona = args.agent == "persona_loop" or bool(args.inject_persona_for_all_agents)
             if should_inject_persona and len(history) >= max(0, int(args.persona_min_history)):
                 persona_lines_for_turn = persona_lines
+                if bool(args.persona_style_hints):
+                    style_lines_for_turn = _build_style_hints(
+                        visible_turns=visible_turns,
+                        subjects=question_subjects,
+                        question_types=question_types,
+                        max_hints=int(args.persona_style_max_hints),
+                    )
             turn_result = answer_question(
                 agent=agent,
                 question=question,
                 history=history,
                 persona_lines=persona_lines_for_turn,
+                style_lines=style_lines_for_turn,
             )
             prediction = str(turn_result.get("response", ""))
             loop_reset = bool(turn_result.get("loop_reset", False))
@@ -1260,6 +1469,9 @@ def main() -> None:
                 "persona_adaptive_topk_map": dict(qtype_topk_overrides),
                 "persona_injection_topk": int(persona_injection_topk),
                 "persona_line_style": str(args.persona_line_style),
+                "persona_style_hints": bool(args.persona_style_hints),
+                "persona_style_max_hints": int(args.persona_style_max_hints),
+                "persona_style_hints_used": len(style_lines_for_turn or []),
                 "persona_risk_min_llm_confidence": float(args.persona_risk_min_llm_confidence),
                 "persona_risk_drop_negative": bool(args.persona_risk_drop_negative),
                 "persona_risk_drop_abstract": bool(args.persona_risk_drop_abstract),
@@ -1298,6 +1510,7 @@ def main() -> None:
                         "question_subjects": list(question_subjects),
                         "persona_facts_eligible": len(subject_facts),
                         "persona_lines": list(persona_lines_for_turn or []),
+                        "style_lines": list(style_lines_for_turn or []),
                         "context_used": str(turn_result.get("context", "")),
                         "consistency": turn_result.get("consistency", None),
                         "loop_reset": loop_reset,
@@ -1423,6 +1636,9 @@ def main() -> None:
         "persona_adaptive_topk_map": dict(qtype_topk_overrides),
         "persona_injection_topk_avg": avg("persona_injection_topk"),
         "persona_line_style": str(args.persona_line_style),
+        "persona_style_hints": bool(args.persona_style_hints),
+        "persona_style_max_hints": int(args.persona_style_max_hints),
+        "persona_style_hints_used_avg": avg("persona_style_hints_used"),
         "save_turn_debug": bool(args.save_turn_debug),
         "persona_hybrid_llm_added_facts_avg": avg("persona_hybrid_llm_added_facts"),
         "persona_llm_raw_len_avg": avg("persona_llm_raw_len"),

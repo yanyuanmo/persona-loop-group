@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from persona_loop.llm.base_llm import BaseLLM
 
 
@@ -29,19 +27,9 @@ class HuggingFaceLLM(BaseLLM):
             trust_remote_code=True,
         )
 
-    @staticmethod
-    def _build_prompt(prompt: str, context: str) -> str:
-        return (
-            "You are an assistant in a persona consistency benchmark.\n"
-            "Use only supported facts from context when answering.\n\n"
-            f"Context:\n{context}\n\n"
-            f"Question:\n{prompt}\n\n"
-            "Answer concisely:"
-        )
-
     def generate(self, prompt: str, context: str) -> str:
         self._load_pipeline()
-        composed = self._build_prompt(prompt=prompt, context=context)
+        composed = self.build_message(prompt=prompt, context=context)
         outputs = self._pipeline(
             composed,
             max_new_tokens=128,

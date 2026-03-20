@@ -27,6 +27,15 @@ def _join_prefixed(prefix: str, items: List[str]) -> List[str]:
     return [f"[{prefix}] {x}" for x in items]
 
 
+def _extract_prefixed_lines(context: str, prefix: str) -> List[str]:
+    out: List[str] = []
+    for line in str(context).splitlines():
+        line = line.strip()
+        if line.startswith(prefix):
+            out.append(line[len(prefix):].strip())
+    return out
+
+
 def build_agent_context(
     cfg: DictConfig,
     agent_name: str,
@@ -159,6 +168,13 @@ def main(cfg: DictConfig) -> None:
             history=history,
         )
         result = agent.run_turn(prompt=prompt, context=context)
+        if result.get("consistency") is None and checker is not None:
+            persona_lines = _extract_prefixed_lines(str(result.get("context", context)), "[PERSONA]")
+            if not persona_lines:
+                persona_lines = _extract_prefixed_lines(context, "[PERSONA]")
+            premise = " ".join(persona_lines).strip()
+            if premise:
+                result["consistency"] = checker.score(premise=premise, hypothesis=str(result.get("response", "")))
         outputs.append({"turn_id": turn_id, **result})
 
         done = turn_id + 1

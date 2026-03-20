@@ -1,0 +1,100 @@
+[
+  {
+    "sample_id": "conv-26",
+    "qa_index": 0,
+    "question": "When did Caroline go to the LGBTQ support group?",
+    "persona_mode": "hybrid",
+    "persona_extract_stats": {
+      "raw_candidates": 1,
+      "dedup_candidates": 1,
+      "unique_slots": 1,
+      "singleton_conflict_slots": 0,
+      "singleton_conflict_values": 0,
+      "unknown_owner_count": 0,
+      "hybrid_used_llm": true,
+      "llm_added_facts": 4,
+      "llm_raw_len": 0,
+      "llm_json_parsed": true,
+      "llm_structured_success": true,
+      "llm_candidate_count": 4,
+      "llm_valid_fact_count": 4,
+      "llm_fallback_used": false,
+      "llm_repair_used": false,
+      "llm_repair_success": false,
+      "from_cache": false
+    },
+    "fact_bank": [
+      {
+        "slot": "recent_experience",
+        "value": "a LGBTQ support group yesterday and it was so powerful",
+        "fact_text": "recent experience: a LGBTQ support group yesterday and it was so powerful",
+        "dia_id": "D1:3",
+        "confidence": 0.74,
+        "extract_confidence": 0.74,
+        "owner": "Caroline",
+        "polarity": 1,
+        "time_text": "yesterday",
+        "time_norm": "yesterday",
+        "source": "rule",
+        "first_seen_turn": 2,
+        "last_seen_turn": 2,
+        "mentions": 1,
+        "evidence_dia_ids": [
+          "D1:3"
+        ]
+      },
+      {
+        "slot": "identity_role",
+        "value": "parent",
+        "fact_text": "identity role: parent",
+        "dia_id": "D1:2",
+        "confidence": 0.7020000000000001,
+        "extract_confidence": 0.7020000000000001,
+        "owner": "Melanie",
+        "polarity": 1,
+        "time_text": "",
+        "time_norm": "",
+        "source": "llm"
+      },
+      {
+        "slot": "occupation",
+        "value": "working",
+        "fact_text": "occupation: working",
+        "dia_id": "D1:2",
+        "confidence": 0.6240000000000001,
+        "extract_confidence": 0.6240000000000001,
+        "owner": "Melanie",
+        "polarity": 1,
+        "time_text": "",
+        "time_norm": "",
+        "source": "llm"
+      },
+      {
+        "slot": "recent_experience",
+        "value": "attended LGBTQ support group",
+        "fact_text": "recent experience: attended LGBTQ support group",
+        "dia_id": "D1:3",
+        "confidence": 0.9,
+        "extract_confidence": 0.9,
+        "owner": "Caroline",
+        "polarity": 1,
+        "time_text": "",
+        "time_norm": "",
+        "source": "llm"
+      },
+      {
+        "slot": "identity_role",
+        "value": "lgbtq supporter",
+        "fact_text": "identity role: lgbtq supporter",
+        "dia_id": "D1:3",
+        "confidence": 0.6240000000000001,
+        "extract_confidence": 0.6240000000000001,
+        "owner": "Caroline",
+        "polarity": 1,
+        "time_text": "",
+        "time_norm": "",
+        "source": "llm"
+      }
+    ]
+  }
+]

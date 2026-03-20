@@ -45,6 +45,7 @@ if str(ROOT) not in sys.path:
 from persona_loop.core.factories import create_llm
 from persona_loop.eval.persona_extractor import (
     extract_persona_facts_hybrid_with_stats,
+    extract_persona_facts_llm_with_stats,
     extract_persona_facts_with_stats,
 )
 
@@ -103,7 +104,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Pre-build persona fact cache.")
     parser.add_argument("--data", default="data/locomo10.json")
     parser.add_argument("--cache", required=True, help="Output cache JSON file path.")
-    parser.add_argument("--persona-mode", choices=["derived", "hybrid"], default="hybrid")
+    parser.add_argument("--persona-mode", choices=["derived", "hybrid", "llm"], default="hybrid")
     parser.add_argument("--llm-provider", default="openai")
     parser.add_argument("--llm-model", default="gpt-4o-mini")
     parser.add_argument("--llm-base-url", nargs="?", const="", default=None,
@@ -202,6 +203,12 @@ def main() -> None:
             if args.persona_mode == "derived":
                 extracted = extract_persona_facts_with_stats(
                     visible_turns=visible_turns,
+                    max_facts=args.persona_max_facts,
+                )
+            elif args.persona_mode == "llm":
+                extracted = extract_persona_facts_llm_with_stats(
+                    visible_turns=visible_turns,
+                    llm=llm,
                     max_facts=args.persona_max_facts,
                 )
             else:
