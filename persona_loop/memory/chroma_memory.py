@@ -23,6 +23,12 @@ class ChromaMemory(BaseMemory):
         self._doc_tokens: List[Counter[str]] = []
         self._doc_lengths: List[int] = []
 
+    def reset(self) -> None:
+        self._store = []
+        self._doc_freq = Counter()
+        self._doc_tokens = []
+        self._doc_lengths = []
+
     @classmethod
     def _tokenize(cls, text: str) -> List[str]:
         tokens = re.findall(r"[a-z0-9']+", text.lower())

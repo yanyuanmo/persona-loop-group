@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat {
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .sender1 {
+            background-color: #e2f0cb;
+            align-self: flex-start;
+        }
+        .sender2 {
+            background-color: #b2ebf2;
+            align-self: flex-end;
+        }
+        .date {
+            background-color: #ffb6c1;
+            align-self: center;
+        }
+        .message img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat">
+    
+        <div class="message sender1">
+            <p><b>Name</b>: Xiaoxuan<br><b>Persona</b>: Xiaoxuan is a spirited and curious young woman who never quite shed the wide-eyed wonder she had as a child. Her childhood was filled with exploration, imagination, and the delicious feeling that the world was full of secrets worth discovering. She is enthusiastic and spontaneous, often pulling friends into adventures they didn't know they needed. She has a contagious laugh and an uncanny ability to make even boring situations feel like an event. Underneath all the energy is a fierce loyalty — she would do anything for the people she loves, and she is not afraid to say so. She has a strong moral compass and speaks up when something feel wrong, even when it's awkward or risky. She holds onto relationships with both hands.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Name</b>: Minghao<br><b>Persona</b>: Minghao is a calm and grounded young man with an unusual capacity for patience and presence. He grew up in an atmosphere of gratitude and mindfulness, and it has settled into him completely — he moves through life unhurried, attentive, and steady in a way that is genuinely rare. He notices things other people miss: the small shift in someone's mood, the extra sadness behind a casual comment, the unspoken kindness in a gesture. He expresses affection through small, thoughtful actions rather than grand declarations. He is someone people turn to when everything feels overwhelming, not because he always has answers, but because being around his calmness tends to make things feel more manageable. He finds deep meaning in simplicity and believes strongly that how you treat ordinary moments says everything about who you are.<br></p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 1 [ 8:48 pm on 17 August, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>15 August, 2022</b>: Xiaoxuan organizes a surprise picnic for her friends at the park.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hey Xiaoxuan, nice to meet you! Yesterday, I watched the sunset with my friend Jin and had some tea. It was super chill. How do you like to relax after a busy day?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love planning surprise hangouts! Just had a picnic last Friday with snacks and games. How about you?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Sounds great, Xiaoxuan! I come here a lot. What games do you like to play at your picnics?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Last time, we did a scavenger hunt with treasure maps! It was so fun. Have you ever tried it?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>That sounds fun! Haven't done a scavenger hunt since my school trip. I remember we got our map stuck in a tree. Speaking of trees, here's a chill photo from last Tuesday. Got any nature pics to share?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wow, your pic takes me back to our picnic. Look at this! Have you been on any other cool outdoor trips?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Yeah, Xiaoxuan. I checked out a chill park with lots of flowers last month. How about going on some hikes?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Let's hike! Here's a pic from last year. Ready for another adventure?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Nature adventure sounds awesome, Xiaoxuan! I checked out a chill pond last weekend. Had any cool adventures on your hikes?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I once found an old cave with hidden drawings! Want to check out something even crazier?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Finding hidden sketches is amazing! I found a peaceful waterfall last month. Want to check it out?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>A secret waterfall sounds cool! How about a trip next month? Know any good spots?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Next month works! Found this awesome lake last Friday with a cool spot for stargazing. You in?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Stargazing by a lake? Absolutely I'm in! Here's a photo of last month's full moon I captured. . Can't wait for our lake adventure! Snap any crazy night photos recently? </p>
+        </div>
+
+        <div class="message sender2">
+            <p>Saw last month's meteor shower! Here's a chill pic of the night sky I snapped with Jin. Got any sky pics ready for stargazing by the lake?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Stunning capture with Jin! I saw that shower too; can't wait for another celestial show.  Ever camped out to watch the sky? </p>
+        </div>
+
+        <div class="message sender2">
+            <p>I went camping with my friend Rui under the stars last August. Want to do a similar overnight trip?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That sounds thrilling! I stayed by a canyon overnight once. Let's plan or I'll share tales like these! </p>
+        </div>
+
+        <div class="message sender2">
+            <p>August by the canyon must've been amazing! How 'bout camping memories next time we hang out?  </p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 2 [ 8:13 pm on 22 August, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br><b>20 August, 2022</b>: Minghao starts a weekly meditation group at the local community center.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>I started a meditation group at the community center last Saturday. Wanna join us sometime?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That sounds great, Minghao! I'd love to join and relax. Meditation helped when I planned that picnic.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Meditation brings some peace to life's chaos. We do it every Saturday morning. Is it hard for you to organize get-togethers?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Organizing can be tough, but I enjoy it. Last week's picnic was really fun with great views and lots of laughs. How's the meditation group going for you?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>The meditation group has been really grounding and inspiring. We've just been sitting in silence, feeling thankful together. How about you? Planning any get-togethers soon?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I'm planning a surprise board game night for our friends next month. Are you into board games, Minghao?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I like chill board games like Go for deep thinking and bonding. How about you?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>When I was twelve, my family and I had a wild Scrabble game one night. It was so funny and intense!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Sounds awesome! I love the mix of strategy and creativity in Scrabble. Got any fun board game stories?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Last game night with my cousin Leo got wild! Board got messy, and rivalry was fierce! Haha, check this pic!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Your game nights sound intense, Xiaoxuan. 😄 Once, playing Go with Rui, our laughter echoed past midnight.  How’s Leo? </p>
+        </div>
+
+        <div class="message sender1">
+            <p>Leo's hilarious! Next month makes me think of our ski trip from ten years ago. We laughed so much it hurt!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hanging out and laughing with friends is the best. Do ski trips remind you of any cool memories?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Ski trips always remind me of when Leo face-planted in the snow! We haven't skipped a trip since!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Last year, Rui got snow in his jacket while skiing! 😅 Ever had a funny slip-up on the slopes?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Oops! I accidentally skied to a snack shop instead of the lodge. Everyone cracked up! Lunch mix-up!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Haha, that's awesome! Snack breaks while skiing are always a blast. 🏂 Got any plans to ski soon?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>No skiing plans right now, but I'm having a winter party indoors this December! Want to come?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I'd love to join, thanks! Cozy vibes and laughs with friends sound awesome. Need help with anything?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I'm looking for some fun indoor stuff to do. Got any ideas, Minghao?</p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 3 [ 1:53 pm on 1 September, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>30 August, 2022</b>: Xiaoxuan discovers a hidden art gallery in her neighborhood and invites her friends for a spontaneous visit.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender1">
+            <p>Hey, Minghao! 😊 I just found a cool little art gallery near me last week. It's like a hidden gem! You should check it out with me sometime—we might get some ideas for the winter fest decorations. Have you ever found something awesome like that around here?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Found a chill lake last Friday—great for stargazing. It really calms me down. 🌊✨</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That's awesome, I love chill spots. Did you see any cool stars or constellations while stargazing?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Shooting stars lit up the night, and Orion looked awesome.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love constellations! They're like cool stories in the sky. Want to stargaze with me soon?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Sure, I'd love to look at the stars with you. Check out what I got!</p>
+        </div>
+
+        <div class="message sender1">
+            <p>What is it? I'm super curious! 😄 Look at this pic of the hidden gallery entrance. Isn't it cool?!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Exploring space feels amazing and down-to-earth. Last Friday was breathtaking!</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Good company makes everything feel magical, especially exploring new places! Check out this gallery's cozy corner with art and stars. 😄</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Got it. Reminds me of when Rui and I camped out under the stars—felt so full and peaceful. Here's a pic from that night. It was awesome to share that vibe with a good friend.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>This gallery mixes cozy vibes with art. Got a favorite stargazing story? 🌌</p>
+        </div>
+
+        <div class="message sender2">
+            <p>When I was 10, my dad and I watched a meteor shower. That's when I started loving stars. ✨</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Stargazing brought me and grandpa closer! Just found an old pic from a special night.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Great memory! Grandpa and I would search for the North Star. Feels like he's still guiding me. His love for the sky was catchy.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Memories last forever. Do you think your dad would like the art gallery too?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>He'd love it. He's always been into hidden gems and chill art vibes. You're right, by the way. Here's my dad from our gallery trip last spring.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That's awesome! Always keep those bonds close, okay? 😊</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hey Xiaoxuan, let's check out that secret gallery soon. Dad's been into art forever. 🎨</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Let's pick a day! I love this surreal painting—it makes me think of nature's cool stuff. Got a pic. 😊</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Stars are simple and calming to me. Seen anything cool at the gallery that sparked your adventurous side? 🌌</p>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>

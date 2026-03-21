@@ -1,0 +1,717 @@
+{
+  "name": "Minghao",
+  "persona_summary": "Minghao is a calm and grounded young man with an unusual capacity for patience and presence. He grew up in an atmosphere of gratitude and mindfulness, and it has settled into him completely \u2014 he moves through life unhurried, attentive, and steady in a way that is genuinely rare. He notices things other people miss: the small shift in someone's mood, the extra sadness behind a casual comment, the unspoken kindness in a gesture. He expresses affection through small, thoughtful actions rather than grand declarations. He is someone people turn to when everything feels overwhelming, not because he always has answers, but because being around his calmness tends to make things feel more manageable. He finds deep meaning in simplicity and believes strongly that how you treat ordinary moments says everything about who you are.",
+  "events_start_date": "11 August, 2022",
+  "graph": [
+    {
+      "sub-event": "Minghao starts a weekly meditation group at the local community center.",
+      "date": "20 August, 2022",
+      "id": "E1",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Minghao notices a friend is feeling down and leaves a handwritten note offering support.",
+      "date": "5 September, 2022",
+      "id": "E2",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Minghao attends a workshop on mindfulness and gratitude practices.",
+      "date": "15 September, 2022",
+      "id": "E3",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Minghao invites friends to join the meditation group for added support.",
+      "date": "22 September, 2022",
+      "id": "E4",
+      "caused_by": [
+        "E1"
+      ]
+    },
+    {
+      "sub-event": "Minghao incorporates new gratitude techniques from the workshop into the meditation sessions.",
+      "date": "25 September, 2022",
+      "id": "E5",
+      "caused_by": [
+        "E1",
+        "E3"
+      ]
+    },
+    {
+      "sub-event": "Minghao's friend, uplifted by the note, attends a meditation session for the first time.",
+      "date": "1 October, 2022",
+      "id": "E6",
+      "caused_by": [
+        "E2",
+        "E1"
+      ]
+    },
+    {
+      "sub-event": "Minghao writes an article about the benefits of mindfulness and shares it with the community center.",
+      "date": "15 October, 2022",
+      "id": "E7",
+      "caused_by": [
+        "E3"
+      ]
+    },
+    {
+      "sub-event": "Minghao receives positive feedback on his article from the community center staff.",
+      "date": "22 October, 2022",
+      "id": "E8",
+      "caused_by": [
+        "E7"
+      ]
+    },
+    {
+      "sub-event": "Minghao starts a monthly mindfulness newsletter for the community after receiving positive feedback.",
+      "date": "28 October, 2022",
+      "id": "E9",
+      "caused_by": [
+        "E8"
+      ]
+    },
+    {
+      "sub-event": "A new member joins the meditation group after reading about it in Minghao's newsletter.",
+      "date": "5 November, 2022",
+      "id": "E10",
+      "caused_by": [
+        "E9"
+      ]
+    },
+    {
+      "sub-event": "Minghao sees the new member's stress alleviate after attending a few sessions and feels a sense of fulfillment.",
+      "date": "8 November, 2022",
+      "id": "E11",
+      "caused_by": [
+        "E10"
+      ]
+    }
+  ],
+  "events_session_1": [],
+  "session_1_date_time": "8:48 pm on 17 August, 2022",
+  "session_1": [
+    {
+      "text": "\"Hi Xiaoxuan, it's nice to meet you. Yesterday, I watched the sunset with my friend Jin, and we enjoyed some tea. It was a calming moment. Do you have a favorite way to wind down after a busy day?\"",
+      "raw_text": "\"Hi Xiaoxuan, it's nice to meet you. Yesterday, I watched the sunset with my friend Jin, and we enjoyed some tea. It was a calming moment. Do you have a favorite way to wind down after a busy day?\"",
+      "speaker": "Minghao",
+      "clean_text": "Hey Xiaoxuan, nice to meet you! Yesterday, I watched the sunset with my friend Jin and had some tea. It was super chill. How do you like to relax after a busy day?",
+      "dia_id": "D1:1"
+    },
+    {
+      "text": "I love organizing surprise gatherings! Just had a picnic last Friday, full of yummy snacks and games. What about you?",
+      "raw_text": "I love organizing surprise gatherings! Just had a picnic last Friday, full of yummy snacks and games. What about you?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "I love planning surprise hangouts! Just had a picnic last Friday with snacks and games. How about you?",
+      "dia_id": "D1:2"
+    },
+    {
+      "text": "That sounds lovely, Xiaoxuan! [shares a photo of a simple picnic setup with a thermos and books by a tranquil lake.] This is a spot I often visit. What games do you enjoy at your picnics?",
+      "raw_text": "That sounds lovely, Xiaoxuan! [shares a photo of a simple picnic setup with a thermos and books by a tranquil lake.] This is a spot I often visit. What games do you enjoy at your picnics?",
+      "speaker": "Minghao",
+      "clean_text": "Sounds great, Xiaoxuan! I come here a lot. What games do you like to play at your picnics?",
+      "dia_id": "D1:3"
+    },
+    {
+      "text": "Last time, we tried scavenger hunts with treasure maps! It was hilarious. Have you ever done one?",
+      "raw_text": "Last time, we tried scavenger hunts with treasure maps! It was hilarious. Have you ever done one?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Last time, we did a scavenger hunt with treasure maps! It was so fun. Have you ever tried it?",
+      "dia_id": "D1:4"
+    },
+    {
+      "text": "That sounds really enjoyable. Haven't tried scavenger hunts since my school trip. Remembering our map stuck on a tree. Speaking of trees, here's a calming photo from last Tuesday. [shares a photo of a tree-lined path at sunset with soft evening colors] Have any nature photos to share back?",
+      "raw_text": "That sounds really enjoyable. Haven't tried scavenger hunts since my school trip. Remembering our map stuck on a tree. Speaking of trees, here's a calming photo from last Tuesday. [shares a photo of a tree-lined path at sunset with soft evening colors] Have any nature photos to share back?",
+      "speaker": "Minghao",
+      "clean_text": "That sounds fun! Haven't done a scavenger hunt since my school trip. I remember we got our map stuck in a tree. Speaking of trees, here's a chill photo from last Tuesday. Got any nature pics to share?",
+      "dia_id": "D1:5"
+    },
+    {
+      "text": "Oh wow, your pic reminds me of our picnic. Check this out! [shares a photo of a vibrant sunset over a picnic area with friends playing frisbee]. Do you have any other outdoorsy adventures?",
+      "raw_text": "Oh wow, your pic reminds me of our picnic. Check this out! [shares a photo of a vibrant sunset over a picnic area with friends playing frisbee]. Do you have any other outdoorsy adventures?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Wow, your pic takes me back to our picnic. Look at this! Have you been on any other cool outdoor trips?",
+      "dia_id": "D1:6"
+    },
+    {
+      "text": "Yes, Xiaoxuan. I visited a serene park last month with lots of blooming flowers. How about hiking trips? [shares photo of himself sitting beside a brook with blooming wildflowers].",
+      "raw_text": "Yes, Xiaoxuan. I visited a serene park last month with lots of blooming flowers. How about hiking trips? [shares photo of himself sitting beside a brook with blooming wildflowers].",
+      "speaker": "Minghao",
+      "clean_text": "Yeah, Xiaoxuan. I checked out a chill park with lots of flowers last month. How about going on some hikes?",
+      "dia_id": "D1:7"
+    },
+    {
+      "text": "Sure! Let's go on a hike together. Here's a pic from last year's trip. I'd love a new adventure! ",
+      "raw_text": "Sure! Let's go on a hike together. Here's a pic from last year's trip. I'd love a new adventure! ",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Let's hike! Here's a pic from last year. Ready for another adventure?",
+      "dia_id": "D1:8"
+    },
+    {
+      "text": "Nature adventure sounds lovely, Xiaoxuan! I just visited a peaceful pond last weekend. [Shares photo of the serene pond at dawn, surrounded by misty trees] Has anything amazing happened during your hikes?",
+      "raw_text": "Nature adventure sounds lovely, Xiaoxuan! I just visited a peaceful pond last weekend. [Shares photo of the serene pond at dawn, surrounded by misty trees] Has anything amazing happened during your hikes?",
+      "speaker": "Minghao",
+      "clean_text": "Nature adventure sounds awesome, Xiaoxuan! I checked out a chill pond last weekend. Had any cool adventures on your hikes?",
+      "dia_id": "D1:9"
+    },
+    {
+      "text": "Once, I stumbled upon an old cave with tucked-away drawings! Want to explore something even more surreal?",
+      "raw_text": "Once, I stumbled upon an old cave with tucked-away drawings! Want to explore something even more surreal?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "I once found an old cave with hidden drawings! Want to check out something even crazier?",
+      "dia_id": "D1:10"
+    },
+    {
+      "text": "Exploring hidden drawings sounds incredible! I discovered a serene waterfall last month. Up for a tranquil visit? [shares a serene photo of a gentle waterfall cascading delicately, surrounded by lush greenery, captured last September]",
+      "raw_text": "Exploring hidden drawings sounds incredible! I discovered a serene waterfall last month. Up for a tranquil visit? [shares a serene photo of a gentle waterfall cascading delicately, surrounded by lush greenery, captured last September]",
+      "speaker": "Minghao",
+      "clean_text": "Finding hidden sketches is amazing! I found a peaceful waterfall last month. Want to check it out?",
+      "dia_id": "D1:11"
+    },
+    {
+      "text": "A hidden waterfall sounds magical! Let's plan a little trip next month. Got any secret spots to recommend?",
+      "raw_text": "A hidden waterfall sounds magical! Let's plan a little trip next month. Got any secret spots to recommend?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "A secret waterfall sounds cool! How about a trip next month? Know any good spots?",
+      "dia_id": "D1:12"
+    },
+    {
+      "text": "Next month sounds perfect! Check this lake I found last Friday; heard there\u2019s a beautiful star-viewing area nearby. [Shares a photo of a serene lake surrounded by trees, the sky reflecting on its still waters.] Are you down for some stargazing?",
+      "raw_text": "Next month sounds perfect! Check this lake I found last Friday; heard there\u2019s a beautiful star-viewing area nearby. [Shares a photo of a serene lake surrounded by trees, the sky reflecting on its still waters.] Are you down for some stargazing?",
+      "speaker": "Minghao",
+      "clean_text": "Next month works! Found this awesome lake last Friday with a cool spot for stargazing. You in?",
+      "dia_id": "D1:13"
+    },
+    {
+      "text": "Stargazing by a lake? Absolutely I'm in! Here's a photo of last month's full moon I captured. [shares a photo of a luminous full moon reflecting on still water]. Can't wait for our lake adventure! Snap any crazy night photos recently? [END]",
+      "raw_text": "Stargazing by a lake? Absolutely I'm in! Here's a photo of last month's full moon I captured. [shares a photo of a luminous full moon reflecting on still water]. Can't wait for our lake adventure! Snap any crazy night photos recently? [END]",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Stargazing by a lake? Absolutely I'm in! Here's a photo of last month's full moon I captured. . Can't wait for our lake adventure! Snap any crazy night photos recently? ",
+      "dia_id": "D1:14"
+    },
+    {
+      "text": "Just caught last month's meteor shower. Here's a serene photo of the night sky I took with Jin. Any night sky snapshots ready for lake stargazing?",
+      "raw_text": "Just caught last month's meteor shower. Here's a serene photo of the night sky I took with Jin. Any night sky snapshots ready for lake stargazing?",
+      "speaker": "Minghao",
+      "clean_text": "Saw last month's meteor shower! Here's a chill pic of the night sky I snapped with Jin. Got any sky pics ready for stargazing by the lake?",
+      "dia_id": "D1:15"
+    },
+    {
+      "text": "Stunning capture with Jin! I saw that shower too; can't wait for another celestial show. [shares a pic of a painted sky as the sun sets beyond the horizon, with stars beginning to twinkle. Air is cool and inviting.] Ever camped out to watch the sky? [END]",
+      "raw_text": "Stunning capture with Jin! I saw that shower too; can't wait for another celestial show. [shares a pic of a painted sky as the sun sets beyond the horizon, with stars beginning to twinkle. Air is cool and inviting.] Ever camped out to watch the sky? [END]",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Stunning capture with Jin! I saw that shower too; can't wait for another celestial show.  Ever camped out to watch the sky? ",
+      "dia_id": "D1:16"
+    },
+    {
+      "text": "I have! Camped with my friend Rui under a canopy of stars last August. Want to do a similar overnight trip? [shares a photo of a peaceful campsite under a starry sky from last August]",
+      "raw_text": "I have! Camped with my friend Rui under a canopy of stars last August. Want to do a similar overnight trip? [shares a photo of a peaceful campsite under a starry sky from last August]",
+      "speaker": "Minghao",
+      "clean_text": "I went camping with my friend Rui under the stars last August. Want to do a similar overnight trip?",
+      "dia_id": "D1:17"
+    },
+    {
+      "text": "That sounds thrilling! I stayed by a canyon overnight once. Let's plan or I'll share tales like these! [END]",
+      "raw_text": "That sounds thrilling! I stayed by a canyon overnight once. Let's plan or I'll share tales like these! [END]",
+      "speaker": "Xiaoxuan",
+      "clean_text": "That sounds thrilling! I stayed by a canyon overnight once. Let's plan or I'll share tales like these! ",
+      "dia_id": "D1:18"
+    },
+    {
+      "text": "August by the canyon must've been amazing! How 'bout camping memories next time we hang out? [shares a peaceful night under stars photo from last year\u2019s camping with Rui, with the tent and stars in view] [END]",
+      "raw_text": "August by the canyon must've been amazing! How 'bout camping memories next time we hang out? [shares a peaceful night under stars photo from last year\u2019s camping with Rui, with the tent and stars in view] [END]",
+      "speaker": "Minghao",
+      "clean_text": "August by the canyon must've been amazing! How 'bout camping memories next time we hang out?  ",
+      "dia_id": "D1:19"
+    }
+  ],
+  "session_1_facts": {
+    "Minghao": [
+      [
+        "Minghao watched the sunset with his friend Jin and had tea the previous day.",
+        "D1:1"
+      ],
+      [
+        "Minghao participated in a scavenger hunt during a school trip.",
+        "D1:5"
+      ],
+      [
+        "Minghao visited a park with lots of flowers last month.",
+        "D1:7"
+      ],
+      [
+        "Minghao found a peaceful waterfall last month.",
+        "D1:11"
+      ],
+      [
+        "Minghao discovered an awesome lake with a spot for stargazing last Friday.",
+        "D1:13"
+      ],
+      [
+        "Minghao observed and took a picture of the night sky during last month's meteor shower with Jin.",
+        "D1:15"
+      ],
+      [
+        "Minghao went camping under the stars with his friend Rui last August.",
+        "D1:17"
+      ]
+    ],
+    "Xiaoxuan": [
+      [
+        "Xiaoxuan planned a picnic with snacks and games last Friday.",
+        "D1:2"
+      ],
+      [
+        "Xiaoxuan organized a scavenger hunt with treasure maps at the picnic.",
+        "D1:4"
+      ],
+      [
+        "Xiaoxuan attended a hike last year and found an old cave with hidden drawings.",
+        "D1:10"
+      ],
+      [
+        "Xiaoxuan captured a photo of last month's full moon.",
+        "D1:14"
+      ],
+      [
+        "Xiaoxuan witnessed the same meteor shower and expresses excitement for celestial events.",
+        "D1:16"
+      ],
+      [
+        "Xiaoxuan stayed by a canyon overnight once.",
+        "D1:18"
+      ]
+    ]
+  },
+  "session_1_summary": "On August 17, 2022, Xiaoxuan and Minghao exchanged a conversation about their favorite ways to relax and enjoy nature. Xiaoxuan enjoys organizing surprise gatherings and recently had a picnic with snacks and games like scavenger hunts. Minghao shared that he watched the sunset with a friend named Jin and frequents a tranquil lake spot. Both enjoy nature, with Xiaoxuan sharing a vibrant sunset photo and Minghao a tree-lined path at sunset. They discussed past nature adventures, like hiking, discovering hidden caves and waterfalls, and planning future outings like hiking and stargazing by a lake. Minghao expressed interest in sharing camping memories, having camped with his friend Rui under the stars. Xiaoxuan shared stories of staying by",
+  "events_session_2": [
+    {
+      "sub-event": "Minghao starts a weekly meditation group at the local community center.",
+      "date": "20 August, 2022",
+      "id": "E1",
+      "caused_by": []
+    }
+  ],
+  "session_2_date_time": "8:13 pm on 22 August, 2022",
+  "session_2": [
+    {
+      "text": "I've started a meditation group at our community center last Saturday. Maybe you'd like to join us sometime? [Minghao shares a photo of a serene meditation space with cushions and soft lighting.]",
+      "raw_text": "I've started a meditation group at our community center last Saturday. Maybe you'd like to join us sometime? [Minghao shares a photo of a serene meditation space with cushions and soft lighting.]",
+      "speaker": "Minghao",
+      "clean_text": "I started a meditation group at the community center last Saturday. Wanna join us sometime?",
+      "dia_id": "D2:1"
+    },
+    {
+      "text": "That sounds wonderful, Minghao! I'd love to join and de-stress. Meditation helped when I organized that picnic.",
+      "raw_text": "That sounds wonderful, Minghao! I'd love to join and de-stress. Meditation helped when I organized that picnic.",
+      "speaker": "Xiaoxuan",
+      "clean_text": "That sounds great, Minghao! I'd love to join and relax. Meditation helped when I planned that picnic.",
+      "dia_id": "D2:2"
+    },
+    {
+      "text": "Meditation adds peace in life's chaos. It's every Saturday morning. Do you find challenges in organizing gatherings?",
+      "raw_text": "Meditation adds peace in life's chaos. It's every Saturday morning. Do you find challenges in organizing gatherings?",
+      "speaker": "Minghao",
+      "clean_text": "Meditation brings some peace to life's chaos. We do it every Saturday morning. Is it hard for you to organize get-togethers?",
+      "dia_id": "D2:3"
+    },
+    {
+      "text": "Organizing can be tricky, but I love it. Last week's picnic felt magical with sights and laughter shared. How's the meditation group feeling for you?",
+      "raw_text": "Organizing can be tricky, but I love it. Last week's picnic felt magical with sights and laughter shared. How's the meditation group feeling for you?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Organizing can be tough, but I enjoy it. Last week's picnic was really fun with great views and lots of laughs. How's the meditation group going for you?",
+      "dia_id": "D2:4"
+    },
+    {
+      "text": "The meditation group has been grounding and enlightening. We've connected in silence, just soaking in gratitude together. What about you - any recent gatherings you're planning?",
+      "raw_text": "The meditation group has been grounding and enlightening. We've connected in silence, just soaking in gratitude together. What about you - any recent gatherings you're planning?",
+      "speaker": "Minghao",
+      "clean_text": "The meditation group has been really grounding and inspiring. We've just been sitting in silence, feeling thankful together. How about you? Planning any get-togethers soon?",
+      "dia_id": "D2:5"
+    },
+    {
+      "text": "Next month, I'm planning a surprise board game night for our friends. Do you like board games, Minghao?",
+      "raw_text": "Next month, I'm planning a surprise board game night for our friends. Do you like board games, Minghao?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "I'm planning a surprise board game night for our friends next month. Are you into board games, Minghao?",
+      "dia_id": "D2:6"
+    },
+    {
+      "text": "I enjoy the slow pace of board games like Go. They allow deep thinking and bonding. What about you?",
+      "raw_text": "I enjoy the slow pace of board games like Go. They allow deep thinking and bonding. What about you?",
+      "speaker": "Minghao",
+      "clean_text": "I like chill board games like Go for deep thinking and bonding. How about you?",
+      "dia_id": "D2:7"
+    },
+    {
+      "text": "When I was twelve, my family and I played an epic marathon of Scrabble one night. It was hilarious and intense!",
+      "raw_text": "When I was twelve, my family and I played an epic marathon of Scrabble one night. It was hilarious and intense!",
+      "speaker": "Xiaoxuan",
+      "clean_text": "When I was twelve, my family and I had a wild Scrabble game one night. It was so funny and intense!",
+      "dia_id": "D2:8"
+    },
+    {
+      "text": "Sounds amazing! I appreciate Scrabble's mix of strategy and creativity. Do you have a favorite board game memory to share?",
+      "raw_text": "Sounds amazing! I appreciate Scrabble's mix of strategy and creativity. Do you have a favorite board game memory to share?",
+      "speaker": "Minghao",
+      "clean_text": "Sounds awesome! I love the mix of strategy and creativity in Scrabble. Got any fun board game stories?",
+      "dia_id": "D2:9"
+    },
+    {
+      "text": "The last gaming night I had with my cousin Leo ended in a tangled board and serious rivalry! Haha, here's a snapshot! ",
+      "raw_text": "The last gaming night I had with my cousin Leo ended in a tangled board and serious rivalry! Haha, here's a snapshot! ",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Last game night with my cousin Leo got wild! Board got messy, and rivalry was fierce! Haha, check this pic!",
+      "dia_id": "D2:10"
+    },
+    {
+      "text": "Your game nights sound intense, Xiaoxuan. \ud83d\ude04 Once, playing Go with Rui, our laughter echoed past midnight. [shares a photo of a Go game set beneath soft orange lighting on a wooden table, against a backdrop of calm greenery views from the window] How\u2019s Leo? [END]",
+      "raw_text": "Your game nights sound intense, Xiaoxuan. \ud83d\ude04 Once, playing Go with Rui, our laughter echoed past midnight. [shares a photo of a Go game set beneath soft orange lighting on a wooden table, against a backdrop of calm greenery views from the window] How\u2019s Leo? [END]",
+      "speaker": "Minghao",
+      "clean_text": "Your game nights sound intense, Xiaoxuan. \ud83d\ude04 Once, playing Go with Rui, our laughter echoed past midnight.  How\u2019s Leo? ",
+      "dia_id": "D2:11"
+    },
+    {
+      "text": "Oh, Leo's a riot! Next month reminds me of our ski trip ten years ago. We laughed until it hurt!",
+      "raw_text": "Oh, Leo's a riot! Next month reminds me of our ski trip ten years ago. We laughed until it hurt!",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Leo's hilarious! Next month makes me think of our ski trip from ten years ago. We laughed so much it hurt!",
+      "dia_id": "D2:12"
+    },
+    {
+      "text": "In quiet moments, laughter like that with friends is pure magic. Do ski trips bring back other special memories for you?",
+      "raw_text": "In quiet moments, laughter like that with friends is pure magic. Do ski trips bring back other special memories for you?",
+      "speaker": "Minghao",
+      "clean_text": "Hanging out and laughing with friends is the best. Do ski trips remind you of any cool memories?",
+      "dia_id": "D2:13"
+    },
+    {
+      "text": "Ski trips always remind me of the time Leo fell face-first in the snow! Despite that, we've never skipped a trip since!",
+      "raw_text": "Ski trips always remind me of the time Leo fell face-first in the snow! Despite that, we've never skipped a trip since!",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Ski trips always remind me of when Leo face-planted in the snow! We haven't skipped a trip since!",
+      "dia_id": "D2:14"
+    },
+    {
+      "text": "Last year, Rui got snow stuck inside his jacket during skiing! \ud83d\ude05 Ever experienced a sweet blunder while skiing?",
+      "raw_text": "Last year, Rui got snow stuck inside his jacket during skiing! \ud83d\ude05 Ever experienced a sweet blunder while skiing?",
+      "speaker": "Minghao",
+      "clean_text": "Last year, Rui got snow in his jacket while skiing! \ud83d\ude05 Ever had a funny slip-up on the slopes?",
+      "dia_id": "D2:15"
+    },
+    {
+      "text": "Oh, yes! I once accidentally skied up to a snack shop instead of the lodge\u2014everyone laughed so hard! Lunchtime mix-up!",
+      "raw_text": "Oh, yes! I once accidentally skied up to a snack shop instead of the lodge\u2014everyone laughed so hard! Lunchtime mix-up!",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Oops! I accidentally skied to a snack shop instead of the lodge. Everyone cracked up! Lunch mix-up!",
+      "dia_id": "D2:16"
+    },
+    {
+      "text": "Haha, that's great! Snack stops during skiing adventures make for memorable, funny tales. \ud83c\udfc2 Any plans to hit the slopes soon?",
+      "raw_text": "Haha, that's great! Snack stops during skiing adventures make for memorable, funny tales. \ud83c\udfc2 Any plans to hit the slopes soon?",
+      "speaker": "Minghao",
+      "clean_text": "Haha, that's awesome! Snack breaks while skiing are always a blast. \ud83c\udfc2 Got any plans to ski soon?",
+      "dia_id": "D2:17"
+    },
+    {
+      "text": "Unfortunately, no plans to ski currently\u2014but I'm throwing a winter-themed indoor fest this December instead! Will you come by?",
+      "raw_text": "Unfortunately, no plans to ski currently\u2014but I'm throwing a winter-themed indoor fest this December instead! Will you come by?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "No skiing plans right now, but I'm having a winter party indoors this December! Want to come?",
+      "dia_id": "D2:18"
+    },
+    {
+      "text": "I\u2019d love to come, thanks! Winter coziness and hearty laughs with friends sound perfect. Got what you'd need help with?",
+      "raw_text": "I\u2019d love to come, thanks! Winter coziness and hearty laughs with friends sound perfect. Got what you'd need help with?",
+      "speaker": "Minghao",
+      "clean_text": "I'd love to join, thanks! Cozy vibes and laughs with friends sound awesome. Need help with anything?",
+      "dia_id": "D2:19"
+    },
+    {
+      "text": "Actually, I\u2019m hunting fun indoor activities to try! Got a suggestion that\u2019s new to me, Minghao?",
+      "raw_text": "Actually, I\u2019m hunting fun indoor activities to try! Got a suggestion that\u2019s new to me, Minghao?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "I'm looking for some fun indoor stuff to do. Got any ideas, Minghao?",
+      "dia_id": "D2:20"
+    }
+  ],
+  "session_2_facts": {
+    "Minghao": [
+      [
+        "Minghao started a meditation group at the community center which meets every Saturday morning.",
+        "D2:1",
+        "D2:3"
+      ],
+      [
+        "Minghao believes meditation brings peace to life's chaos.",
+        "D2:3"
+      ],
+      [
+        "The meditation group has been grounding and inspiring for Minghao.",
+        "D2:5"
+      ],
+      [
+        "Minghao likes chill board games like Go for deep thinking and bonding.",
+        "D2:7"
+      ],
+      [
+        "Minghao had a memorable moment playing Go with Rui where their laughter echoed past midnight.",
+        "D2:11"
+      ],
+      [
+        "Last year, Rui, a friend of Minghao, got snow in his jacket while skiing.",
+        "D2:15"
+      ]
+    ],
+    "Xiaoxuan": [
+      [
+        "Xiaoxuan organized a picnic last week that was fun and had great views.",
+        "D2:4"
+      ],
+      [
+        "Xiaoxuan is planning a surprise board game night for friends next month.",
+        "D2:6"
+      ],
+      [
+        "Xiaoxuan had a memorable and intense Scrabble game with family at age twelve.",
+        "D2:8"
+      ],
+      [
+        "Xiaoxuan's last game night with cousin Leo was messy and competitive.",
+        "D2:10"
+      ],
+      [
+        "Ten years ago, Xiaoxuan went on a ski trip with Leo.",
+        "D2:12"
+      ],
+      [
+        "Xiaoxuan remembers Leo face-planting in the snow during a ski trip.",
+        "D2:14"
+      ],
+      [
+        "Xiaoxuan accidentally skied to a snack shop instead of the lodge, causing laughter.",
+        "D2:16"
+      ],
+      [
+        "Xiaoxuan is planning a winter party indoors this December.",
+        "D2:18"
+      ]
+    ]
+  },
+  "session_2_summary": "Xiaoxuan and Minghao enjoy nature and shared experiences since August 17, 2022, discussing favorite relaxation activities like picnics, sunsets, hiking, and past camping trips. On August 22, they discussed meditation, with Minghao inviting Xiaoxuan to a group he started. Xiaoxuan's organizing skills shone through past surprising board game nights and she\u2019s planning a new one next month. Both cherish ski trip memories with friends, filled with laughter over mishaps\u2014such as Leo falling face-first in snow or skiing to the wrong spot. They plan to meet at Xiaoxuan's December winter-themed fest. As of their latest exchange, Xiaoxuan seeks indoor activity ideas for this event, welcoming any new suggestions",
+  "events_session_3": [],
+  "session_3_date_time": "1:53 pm on 1 September, 2022",
+  "session_3": [
+    {
+      "text": "Hey, Minghao! \ud83c\udf1f Just last week, I stumbled upon a hidden art gallery in my neighborhood! It felt like discovering a secret portal. You must come see it sometime, maybe we\u2019ll find some inspiration for the winter fest decoration! Have you ever uncovered an unexpected gem like that nearby?",
+      "raw_text": "Hey, Minghao! \ud83c\udf1f Just last week, I stumbled upon a hidden art gallery in my neighborhood! It felt like discovering a secret portal. You must come see it sometime, maybe we\u2019ll find some inspiration for the winter fest decoration! Have you ever uncovered an unexpected gem like that nearby?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Hey, Minghao! \ud83d\ude0a I just found a cool little art gallery near me last week. It's like a hidden gem! You should check it out with me sometime\u2014we might get some ideas for the winter fest decorations. Have you ever found something awesome like that around here?",
+      "dia_id": "D3:1"
+    },
+    {
+      "text": "I discovered a serene lake last Friday\u2014perfect for stargazing. It fills me with a profound calmness. \ud83c\udf0a\u2728",
+      "raw_text": "I discovered a serene lake last Friday\u2014perfect for stargazing. It fills me with a profound calmness. \ud83c\udf0a\u2728",
+      "speaker": "Minghao",
+      "clean_text": "Found a chill lake last Friday\u2014great for stargazing. It really calms me down. \ud83c\udf0a\u2728",
+      "dia_id": "D3:2"
+    },
+    {
+      "text": "That's amazing, I love finding peaceful spots. Tell me, did you discover any stars or constellations while stargazing?",
+      "raw_text": "That's amazing, I love finding peaceful spots. Tell me, did you discover any stars or constellations while stargazing?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "That's awesome, I love chill spots. Did you see any cool stars or constellations while stargazing?",
+      "dia_id": "D3:3"
+    },
+    {
+      "text": "The night sparkled with shooting stars and Orion stood out beautifully. ",
+      "raw_text": "The night sparkled with shooting stars and Orion stood out beautifully. ",
+      "speaker": "Minghao",
+      "clean_text": "Shooting stars lit up the night, and Orion looked awesome.",
+      "dia_id": "D3:4"
+    },
+    {
+      "text": "Constellations fascinate me! How magical that must have been, like exploring forgotten stories in the sky. Want to stargaze with me soon?",
+      "raw_text": "Constellations fascinate me! How magical that must have been, like exploring forgotten stories in the sky. Want to stargaze with me soon?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "I love constellations! They're like cool stories in the sky. Want to stargaze with me soon?",
+      "dia_id": "D3:5"
+    },
+    {
+      "text": "Absolutely, I'd love to stargaze with you. [shares a photo of the night sky during last month's meteor shower with Jin] Here's the magic I captured!",
+      "raw_text": "Absolutely, I'd love to stargaze with you. [shares a photo of the night sky during last month's meteor shower with Jin] Here's the magic I captured!",
+      "speaker": "Minghao",
+      "clean_text": "Sure, I'd love to look at the stars with you. Check out what I got!",
+      "dia_id": "D3:6"
+    },
+    {
+      "text": "What's it? I'm curious like a child with a treasure map! \ud83d\ude04 Here, check out this photo of the hidden gallery entrance. [shares a photo of the art gallery door, with quirky artwork illustrations on it] Wasn't it cool?!",
+      "raw_text": "What's it? I'm curious like a child with a treasure map! \ud83d\ude04 Here, check out this photo of the hidden gallery entrance. [shares a photo of the art gallery door, with quirky artwork illustrations on it] Wasn't it cool?!",
+      "speaker": "Xiaoxuan",
+      "clean_text": "What is it? I'm super curious! \ud83d\ude04 Look at this pic of the hidden gallery entrance. Isn't it cool?!",
+      "dia_id": "D3:7"
+    },
+    {
+      "text": "Adventuring into the stars feels poetic and grounding. [Shares a photo of a serene lake under night sky with scattered stars.] Last Friday's beauty\u2014unrivaled!",
+      "raw_text": "Adventuring into the stars feels poetic and grounding. [Shares a photo of a serene lake under night sky with scattered stars.] Last Friday's beauty\u2014unrivaled!",
+      "speaker": "Minghao",
+      "clean_text": "Exploring space feels amazing and down-to-earth. Last Friday was breathtaking!",
+      "dia_id": "D3:8"
+    },
+    {
+      "text": "Good company makes anything feel magical\u2014especially world discovering! Check this gallery's cozy corner, mixing stars with art. \ud83d\ude04 [shares a photo of an art gallery with luminous star-themed exhibits and cozy seats]",
+      "raw_text": "Good company makes anything feel magical\u2014especially world discovering! Check this gallery's cozy corner, mixing stars with art. \ud83d\ude04 [shares a photo of an art gallery with luminous star-themed exhibits and cozy seats]",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Good company makes everything feel magical, especially exploring new places! Check out this gallery's cozy corner with art and stars. \ud83d\ude04",
+      "dia_id": "D3:9"
+    },
+    {
+      "text": "I get that. Reminds me of when Rui and I camped under the stars\u2014felt both full and peaceful. Here's a picture from that night. It meant a lot to me to share that feeling with a close friend. ",
+      "raw_text": "I get that. Reminds me of when Rui and I camped under the stars\u2014felt both full and peaceful. Here's a picture from that night. It meant a lot to me to share that feeling with a close friend. ",
+      "speaker": "Minghao",
+      "clean_text": "Got it. Reminds me of when Rui and I camped out under the stars\u2014felt so full and peaceful. Here's a pic from that night. It was awesome to share that vibe with a good friend.",
+      "dia_id": "D3:10"
+    },
+    {
+      "text": "[shares a photo of the gallery\u2019s small reading nook filled with celestial-themed art] This gallery balances cozy vibes and art. Like daring to imagine. Speaking of imagination, what's your fave stargazing story? \ud83c\udf0c",
+      "raw_text": "[shares a photo of the gallery\u2019s small reading nook filled with celestial-themed art] This gallery balances cozy vibes and art. Like daring to imagine. Speaking of imagination, what's your fave stargazing story? \ud83c\udf0c",
+      "speaker": "Xiaoxuan",
+      "clean_text": "This gallery mixes cozy vibes with art. Got a favorite stargazing story? \ud83c\udf0c",
+      "dia_id": "D3:11"
+    },
+    {
+      "text": "When I was ten, my father and I saw a meteor shower. It sparked my love for the stars. \u2728",
+      "raw_text": "When I was ten, my father and I saw a meteor shower. It sparked my love for the stars. \u2728",
+      "speaker": "Minghao",
+      "clean_text": "When I was 10, my dad and I watched a meteor shower. That's when I started loving stars. \u2728",
+      "dia_id": "D3:12"
+    },
+    {
+      "text": "Stargazing bonded my grandpa and me, too! Found an old picture from one magical night.",
+      "raw_text": "Stargazing bonded my grandpa and me, too! Found an old picture from one magical night.",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Stargazing brought me and grandpa closer! Just found an old pic from a special night.",
+      "dia_id": "D3:13"
+    },
+    {
+      "text": "What a beautiful memory. My grandpa and I used to look for the North Star. [Shares photo of an aged telescope on a desk near potted plants] It feels like he's guiding me even now. His love for the sky was contagious.",
+      "raw_text": "What a beautiful memory. My grandpa and I used to look for the North Star. [Shares photo of an aged telescope on a desk near potted plants] It feels like he's guiding me even now. His love for the sky was contagious.",
+      "speaker": "Minghao",
+      "clean_text": "Great memory! Grandpa and I would search for the North Star. Feels like he's still guiding me. His love for the sky was catchy.",
+      "dia_id": "D3:14"
+    },
+    {
+      "text": "Sometimes memories are timeless gifts, holding onto love and guidance. Do you think your dad would enjoy the art gallery too?",
+      "raw_text": "Sometimes memories are timeless gifts, holding onto love and guidance. Do you think your dad would enjoy the art gallery too?",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Memories last forever. Do you think your dad would like the art gallery too?",
+      "dia_id": "D3:15"
+    },
+    {
+      "text": "He'd enjoy it. He's always appreciated hidden gems and art's calm energy. You\u2019re right by the way. Here\u2019s my dad captured in a gallery trip we had last spring. [shares a photo of a peaceful section in an art gallery with Minghao\u2019s dad fully immersed in a painting.]",
+      "raw_text": "He'd enjoy it. He's always appreciated hidden gems and art's calm energy. You\u2019re right by the way. Here\u2019s my dad captured in a gallery trip we had last spring. [shares a photo of a peaceful section in an art gallery with Minghao\u2019s dad fully immersed in a painting.]",
+      "speaker": "Minghao",
+      "clean_text": "He'd love it. He's always been into hidden gems and chill art vibes. You're right, by the way. Here's my dad from our gallery trip last spring.",
+      "dia_id": "D3:16"
+    },
+    {
+      "text": "That's beautiful! [Uploads a black-and-white photo of young Xiaoxuan and her grandpa stargazing through a telescope] Always cherish such bonds, right? \ud83d\ude0a",
+      "raw_text": "That's beautiful! [Uploads a black-and-white photo of young Xiaoxuan and her grandpa stargazing through a telescope] Always cherish such bonds, right? \ud83d\ude0a",
+      "speaker": "Xiaoxuan",
+      "clean_text": "That's awesome! Always keep those bonds close, okay? \ud83d\ude0a",
+      "dia_id": "D3:17"
+    },
+    {
+      "text": "Xiaoxuan, we should all visit that hidden gallery soon. Dad and creativity go way back, like an endless journey. \ud83c\udfa8[shares a photo from the gallery trip last spring with dad admiring a serene painting]",
+      "raw_text": "Xiaoxuan, we should all visit that hidden gallery soon. Dad and creativity go way back, like an endless journey. \ud83c\udfa8[shares a photo from the gallery trip last spring with dad admiring a serene painting]",
+      "speaker": "Minghao",
+      "clean_text": "Hey Xiaoxuan, let's check out that secret gallery soon. Dad's been into art forever. \ud83c\udfa8",
+      "dia_id": "D3:18"
+    },
+    {
+      "text": "Let's set a date! My fave painting is surreal\u2014it reminds me of nature's wonder when exploring. I have a photo. \ud83d\ude0a",
+      "raw_text": "Let's set a date! My fave painting is surreal\u2014it reminds me of nature's wonder when exploring. I have a photo. \ud83d\ude0a",
+      "speaker": "Xiaoxuan",
+      "clean_text": "Let's pick a day! I love this surreal painting\u2014it makes me think of nature's cool stuff. Got a pic. \ud83d\ude0a",
+      "dia_id": "D3:19"
+    },
+    {
+      "text": "Stars have a simplicity I find deeply calming. Is there any piece that resonated with your adventurous spirit lately at the gallery? \ud83c\udf0c",
+      "raw_text": "Stars have a simplicity I find deeply calming. Is there any piece that resonated with your adventurous spirit lately at the gallery? \ud83c\udf0c",
+      "speaker": "Minghao",
+      "clean_text": "Stars are simple and calming to me. Seen anything cool at the gallery that sparked your adventurous side? \ud83c\udf0c",
+      "dia_id": "D3:20"
+    }
+  ],
+  "session_3_facts": {
+    "Xiaoxuan": [
+      [
+        "Xiaoxuan found a hidden gem art gallery near them last week.",
+        "D3:1"
+      ],
+      [
+        "Xiaoxuan loves constellations and stargazing.",
+        "D3:5"
+      ],
+      [
+        "Xiaoxuan shared a picture of the hidden gallery entrance.",
+        "D3:7"
+      ],
+      [
+        "Xiaoxuan associates good company with magical experiences.",
+        "D3:9"
+      ],
+      [
+        "Stargazing brought Xiaoxuan closer with their grandpa.",
+        "D3:13"
+      ],
+      [
+        "Xiaoxuan found an old picture from a special stargazing night with their grandpa.",
+        "D3:13"
+      ],
+      [
+        "Xiaoxuan has a surreal painting they love, which makes them think of nature's cool stuff.",
+        "D3:19"
+      ]
+    ],
+    "Minghao": [
+      [
+        "Minghao found a chill lake for stargazing last Friday.",
+        "D3:2"
+      ],
+      [
+        "Minghao saw shooting stars and Orion while stargazing.",
+        "D3:4"
+      ],
+      [
+        "Minghao camped out under the stars with their friend Rui and has a picture of that night.",
+        "D3:10"
+      ],
+      [
+        "Minghao watched a meteor shower with their dad when they were 10, which sparked their love for stars.",
+        "D3:12"
+      ],
+      [
+        "Minghao and their grandpa would search for the North Star together.",
+        "D3:14"
+      ],
+      [
+        "Minghao's grandpa had a love for the sky, which was catchy.",
+        "D3:14"
+      ],
+      [
+        "Minghao thinks their dad would love the art gallery because he's into hidden gems and chill art vibes.",
+        "D3:16"
+      ],
+      [
+        "Minghao shared a picture from a gallery trip with their dad last spring.",
+        "D3:16"
+      ],
+      [
+        "Minghao thinks stars are simple and calming.",
+        "D3:20"
+      ]
+    ]
+  },
+  "session_3_summary": "Xiaoxuan and Minghao share a love for nature, art, and exploration, evident in their conversations since August 17, 2022. They bond over past experiences like picnics, skiing trips, and camping, and have plans for future events like a winter fest in December. Recently, Xiaoxuan discovered a hidden art gallery and invited Minghao for inspiration for her fest. Minghao shared his discovery of a serene lake ideal for stargazing, sharing fond memories with family and friends. Both find comfort and guidance from their family memories connected to the stars. They plan to visit the gallery together with Minghao\u2019s dad, who appreciates art. Their talks are filled with shared photos, revealing their passion for art and nature,"
+}

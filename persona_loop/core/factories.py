@@ -3,12 +3,8 @@ from __future__ import annotations
 from typing import Any, Dict, Optional, Type
 
 from persona_loop.agents.base_agent import BaseAgent
-from persona_loop.agents.continuous_agent import ContinuousAgent
-from persona_loop.agents.periodic_remind_agent import PeriodicRemindAgent
-from persona_loop.agents.ppa_agent import PPAAgent
-from persona_loop.agents.persona_loop_agent import PersonaLoopAgent
-from persona_loop.agents.rag_agent import RAGAgent
-from persona_loop.agents.sliding_window_agent import SlidingWindowAgent
+from persona_loop.agents.continuous_agent_v2 import ContinuousAgent
+from persona_loop.agents.persona_loop_agent_v2 import PersonaLoopAgent
 from persona_loop.consistency.base_checker import BaseChecker
 from persona_loop.consistency.deberta_checker import DebertaChecker
 from persona_loop.llm.base_llm import BaseLLM
@@ -22,10 +18,6 @@ from persona_loop.memory.embedding_memory import EmbeddingMemory
 AGENT_REGISTRY: Dict[str, Type[BaseAgent]] = {
     "persona_loop": PersonaLoopAgent,
     "continuous": ContinuousAgent,
-    "periodic_remind": PeriodicRemindAgent,
-    "rag": RAGAgent,
-    "sliding_window": SlidingWindowAgent,
-    "ppa": PPAAgent,
 }
 
 LLM_REGISTRY: Dict[str, Type[BaseLLM]] = {

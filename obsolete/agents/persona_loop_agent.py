@@ -28,7 +28,7 @@ class PersonaLoopAgent(BaseAgent):
     ):
         super().__init__(llm=llm, memory=memory, checker=checker)
         self.loop_interval = max(1, int(loop_interval))
-        self.retrieval_top_k = max(1, int(retrieval_top_k))
+        self.retrieval_top_k = max(0, int(retrieval_top_k))
         self.recent_turns = max(1, int(recent_turns))
         self.nli_threshold = float(nli_threshold)
         self.max_corrections = max(0, int(max_corrections))

@@ -12,3 +12,7 @@ class BaseMemory(ABC):
     @abstractmethod
     def search(self, query: str, top_k: int = 3) -> List[str]:
         raise NotImplementedError
+
+    def reset(self) -> None:
+        """Clear all stored data. Override in subclasses if needed."""
+        pass

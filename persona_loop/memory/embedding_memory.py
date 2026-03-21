@@ -22,6 +22,10 @@ class EmbeddingMemory(BaseMemory):
         self._embeddings: List[np.ndarray] = []
         self._model = None  # lazy-loaded
 
+    def reset(self) -> None:
+        self._store = []
+        self._embeddings = []
+
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
@@ -72,7 +76,7 @@ class EmbeddingMemory(BaseMemory):
         self._embeddings.append(self._embed(normalized))
 
     def search(self, query: str, top_k: int = 3) -> List[str]:
-        if not self._store:
+        if not self._store or top_k <= 0:
             return []
         unique: List[str] = []
         seen: set = set()
@@ -81,6 +85,6 @@ class EmbeddingMemory(BaseMemory):
                 continue
             seen.add(item)
             unique.append(item)
-            if len(unique) >= max(1, top_k):
+            if len(unique) >= top_k:
                 break
         return unique

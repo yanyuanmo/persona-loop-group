@@ -1,0 +1,721 @@
+{
+  "name": "Chenmo",
+  "persona_summary": "Chenmo is a thoughtful and quietly warm young man who grew up valuing imagination, books, and inner life. He tends to observe more than he speaks, but when he says something, people lean in. He processes the world through stories and metaphors, and he has a gentle, dry sense of humor that surprises people who expect him to be serious. He is slow to open up but deeply loyal once he does \u2014 when he calls someone a friend, he means it completely. He cares strongly about fairness and honesty, and quietly stands up for people who aren't being treated right, even when it costs him something. He is deeply empathetic in a low-key, unshowy way, and he has an unusual capacity to sit with someone in their pain without trying to fix it.",
+  "events_start_date": "01 March, 2023",
+  "graph": [
+    {
+      "sub-event": "Chenmo starts writing short stories inspired by his childhood memories.",
+      "date": "5 March, 2023",
+      "id": "E1",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Chenmo helps a colleague who is being treated unfairly at work, quietly advocating for them.",
+      "date": "12 April, 2023",
+      "id": "E2",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Chenmo forms a book club with a few friends, focusing on discussing classic literature.",
+      "date": "20 May, 2023",
+      "id": "E3",
+      "caused_by": []
+    },
+    {
+      "sub-event": "One of Chenmo's short stories wins a local writing contest.",
+      "date": "15 April, 2023",
+      "id": "E4",
+      "caused_by": [
+        "E1"
+      ]
+    },
+    {
+      "sub-event": "Chenmo is invited to speak at a local library event about the importance of literature.",
+      "date": "25 April, 2023",
+      "id": "E5",
+      "caused_by": [
+        "E1",
+        "E3"
+      ]
+    },
+    {
+      "sub-event": "Chenmo's colleague, grateful for his support, becomes one of his closest friends.",
+      "date": "10 May, 2023",
+      "id": "E6",
+      "caused_by": [
+        "E2"
+      ]
+    },
+    {
+      "sub-event": "The book club decides to host a monthly public reading event and invites the community.",
+      "date": "28 May, 2023",
+      "id": "E7",
+      "caused_by": [
+        "E3"
+      ]
+    },
+    {
+      "sub-event": "Chenmo receives positive feedback from one of the attendees at the library event, encouraging him to share more of his stories.",
+      "date": "28 April, 2023",
+      "id": "E8",
+      "caused_by": [
+        "E5"
+      ]
+    },
+    {
+      "sub-event": "Chenmo writes a story based on the experience of quietly supporting his colleague at work.",
+      "date": "18 May, 2023",
+      "id": "E9",
+      "caused_by": [
+        "E2",
+        "E4"
+      ]
+    },
+    {
+      "sub-event": "Chenmo's new friend encourages him to explore writing a novel.",
+      "date": "22 May, 2023",
+      "id": "E10",
+      "caused_by": [
+        "E6",
+        "E9"
+      ]
+    },
+    {
+      "sub-event": "Encouraged by his book club, Chenmo decides to compile his short stories into a collection.",
+      "date": "30 May, 2023",
+      "id": "E11",
+      "caused_by": [
+        "E3",
+        "E8"
+      ]
+    }
+  ],
+  "events_session_1": [
+    {
+      "sub-event": "Chenmo starts writing short stories inspired by his childhood memories.",
+      "date": "5 March, 2023",
+      "id": "E1",
+      "caused_by": []
+    }
+  ],
+  "session_1_date_time": "8:02 pm on 6 March, 2023",
+  "session_1": [
+    {
+      "text": "Hello Chenmo! How was your day? Yesterday, I noticed a cute squirrel at the park; made my day brighter. Do you enjoy watching nature?",
+      "raw_text": "Hello Chenmo! How was your day? Yesterday, I noticed a cute squirrel at the park; made my day brighter. Do you enjoy watching nature?",
+      "speaker": "Yangyang",
+      "clean_text": "Hey Chenmo! How's it going? Saw a cute squirrel at the park yesterday\u2014totally made my day. Do you like checking out nature?",
+      "dia_id": "D1:1"
+    },
+    {
+      "text": "Sometimes I enjoy nature's companionship. I've started writing short stories lately. They remind me of youth exploration. Do you write?",
+      "raw_text": "Sometimes I enjoy nature's companionship. I've started writing short stories lately. They remind me of youth exploration. Do you write?",
+      "speaker": "Chenmo",
+      "clean_text": "I like hanging out in nature and have been writing short stories recently. They bring back memories of exploring as a kid. Do you write?",
+      "dia_id": "D1:2"
+    },
+    {
+      "text": "Oh, absolutely! I jotted down some thoughts while hiking with my dad last Friday. Got any story you're proud of?",
+      "raw_text": "Oh, absolutely! I jotted down some thoughts while hiking with my dad last Friday. Got any story you're proud of?",
+      "speaker": "Yangyang",
+      "clean_text": "Sure thing! I wrote down some notes when I was hiking with my dad last Friday. Do you have any stories you're proud of?",
+      "dia_id": "D1:3"
+    },
+    {
+      "text": "I'm working on one about summer adventures from when I was ten. Do childhood adventures inspire you, too?",
+      "raw_text": "I'm working on one about summer adventures from when I was ten. Do childhood adventures inspire you, too?",
+      "speaker": "Chenmo",
+      "clean_text": "I'm working on one about summer adventures from when I was ten. Do childhood adventures inspire you too?",
+      "dia_id": "D1:4"
+    },
+    {
+      "text": "Oh absolutely! Playing in the rain with my cousins, laughing till our sides hurt\u2014childhood memories are magical! [shares a scanned photo of giggling children in the rain, everyone soaked and joyful] Do you use your stories to relive those moments?",
+      "raw_text": "Oh absolutely! Playing in the rain with my cousins, laughing till our sides hurt\u2014childhood memories are magical! [shares a scanned photo of giggling children in the rain, everyone soaked and joyful] Do you use your stories to relive those moments?",
+      "speaker": "Yangyang",
+      "clean_text": "Definitely! Playing in the rain with my cousins and laughing like crazy\u2014childhood memories are awesome! Do you ever use your stories to relive those times?",
+      "dia_id": "D1:5"
+    },
+    {
+      "text": "Sometimes stories feel like looking through an old photo album. [Paul, my childhood best friend, is with me beside a stream.] Do you remember your favorite childhood spot?",
+      "raw_text": "Sometimes stories feel like looking through an old photo album. [Paul, my childhood best friend, is with me beside a stream.] Do you remember your favorite childhood spot?",
+      "speaker": "Chenmo",
+      "clean_text": "Stories can be like flipping through an old photo album. Remember your favorite childhood hangout?",
+      "dia_id": "D1:6"
+    },
+    {
+      "text": "Oh, there's this big oak tree in our backyard where I'd swing all summer long. I miss it! What about you? Any favorite spots?",
+      "raw_text": "Oh, there's this big oak tree in our backyard where I'd swing all summer long. I miss it! What about you? Any favorite spots?",
+      "speaker": "Yangyang",
+      "clean_text": "There's a big oak tree in our backyard where I'd swing all summer. I miss it! Do you have a favorite spot?",
+      "dia_id": "D1:7"
+    },
+    {
+      "text": "When I was little, a meadow near my home felt magical. Ever seen sunsets in places you've wandered?",
+      "raw_text": "When I was little, a meadow near my home felt magical. Ever seen sunsets in places you've wandered?",
+      "speaker": "Chenmo",
+      "clean_text": "As a kid, the meadow by my house felt magical. Have you ever watched a sunset in a cool spot you found?",
+      "dia_id": "D1:8"
+    },
+    {
+      "text": "Yes! Watched stunning sunsets when alongside my mom in a sunflower field. [shared a photo of a vibrant sunset amidst golden sunflowers, casting a warm glow over a gentle silhouette] Do you photograph these moments?",
+      "raw_text": "Yes! Watched stunning sunsets when alongside my mom in a sunflower field. [shared a photo of a vibrant sunset amidst golden sunflowers, casting a warm glow over a gentle silhouette] Do you photograph these moments?",
+      "speaker": "Yangyang",
+      "clean_text": "Yes! I saw amazing sunsets with my mom in a sunflower field. Do you take photos of stuff like that?",
+      "dia_id": "D1:9"
+    },
+    {
+      "text": "Sunrises more than sunsets. Here's one from last August at the lake. [shares a serene photo capturing the calm slice of a rosy dawn over a quiet, reflective lake] Do you keep any sunset photos?",
+      "raw_text": "Sunrises more than sunsets. Here's one from last August at the lake. [shares a serene photo capturing the calm slice of a rosy dawn over a quiet, reflective lake] Do you keep any sunset photos?",
+      "speaker": "Chenmo",
+      "clean_text": "I prefer sunrises over sunsets. Here's one from last August at the lake. Got any sunset pics?",
+      "dia_id": "D1:10"
+    },
+    {
+      "text": "Here's one taken on a hiking trip with my dad. The colors were magical! ",
+      "raw_text": "Here's one taken on a hiking trip with my dad. The colors were magical! ",
+      "speaker": "Yangyang",
+      "clean_text": "Here's one from a hike with my dad. The colors were amazing!",
+      "dia_id": "D1:11"
+    },
+    {
+      "text": "Looks incredible. Here's a fellow sunrise another morning after rain, the clouds converse poetically. What stories, I wonder?",
+      "raw_text": "Looks incredible. Here's a fellow sunrise another morning after rain, the clouds converse poetically. What stories, I wonder?",
+      "speaker": "Chenmo",
+      "clean_text": "Looks amazing. Here's another sunrise after the rain, and the clouds look like they're chatting. What stories are they telling?",
+      "dia_id": "D1:12"
+    },
+    {
+      "text": "[shares a photo of a peaceful skyline at sunset, with vibrant pinks and oranges painting the sky]",
+      "raw_text": "[shares a photo of a peaceful skyline at sunset, with vibrant pinks and oranges painting the sky]",
+      "speaker": "Yangyang",
+      "clean_text": "Watching this sunset always calms me. The pinks and oranges are amazing!",
+      "dia_id": "D1:13"
+    },
+    {
+      "text": "That sunset makes me think of cherished friends and heartfelt conversations. Could you relive a treasured moment in the greenery?",
+      "raw_text": "That sunset makes me think of cherished friends and heartfelt conversations. Could you relive a treasured moment in the greenery?",
+      "speaker": "Chenmo",
+      "clean_text": "That sunset reminds me of good times with friends. Want to hang out in the park again?",
+      "dia_id": "D1:14"
+    },
+    {
+      "text": "I\u2019d love to! Let\u2019s catch a sunrise together next weekend? Little bird visitors join sometimes. Do you like early mornings?",
+      "raw_text": "I\u2019d love to! Let\u2019s catch a sunrise together next weekend? Little bird visitors join sometimes. Do you like early mornings?",
+      "speaker": "Yangyang",
+      "clean_text": "Sure! How about catching a sunrise next weekend? Sometimes we get little birds visiting too. Are you into early mornings?",
+      "dia_id": "D1:15"
+    },
+    {
+      "text": "I'm oddly fond of early mornings. Clouds resemble story characters. Do you think birds have their own tales they'd share?",
+      "raw_text": "I'm oddly fond of early mornings. Clouds resemble story characters. Do you think birds have their own tales they'd share?",
+      "speaker": "Chenmo",
+      "clean_text": "I love early mornings; clouds look like story characters. Do you think birds have their own stories to tell?",
+      "dia_id": "D1:16"
+    },
+    {
+      "text": "Birds absolutely have stories! Watching them flit about is fascinating. [Shares a photo of a small bird perched on a window sill with morning sunshine pouring in.] Do you often watch them? [END]",
+      "raw_text": "Birds absolutely have stories! Watching them flit about is fascinating. [Shares a photo of a small bird perched on a window sill with morning sunshine pouring in.] Do you often watch them? [END]",
+      "speaker": "Yangyang",
+      "clean_text": "Birds absolutely have stories! Watching them flit about is fascinating.  Do you often watch them? ",
+      "dia_id": "D1:17"
+    },
+    {
+      "text": "I watch birds occasionally, contemplating their life's parallels with ours. Share any bird photos from your last outing? ",
+      "raw_text": "I watch birds occasionally, contemplating their life's parallels with ours. Share any bird photos from your last outing? ",
+      "speaker": "Chenmo",
+      "clean_text": "I sometimes watch birds and think about how their lives are like ours. Got any bird pics from your last trip?",
+      "dia_id": "D1:18"
+    },
+    {
+      "text": "When I was at the park, I saw this playful little sparrow hopping around\u2014it's so cute! [shares photo of a small sparrow with head tilted playfully] Ever come across something while birdwatching that surprises you?",
+      "raw_text": "When I was at the park, I saw this playful little sparrow hopping around\u2014it's so cute! [shares photo of a small sparrow with head tilted playfully] Ever come across something while birdwatching that surprises you?",
+      "speaker": "Yangyang",
+      "clean_text": "Saw a cute sparrow hopping around at the park. Ever see something surprising while birdwatching?",
+      "dia_id": "D1:19"
+    },
+    {
+      "text": "Once, I saw a hawk perched nearby. Its majesty was unexpected. Ever seen scene-stealers like that while out? [END]",
+      "raw_text": "Once, I saw a hawk perched nearby. Its majesty was unexpected. Ever seen scene-stealers like that while out? [END]",
+      "speaker": "Chenmo",
+      "clean_text": "Once, I saw a hawk perched nearby. Its majesty was unexpected. Ever seen scene-stealers like that while out? ",
+      "dia_id": "D1:20"
+    }
+  ],
+  "session_1_facts": {
+    "Yangyang": [
+      [
+        "Yangyang saw a cute squirrel at the park recently.",
+        "D1:1"
+      ],
+      [
+        "Yangyang wrote down notes after hiking with their dad last Friday.",
+        "D1:3"
+      ],
+      [
+        "Yangyang's favorite childhood hangout was a big oak tree in their backyard where they would swing all summer.",
+        "D1:7"
+      ],
+      [
+        "Yangyang has seen amazing sunsets with their mom in a sunflower field.",
+        "D1:9"
+      ],
+      [
+        "Yangyang prefers calming sunsets with pinks and oranges.",
+        "D1:13"
+      ],
+      [
+        "Yangyang suggested catching a sunrise next weekend in the park.",
+        "D1:15"
+      ],
+      [
+        "Yangyang thinks birds have their own stories and finds watching them fascinating.",
+        "D1:17"
+      ],
+      [
+        "Yangyang saw a cute sparrow hopping around the park recently.",
+        "D1:19"
+      ]
+    ],
+    "Chenmo": [
+      [
+        "Chenmo likes hanging out in nature and has been writing short stories recently.",
+        "D1:2"
+      ],
+      [
+        "Chenmo is working on a story about summer adventures during childhood.",
+        "D1:4"
+      ],
+      [
+        "Chenmo's favorite childhood spot was a meadow by their house.",
+        "D1:8"
+      ],
+      [
+        "Chenmo prefers sunrises over sunsets.",
+        "D1:10"
+      ],
+      [
+        "Chenmo loves early mornings and enjoys thinking about clouds as story characters.",
+        "D1:16"
+      ],
+      [
+        "Chenmo sometimes watches birds and thinks of their lives as being similar to human lives.",
+        "D1:18"
+      ],
+      [
+        "Chenmo once saw a hawk perched nearby while birdwatching.",
+        "D1:20"
+      ]
+    ]
+  },
+  "session_1_summary": "On 8:02 pm on 6 March, 2023, Yangyang and Chenmo had a conversation reflecting on their appreciation for nature and their childhood memories. Yangyang mentioned a memorable moment of seeing a cute squirrel in the park and shared experiences of playing in the rain with cousins. Chenmo talked about writing short stories inspired by childhood adventures and described a favorite meadow near his home. They exchanged photos of sunrises and sunsets, recalling favorite outdoor spots and memorable views. Both enjoyed birdwatching, with Yangyang sharing a photo of a sparrow and Chenmo recounting an encounter with a hawk. They also discussed the idea of meeting to watch a sunrise together.",
+  "events_session_2": [],
+  "session_2_date_time": "2:46 pm on 17 March, 2023",
+  "session_2": [
+    {
+      "text": "Hey Yangyang, how have you been since our chat? I recently revisited some of my old stories with unexpected laughter\u2014my childhood adventures were wildly imaginative, and has sparked an itch to write again. Would you want to read one sometime? So glad I saved them in a little old leather journal I rediscovered while tidying. It was like finding a hidden part of me. You might see in me a little bit of the adventurous child I used to be. Did the squirrel's cutest antics",
+      "raw_text": "Hey Yangyang, how have you been since our chat? I recently revisited some of my old stories with unexpected laughter\u2014my childhood adventures were wildly imaginative, and has sparked an itch to write again. Would you want to read one sometime? So glad I saved them in a little old leather journal I rediscovered while tidying. It was like finding a hidden part of me. You might see in me a little bit of the adventurous child I used to be. Did the squirrel's cutest antics",
+      "speaker": "Chenmo",
+      "clean_text": "Hey Yangyang, how's it going since we last talked? I found my old stories and they're kinda funny. I think I might start writing again. Want to check them out sometime? So glad I found that old leather journal while cleaning; brought back some cool memories. Remember that funny squirrel?",
+      "dia_id": "D2:1"
+    },
+    {
+      "text": "It\u2019s been joyful indeed, Chenmo! I threw a surprise birthday party for my friend this week, filled with laughter. \ud83d\ude0a It reminded me how simple gatherings weave magic. I'd love to read your stories. How\u2019s your journal illuminating the past?",
+      "raw_text": "It\u2019s been joyful indeed, Chenmo! I threw a surprise birthday party for my friend this week, filled with laughter. \ud83d\ude0a It reminded me how simple gatherings weave magic. I'd love to read your stories. How\u2019s your journal illuminating the past?",
+      "speaker": "Yangyang",
+      "clean_text": "It's been awesome, Chenmo! I surprised my friend with a birthday party and we had such a blast. \ud83d\ude0a It's cool how little get-togethers can be so special. Tell me about your journal\u2014how's it helping you look back?",
+      "dia_id": "D2:2"
+    },
+    {
+      "text": "It's a treasure trove of nostalgia. Here's a peek inside my journal, from adventures with a young heart. [shares a photo of an open leather journal with sketches and short story notes scattered on yellowed pages]. Have recent events transformed your notes in any way?",
+      "raw_text": "It's a treasure trove of nostalgia. Here's a peek inside my journal, from adventures with a young heart. [shares a photo of an open leather journal with sketches and short story notes scattered on yellowed pages]. Have recent events transformed your notes in any way?",
+      "speaker": "Chenmo",
+      "clean_text": "Take a look inside my journal for some nostalgic memories. Have recent events changed your notes at all?",
+      "dia_id": "D2:3"
+    },
+    {
+      "text": "Oh, absolutely. During the party, I felt so grateful and jotted down about those joyful moments we often overlook. Have to send heartfelt messages to friends like you more often. I'll share thoughts from its pages sometime! You've always inspired my journaling with your stories.<|disc_score|>1",
+      "raw_text": "Oh, absolutely. During the party, I felt so grateful and jotted down about those joyful moments we often overlook. Have to send heartfelt messages to friends like you more often. I'll share thoughts from its pages sometime! You've always inspired my journaling with your stories.<|disc_score|>1",
+      "speaker": "Yangyang",
+      "clean_text": "Yeah, totally! At the party, I felt thankful and made notes about happy moments we usually miss. I need to text friends like you more often. I'll share some stuff from my notes soon! Your stories always get me into journaling.",
+      "dia_id": "D2:4"
+    },
+    {
+      "text": "You know, your surprise party sounds wonderful; it's these moments that remind us to cherish everyday joys. I recently reread a story I wrote about walking in the meadow at sunset, and it surprised me how vivid those older memories felt. [Shares a sepia-tinted photograph of a sunset over the meadow from years ago]. Seeing this again makes me wonder about the moments that stick with us. Since the party, what other little details have been standing out for you?",
+      "raw_text": "You know, your surprise party sounds wonderful; it's these moments that remind us to cherish everyday joys. I recently reread a story I wrote about walking in the meadow at sunset, and it surprised me how vivid those older memories felt. [Shares a sepia-tinted photograph of a sunset over the meadow from years ago]. Seeing this again makes me wonder about the moments that stick with us. Since the party, what other little details have been standing out for you?",
+      "speaker": "Chenmo",
+      "clean_text": "Your surprise party sounds great! It's moments like those that remind us to enjoy the little things. I reread a story I wrote about walking in the meadow at sunset, and it was crazy how clear it all felt. What other small moments have you noticed since the party?",
+      "dia_id": "D2:5"
+    },
+    {
+      "text": "I noticed cooking together feels so heartwarming. [shares a photo of peeling lemons for lemon tarts] Baking lemon tarts with them brought us closer. Have you tried baking lately?",
+      "raw_text": "I noticed cooking together feels so heartwarming. [shares a photo of peeling lemons for lemon tarts] Baking lemon tarts with them brought us closer. Have you tried baking lately?",
+      "speaker": "Yangyang",
+      "clean_text": "Cooking together is such a nice bonding experience. Making lemon tarts with them made us closer. Have you baked anything recently?",
+      "dia_id": "D2:6"
+    },
+    {
+      "text": "No baking lately, but your lemon tarts remind me of an almond cake I made with grandma. Any favorite recipes?",
+      "raw_text": "No baking lately, but your lemon tarts remind me of an almond cake I made with grandma. Any favorite recipes?",
+      "speaker": "Chenmo",
+      "clean_text": "Haven\u2019t baked in a while, but your lemon tarts make me think of an almond cake I made with grandma. Got any favorite recipes?",
+      "dia_id": "D2:7"
+    },
+    {
+      "text": "That sounds wonderful! I love making dumplings with my mom; it's both beautiful and delicious.",
+      "raw_text": "That sounds wonderful! I love making dumplings with my mom; it's both beautiful and delicious.",
+      "speaker": "Yangyang",
+      "clean_text": "Sounds great! I love making dumplings with my mom; it's fun and tasty.",
+      "dia_id": "D2:8"
+    },
+    {
+      "text": "Spending Sundays making homemade dumplings sounds delightful. My grandma and I experimented once with mooncakes. Remembering the laughs over imperfect shapes.",
+      "raw_text": "Spending Sundays making homemade dumplings sounds delightful. My grandma and I experimented once with mooncakes. Remembering the laughs over imperfect shapes.",
+      "speaker": "Chenmo",
+      "clean_text": "Making dumplings on Sundays is a blast. One time, Grandma and I tried mooncakes and just laughed at our wonky shapes.",
+      "dia_id": "D2:9"
+    },
+    {
+      "text": "That sounds delightful! Last Sunday, I tried a new dumpling recipe with my mom, it brought back childhood memories. \ud83d\ude0a Have any favorite filling combinations?",
+      "raw_text": "That sounds delightful! Last Sunday, I tried a new dumpling recipe with my mom, it brought back childhood memories. \ud83d\ude0a Have any favorite filling combinations?",
+      "speaker": "Yangyang",
+      "clean_text": "Sounds great! I made dumplings with my mom last Sunday, and it reminded me of being a kid. \ud83d\ude0a Got any favorite fillings?",
+      "dia_id": "D2:10"
+    },
+    {
+      "text": "Pork, shrimp, and green onion filling are my favorite. Always reminds me of grandma sharing stories as we cooked. How about you?",
+      "raw_text": "Pork, shrimp, and green onion filling are my favorite. Always reminds me of grandma sharing stories as we cooked. How about you?",
+      "speaker": "Chenmo",
+      "clean_text": "I love pork, shrimp, and green onion dumplings. They remind me of cooking with my grandma and hearing her stories. What about you?",
+      "dia_id": "D2:11"
+    },
+    {
+      "text": "My favorite is cabbage and mushroom, reminding me of childhood snacks. When did your grandma start teaching you? \ud83d\ude0a",
+      "raw_text": "My favorite is cabbage and mushroom, reminding me of childhood snacks. When did your grandma start teaching you? \ud83d\ude0a",
+      "speaker": "Yangyang",
+      "clean_text": "I love cabbage and mushroom; they remind me of snacks from when I was a kid. When did your grandma start teaching you? \ud83d\ude0a",
+      "dia_id": "D2:12"
+    },
+    {
+      "text": "Oh, I began cooking with her when I was around eight. Her stories connected past generations. Got inspired, searched the pillow photos. [shares a photo of an old wooded path with lush greenery from his childhood] Memories, nostalgic meadows visited from three years ago, remember how different sunsets felt lines of sighing clouds, evergreen stories began sharing certainty ending places. What do you think of these pillows now?",
+      "raw_text": "Oh, I began cooking with her when I was around eight. Her stories connected past generations. Got inspired, searched the pillow photos. [shares a photo of an old wooded path with lush greenery from his childhood] Memories, nostalgic meadows visited from three years ago, remember how different sunsets felt lines of sighing clouds, evergreen stories began sharing certainty ending places. What do you think of these pillows now?",
+      "speaker": "Chenmo",
+      "clean_text": "I started cooking with her when I was about eight. Her stories linked us to the past. I got inspired and checked out the pillow photos. Memories took me back to those nostalgic times three years ago, like how sunsets used to feel under those clouds. What do you think of these pillows now?",
+      "dia_id": "D2:13"
+    },
+    {
+      "text": "I adore those warm sunset dreams. And lately, I've been finding peace in them after long days. Have you felt nostalgic, too? I've got my sunflower field sunsets saved; they glow life\u2019s simplicities brightly. [Shares a photo of a sunset in a sunflower field, hues of orange and pink reflecting in the sky.]",
+      "raw_text": "I adore those warm sunset dreams. And lately, I've been finding peace in them after long days. Have you felt nostalgic, too? I've got my sunflower field sunsets saved; they glow life\u2019s simplicities brightly. [Shares a photo of a sunset in a sunflower field, hues of orange and pink reflecting in the sky.]",
+      "speaker": "Yangyang",
+      "clean_text": "I love those cozy sunset dreams. Lately, they've been my chill spot after busy days. Feeling nostalgic, too? I've saved my sunflower field sunsets; they keep things simple and bright.",
+      "dia_id": "D2:14"
+    },
+    {
+      "text": "Oh, that's wonderful! Sunflower field sunsets must have their own magic. [shares a calming photo of an old pair of reading glasses resting atop a hardcover book on sunlight-dappled pages.] This vibe reminds me of gentle mornings. Gardening lately or indulging quirky stories, Yangyang? \ud83c\udf3b",
+      "raw_text": "Oh, that's wonderful! Sunflower field sunsets must have their own magic. [shares a calming photo of an old pair of reading glasses resting atop a hardcover book on sunlight-dappled pages.] This vibe reminds me of gentle mornings. Gardening lately or indulging quirky stories, Yangyang? \ud83c\udf3b",
+      "speaker": "Chenmo",
+      "clean_text": "Wow, that's awesome! Sunflower field sunsets are really something special. They feel like chill mornings. Been gardening lately or diving into any fun stories, Yangyang? \ud83c\udf3b",
+      "dia_id": "D2:15"
+    },
+    {
+      "text": "Haven't gardened much lately, but reading a cozy mystery\u2014it's relaxing after office chaos. Got book recommendations? \ud83d\ude0a[shares a photo of a warm string-lit reading nook with books]",
+      "raw_text": "Haven't gardened much lately, but reading a cozy mystery\u2014it's relaxing after office chaos. Got book recommendations? \ud83d\ude0a[shares a photo of a warm string-lit reading nook with books]",
+      "speaker": "Yangyang",
+      "clean_text": "Haven't done much gardening lately, but I'm chilling with a cozy mystery after work craziness. Got any book recs? \ud83d\ude0a",
+      "dia_id": "D2:16"
+    },
+    {
+      "text": "I've been diving into \"The Overstory\" by Richard Powers, it's fascinating and intertwined with nature and interwoven lives. Any intriguing reads? \ud83d\udcda",
+      "raw_text": "I've been diving into \"The Overstory\" by Richard Powers, it's fascinating and intertwined with nature and interwoven lives. Any intriguing reads? \ud83d\udcda",
+      "speaker": "Chenmo",
+      "clean_text": "I'm reading \"The Overstory\" by Richard Powers\u2014super cool and all about nature and people's lives. Got any good book recs? \ud83d\udcda",
+      "dia_id": "D2:17"
+    },
+    {
+      "text": "I just finished \"The Night Circus\" by Erin Morgenstern. It's magical and lets my imagination roam. Got similar favorites? \ud83c\udfa9\u2728",
+      "raw_text": "I just finished \"The Night Circus\" by Erin Morgenstern. It's magical and lets my imagination roam. Got similar favorites? \ud83c\udfa9\u2728",
+      "speaker": "Yangyang",
+      "clean_text": "I just finished \"The Night Circus\" by Erin Morgenstern. It's magical and lets my imagination roam. Got similar faves? \ud83c\udfa9\u2728",
+      "dia_id": "D2:18"
+    },
+    {
+      "text": "\"Alice Hoffman's 'The Night Bookstore' spins magic in everyday life too. When did imagination transform a mundane day for you?\"",
+      "raw_text": "\"Alice Hoffman's 'The Night Bookstore' spins magic in everyday life too. When did imagination transform a mundane day for you?\"",
+      "speaker": "Chenmo",
+      "clean_text": "Alice Hoffman's 'The Night Bookstore' adds some magic to normal life. When was a regular day turned into something special for you?",
+      "dia_id": "D2:19"
+    },
+    {
+      "text": "Just last Friday, I felt pure joy seeing a friend's newborn. \ud83d\ude0a Babies change everything\u2014do you recall when your family expanded?",
+      "raw_text": "Just last Friday, I felt pure joy seeing a friend's newborn. \ud83d\ude0a Babies change everything\u2014do you recall when your family expanded?",
+      "speaker": "Yangyang",
+      "clean_text": "Saw my friend's new baby last Friday, and it was awesome! \ud83d\ude0a Remember when your family got bigger?",
+      "dia_id": "D2:20"
+    }
+  ],
+  "session_2_facts": {
+    "Chenmo": [
+      [
+        "Chenmo found an old leather journal while cleaning which brought back memories.",
+        "D2:1"
+      ],
+      [
+        "Chenmo is considering starting to write stories again after finding his old stories.",
+        "D2:1"
+      ],
+      [
+        "Chenmo shared a memory of making an almond cake with his grandma as a baking highlight.",
+        "D2:7"
+      ],
+      [
+        "Chenmo enjoys making dumplings, especially on Sundays, and recalled a moment making mooncakes with his grandma.",
+        "D2:9"
+      ],
+      [
+        "Chenmo's favorite dumpling fillings are pork, shrimp, and green onion, and they remind him of cooking with his grandma.",
+        "D2:11"
+      ],
+      [
+        "Chenmo started cooking with his grandma when he was about eight years old.",
+        "D2:13"
+      ],
+      [
+        "Chenmo is currently reading \"The Overstory\" by Richard Powers, which is about nature and people's lives.",
+        "D2:17"
+      ],
+      [
+        "Chenmo recommends 'The Night Bookstore' by Alice Hoffman for its magical take on normal life.",
+        "D2:19"
+      ]
+    ],
+    "Yangyang": [
+      [
+        "Yangyang surprised a friend with a birthday party recently.",
+        "D2:2"
+      ],
+      [
+        "Yangyang cooked lemon tarts during the party, which was a bonding experience.",
+        "D2:6"
+      ],
+      [
+        "Yangyang loves making dumplings with his mom, considering it fun and tasty.",
+        "D2:8"
+      ],
+      [
+        "Yangyang's favorite dumpling fillings are cabbage and mushroom, which remind him of childhood snacks.",
+        "D2:12"
+      ],
+      [
+        "Yangyang recently saw his friend's new baby last Friday, which he found awesome.",
+        "D2:20"
+      ],
+      [
+        "Yangyang finished reading \"The Night Circus\" by Erin Morgenstern, described as magical.",
+        "D2:18"
+      ]
+    ]
+  },
+  "session_2_summary": "Yangyang and Chenmo have been reminiscing about their childhood and sharing their love for nature, storytelling, and cherished moments. Previously, they discussed a memorable squirrel encounter, played in the rain, and their shared interest in birdwatching. They considered meeting to watch a sunrise together. In their recent conversation on 17 March 2023, Chenmo revisited his childhood stories and shared insights from his leather journal, while Yangyang expressed joy from throwing a surprise birthday party. They talked about baking, sharing favorite recipes like dumplings and mooncakes. Yangyang marveled at a newborn visit, finding joy in life\u2019s simple pleasures. Both exchanged beautiful photos of sunsets and reading nooks, while recommending books that inspire imagination. Throughout their conversations",
+  "events_session_3": [],
+  "session_3_date_time": "8:23 pm on 19 March, 2023",
+  "session_3": [
+    {
+      "text": "Hey Yangyang, I've been treasuring your recipe for mooncakes. Reminded me of days learning from Grandma. [shares a photo of his Grandma delicately forming mooncakes in the kitchen as a young Chenmo watches at the table beside] How about you? Have any cooking memories that stand out?",
+      "raw_text": "Hey Yangyang, I've been treasuring your recipe for mooncakes. Reminded me of days learning from Grandma. [shares a photo of his Grandma delicately forming mooncakes in the kitchen as a young Chenmo watches at the table beside] How about you? Have any cooking memories that stand out?",
+      "speaker": "Chenmo",
+      "clean_text": "Hey Yangyang, I've been loving your mooncake recipe. Reminds me of Grandma's cooking sessions. Got any cooking stories that stick out?",
+      "dia_id": "D3:1"
+    },
+    {
+      "text": "On 18 March, I comforted a friend in tough times. Seeing joy prevail reminded me of my mom's dumpling lessons\u2019 warmth.",
+      "raw_text": "On 18 March, I comforted a friend in tough times. Seeing joy prevail reminded me of my mom's dumpling lessons\u2019 warmth.",
+      "speaker": "Yangyang",
+      "clean_text": "On March 18, I cheered up a friend. It felt like the cozy vibe from my mom's dumpling lessons.",
+      "dia_id": "D3:2"
+    },
+    {
+      "text": "That's beautiful, Yangyang. Cooking can be like a hug for the soul. Ever find a dish that means more than it seems? ",
+      "raw_text": "That's beautiful, Yangyang. Cooking can be like a hug for the soul. Ever find a dish that means more than it seems? ",
+      "speaker": "Chenmo",
+      "clean_text": "That's awesome, Yangyang. Cooking can be comforting. Have you ever found a dish that feels extra special?",
+      "dia_id": "D3:3"
+    },
+    {
+      "text": "Cooking does comfort me. Making cabbage and mushroom dumplings with Mom brings a warm sense of childhood security. Any such dishes for you?",
+      "raw_text": "Cooking does comfort me. Making cabbage and mushroom dumplings with Mom brings a warm sense of childhood security. Any such dishes for you?",
+      "speaker": "Yangyang",
+      "clean_text": "Cooking makes me feel cozy. Making cabbage and mushroom dumplings with Mom reminds me of being a kid. Do you have any dishes like that?",
+      "dia_id": "D3:4"
+    },
+    {
+      "text": "Yes, making my grandma's pork and shrimp dumplings has always provided me comfort and connection. Her laughter filled the kitchen. Do you have a favorite memory cooking with your mom?",
+      "raw_text": "Yes, making my grandma's pork and shrimp dumplings has always provided me comfort and connection. Her laughter filled the kitchen. Do you have a favorite memory cooking with your mom?",
+      "speaker": "Chenmo",
+      "clean_text": "I love making my grandma's pork and shrimp dumplings\u2014it always makes me feel at home. Her laughter filled the kitchen. Do you have a favorite memory of cooking with your mom?",
+      "dia_id": "D3:5"
+    },
+    {
+      "text": "On one rainy afternoon, my mom taught me the art of folding dumpling wrappers beautifully. I felt treasured. And you?",
+      "raw_text": "On one rainy afternoon, my mom taught me the art of folding dumpling wrappers beautifully. I felt treasured. And you?",
+      "speaker": "Yangyang",
+      "clean_text": "One rainy day, my mom showed me how to fold dumplings prettily. Felt special. How about you?",
+      "dia_id": "D3:6"
+    },
+    {
+      "text": "My treasured memory is a Moon Festival night when Grandma and I made mooncakes under lanterns. Such warmth. Do you think the art of cooking transfers love across time?",
+      "raw_text": "My treasured memory is a Moon Festival night when Grandma and I made mooncakes under lanterns. Such warmth. Do you think the art of cooking transfers love across time?",
+      "speaker": "Chenmo",
+      "clean_text": "I cherish making mooncakes with Grandma during the Moon Festival. Do you think cooking shows love over time?",
+      "dia_id": "D3:7"
+    },
+    {
+      "text": "I absolutely do. Cooking with someone creates shared memories and closeness, much like comforting a friend. How does food connect for you?",
+      "raw_text": "I absolutely do. Cooking with someone creates shared memories and closeness, much like comforting a friend. How does food connect for you?",
+      "speaker": "Yangyang",
+      "clean_text": "Yes, totally! Cooking together helps build memories and bonds, kinda like being there for a friend. What does food mean to you?",
+      "dia_id": "D3:8"
+    },
+    {
+      "text": "It\u2019s storytelling made edible\u2014bringing joy and comfort. Here\u2019s Grandma teaching me dumplings in our small kitchen. [shares a photo of young Chenmo kneading dough with grandma, flour dust in the air]",
+      "raw_text": "It\u2019s storytelling made edible\u2014bringing joy and comfort. Here\u2019s Grandma teaching me dumplings in our small kitchen. [shares a photo of young Chenmo kneading dough with grandma, flour dust in the air]",
+      "speaker": "Chenmo",
+      "clean_text": "It's like storytelling you can eat\u2014happy and cozy. That's Grandma showing me how to make dumplings in our tiny kitchen.",
+      "dia_id": "D3:9"
+    },
+    {
+      "text": "Food truly is storytelling you can eat. I have a comforting photo of my friend smiling after I made her favorite dumplings.",
+      "raw_text": "Food truly is storytelling you can eat. I have a comforting photo of my friend smiling after I made her favorite dumplings.",
+      "speaker": "Yangyang",
+      "clean_text": "Food tells a story you can eat. I have a comforting photo of my friend grinning after I made her favorite dumplings.",
+      "dia_id": "D3:10"
+    },
+    {
+      "text": "I found an old photo of Grandma and me making dumplings. Moments like these really shaped my heart. ",
+      "raw_text": "I found an old photo of Grandma and me making dumplings. Moments like these really shaped my heart. ",
+      "speaker": "Chenmo",
+      "clean_text": "Found an old pic of me and Grandma making dumplings. Memories like that mean a lot to me.",
+      "dia_id": "D3:11"
+    },
+    {
+      "text": "That's precious, Chenmo! Those moments with Grandma sound like treasures. I adore this pic of my mom inspiring creativity with dumplings.",
+      "raw_text": "That's precious, Chenmo! Those moments with Grandma sound like treasures. I adore this pic of my mom inspiring creativity with dumplings.",
+      "speaker": "Yangyang",
+      "clean_text": "That's awesome, Chenmo! Those times with Grandma are special. Love this pic of my mom making dumplings fun.",
+      "dia_id": "D3:12"
+    },
+    {
+      "text": "When my grandma made mooncakes, her hands moved rhythmically. They tell a tale of grace. [shares an old photo of Grandma\u2019s hands skillfully shaping mooncake dough around a bean paste filling, the kitchen bright and cluttered with celebration ingredients.] Do the rhythms of cooking bring you moments of calm too?",
+      "raw_text": "When my grandma made mooncakes, her hands moved rhythmically. They tell a tale of grace. [shares an old photo of Grandma\u2019s hands skillfully shaping mooncake dough around a bean paste filling, the kitchen bright and cluttered with celebration ingredients.] Do the rhythms of cooking bring you moments of calm too?",
+      "speaker": "Chenmo",
+      "clean_text": "When my grandma made mooncakes, her hands moved smoothly. Do you find cooking calming too?",
+      "dia_id": "D3:13"
+    },
+    {
+      "text": "Stirring soup or folding dumplings, I find it meditative. Here's me peacefully making lemon tarts last week! [shares a photo of lemon tarts beginning to bake on a tray in the oven].",
+      "raw_text": "Stirring soup or folding dumplings, I find it meditative. Here's me peacefully making lemon tarts last week! [shares a photo of lemon tarts beginning to bake on a tray in the oven].",
+      "speaker": "Yangyang",
+      "clean_text": "Making soup or dumplings calms me. Check me out chilling with lemon tarts last week!",
+      "dia_id": "D3:14"
+    },
+    {
+      "text": "That sounds wonderful, Yangyang. Cooking brings warmth. Yesterday, I attempted a new stew recipe and felt slightly overwhelmed. Ever felt that way in the kitchen?",
+      "raw_text": "That sounds wonderful, Yangyang. Cooking brings warmth. Yesterday, I attempted a new stew recipe and felt slightly overwhelmed. Ever felt that way in the kitchen?",
+      "speaker": "Chenmo",
+      "clean_text": "That sounds great, Yangyang. Cooking is cozy. I tried a new stew yesterday and it was a bit much. Ever feel like that when cooking?",
+      "dia_id": "D3:15"
+    },
+    {
+      "text": "Oh, definitely! I once tried making a complex stuffed pasta, and it turned into a big mess, but I had fun. What's your stew story?",
+      "raw_text": "Oh, definitely! I once tried making a complex stuffed pasta, and it turned into a big mess, but I had fun. What's your stew story?",
+      "speaker": "Yangyang",
+      "clean_text": "For sure! I once attempted some fancy stuffed pasta and it was a total disaster, but I had a blast. Got any stew stories?",
+      "dia_id": "D3:16"
+    },
+    {
+      "text": "[Last Friday, while experimenting, my stew turned into an unplanned curry with heaps of garlic!]",
+      "raw_text": "[Last Friday, while experimenting, my stew turned into an unplanned curry with heaps of garlic!]",
+      "speaker": "Chenmo",
+      "clean_text": "Last Friday, I was messing around in the kitchen, and my stew accidentally turned into a super garlicky curry! It was a shocker but tasted awesome.",
+      "dia_id": "D3:17"
+    },
+    {
+      "text": "That sounds wild! Sometimes these kitchen surprises become fun memories like when my lasagna pancakes ended up tasty. Do you still experiment often?",
+      "raw_text": "That sounds wild! Sometimes these kitchen surprises become fun memories like when my lasagna pancakes ended up tasty. Do you still experiment often?",
+      "speaker": "Yangyang",
+      "clean_text": "Wow, that's crazy! Kitchen surprises can turn into fun stories, like when my lasagna pancakes were actually good. Do you still try out new things a lot?",
+      "dia_id": "D3:18"
+    },
+    {
+      "text": "Absolutely, creativity keeps cooking exciting. Yesterday, I tried a chocolate mousse\u2014first attempt was messy but rewarding. Ever experimented with desserts?",
+      "raw_text": "Absolutely, creativity keeps cooking exciting. Yesterday, I tried a chocolate mousse\u2014first attempt was messy but rewarding. Ever experimented with desserts?",
+      "speaker": "Chenmo",
+      "clean_text": "Totally! Trying new stuff makes cooking fun. I made chocolate mousse yesterday\u2014first try was a bit messy, but worth it. Have you tried making any desserts?",
+      "dia_id": "D3:19"
+    },
+    {
+      "text": "When I was ten, I loved helping my aunt make pineapple tart pastries. Sweet crumbs everywhere! Do you have a favorite dessert?",
+      "raw_text": "When I was ten, I loved helping my aunt make pineapple tart pastries. Sweet crumbs everywhere! Do you have a favorite dessert?",
+      "speaker": "Yangyang",
+      "clean_text": "When I was ten, I loved making pineapple tarts with my aunt. Crumbs everywhere! What's your favorite dessert?",
+      "dia_id": "D3:20"
+    }
+  ],
+  "session_3_facts": {
+    "Chenmo": [
+      [
+        "Chenmo loves Yangyang's mooncake recipe because it reminds him of his Grandma's cooking.",
+        "D3:1"
+      ],
+      [
+        "Chenmo loves making his grandma's pork and shrimp dumplings because it makes him feel at home.",
+        "D3:5"
+      ],
+      [
+        "Chenmo cherishes making mooncakes with his Grandma during the Moon Festival.",
+        "D3:7"
+      ],
+      [
+        "Chenmo found an old picture of him and Grandma making dumplings.",
+        "D3:11"
+      ],
+      [
+        "Chenmo described making a new stew that unexpectedly turned into a super garlicky curry.",
+        "D3:17"
+      ],
+      [
+        "Chenmo made chocolate mousse, and although it was a bit messy, he enjoyed it.",
+        "D3:19"
+      ]
+    ],
+    "Yangyang": [
+      [
+        "Yangyang cheered up a friend on March 18.",
+        "D3:2"
+      ],
+      [
+        "Yangyang feels cooking makes him feel cozy, especially when making cabbage and mushroom dumplings with his mom.",
+        "D3:4"
+      ],
+      [
+        "Yangyang has a comforting photo of a friend grinning after Yangyang made her favorite dumplings.",
+        "D3:10"
+      ],
+      [
+        "Cooking, especially making soup or dumplings, calms Yangyang.",
+        "D3:14"
+      ],
+      [
+        "Yangyang attempted fancy stuffed pasta that ended up being a disaster but still had a blast.",
+        "D3:16"
+      ],
+      [
+        "Yangyang once made lasagna pancakes that surprisingly turned out well.",
+        "D3:18"
+      ],
+      [
+        "When Yangyang was ten, he loved making pineapple tarts with his aunt.",
+        "D3:20"
+      ]
+    ]
+  },
+  "session_3_summary": "Yangyang and Chenmo have been reminiscing about childhood, cooking, and treasured memories. On 17 March 2023, they discussed baking and family recipes, exchanging photos of sunsets and reading nooks, and recommending inspiring books. On 18 March, Yangyang comforted a friend and recalled her mom's dumpling lessons, while on 19 March, Chenmo shared memories of making mooncakes and dumplings with his Grandma. They exchanged photos of these moments and discussed how cooking connects across time. Yangyang finds cooking meditative, sharing a photo of making lemon tarts. Chenmo enjoys experimenting, sharing a humorous stew story and a recent chocolate mousse attempt. Both find joy in the creativity of cooking and the stories food tells."
+}

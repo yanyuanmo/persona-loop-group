@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat {
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .sender1 {
+            background-color: #e2f0cb;
+            align-self: flex-start;
+        }
+        .sender2 {
+            background-color: #b2ebf2;
+            align-self: flex-end;
+        }
+        .date {
+            background-color: #ffb6c1;
+            align-self: center;
+        }
+        .message img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat">
+    
+        <div class="message sender1">
+            <p><b>Name</b>: Yangyang<br><b>Persona</b>: Yangyang is a lively and warm-hearted young woman who seems to carry the glow of a genuinely happy childhood with her. She grew up surrounded by love, laughter, and a deep sense of security, and that nurturing upbringing gave her an innate empathy that lets her sense how others are feeling before they even say a word. She meets people exactly where they are, without judgment. She finds profound joy in small, everyday moments — a perfect cup of tea in the morning, the first cool breeze of autumn, the sound of distant laughter. She loves animals deeply and has a quiet, motherly instinct that makes everyone around her feel safe and cared for. She is imaginative and playful, and never quite lost the sense of wonder she had when she was little.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Name</b>: Chenmo<br><b>Persona</b>: Chenmo is a thoughtful and quietly warm young man who grew up valuing imagination, books, and inner life. He tends to observe more than he speaks, but when he says something, people lean in. He processes the world through stories and metaphors, and he has a gentle, dry sense of humor that surprises people who expect him to be serious. He is slow to open up but deeply loyal once he does — when he calls someone a friend, he means it completely. He cares strongly about fairness and honesty, and quietly stands up for people who aren't being treated right, even when it costs him something. He is deeply empathetic in a low-key, unshowy way, and he has an unusual capacity to sit with someone in their pain without trying to fix it.<br></p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 1 [ 8:02 pm on 6 March, 2023 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br><b>5 March, 2023</b>: Chenmo starts writing short stories inspired by his childhood memories.<br></p>
+        </div>
+
+        <div class="message sender1">
+            <p>Hey Chenmo! How's it going? Saw a cute squirrel at the park yesterday—totally made my day. Do you like checking out nature?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I like hanging out in nature and have been writing short stories recently. They bring back memories of exploring as a kid. Do you write?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Sure thing! I wrote down some notes when I was hiking with my dad last Friday. Do you have any stories you're proud of?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I'm working on one about summer adventures from when I was ten. Do childhood adventures inspire you too?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Definitely! Playing in the rain with my cousins and laughing like crazy—childhood memories are awesome! Do you ever use your stories to relive those times?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Stories can be like flipping through an old photo album. Remember your favorite childhood hangout?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>There's a big oak tree in our backyard where I'd swing all summer. I miss it! Do you have a favorite spot?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>As a kid, the meadow by my house felt magical. Have you ever watched a sunset in a cool spot you found?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Yes! I saw amazing sunsets with my mom in a sunflower field. Do you take photos of stuff like that?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I prefer sunrises over sunsets. Here's one from last August at the lake. Got any sunset pics?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Here's one from a hike with my dad. The colors were amazing!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Looks amazing. Here's another sunrise after the rain, and the clouds look like they're chatting. What stories are they telling?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Watching this sunset always calms me. The pinks and oranges are amazing!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>That sunset reminds me of good times with friends. Want to hang out in the park again?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Sure! How about catching a sunrise next weekend? Sometimes we get little birds visiting too. Are you into early mornings?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I love early mornings; clouds look like story characters. Do you think birds have their own stories to tell?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Birds absolutely have stories! Watching them flit about is fascinating.  Do you often watch them? </p>
+        </div>
+
+        <div class="message sender2">
+            <p>I sometimes watch birds and think about how their lives are like ours. Got any bird pics from your last trip?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Saw a cute sparrow hopping around at the park. Ever see something surprising while birdwatching?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Once, I saw a hawk perched nearby. Its majesty was unexpected. Ever seen scene-stealers like that while out? </p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 2 [ 2:46 pm on 17 March, 2023 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>15 March, 2023</b>: Yangyang organizes a surprise birthday party for her friend, filled with laughter and joy.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hey Yangyang, how's it going since we last talked? I found my old stories and they're kinda funny. I think I might start writing again. Want to check them out sometime? So glad I found that old leather journal while cleaning; brought back some cool memories. Remember that funny squirrel?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>It's been awesome, Chenmo! I surprised my friend with a birthday party and we had such a blast. 😊 It's cool how little get-togethers can be so special. Tell me about your journal—how's it helping you look back?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Take a look inside my journal for some nostalgic memories. Have recent events changed your notes at all?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Yeah, totally! At the party, I felt thankful and made notes about happy moments we usually miss. I need to text friends like you more often. I'll share some stuff from my notes soon! Your stories always get me into journaling.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Your surprise party sounds great! It's moments like those that remind us to enjoy the little things. I reread a story I wrote about walking in the meadow at sunset, and it was crazy how clear it all felt. What other small moments have you noticed since the party?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Cooking together is such a nice bonding experience. Making lemon tarts with them made us closer. Have you baked anything recently?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Haven’t baked in a while, but your lemon tarts make me think of an almond cake I made with grandma. Got any favorite recipes?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Sounds great! I love making dumplings with my mom; it's fun and tasty.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Making dumplings on Sundays is a blast. One time, Grandma and I tried mooncakes and just laughed at our wonky shapes.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Sounds great! I made dumplings with my mom last Sunday, and it reminded me of being a kid. 😊 Got any favorite fillings?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I love pork, shrimp, and green onion dumplings. They remind me of cooking with my grandma and hearing her stories. What about you?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love cabbage and mushroom; they remind me of snacks from when I was a kid. When did your grandma start teaching you? 😊</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I started cooking with her when I was about eight. Her stories linked us to the past. I got inspired and checked out the pillow photos. Memories took me back to those nostalgic times three years ago, like how sunsets used to feel under those clouds. What do you think of these pillows now?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love those cozy sunset dreams. Lately, they've been my chill spot after busy days. Feeling nostalgic, too? I've saved my sunflower field sunsets; they keep things simple and bright.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Wow, that's awesome! Sunflower field sunsets are really something special. They feel like chill mornings. Been gardening lately or diving into any fun stories, Yangyang? 🌻</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Haven't done much gardening lately, but I'm chilling with a cozy mystery after work craziness. Got any book recs? 😊</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I'm reading "The Overstory" by Richard Powers—super cool and all about nature and people's lives. Got any good book recs? 📚</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I just finished "The Night Circus" by Erin Morgenstern. It's magical and lets my imagination roam. Got similar faves? 🎩✨</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Alice Hoffman's 'The Night Bookstore' adds some magic to normal life. When was a regular day turned into something special for you?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Saw my friend's new baby last Friday, and it was awesome! 😊 Remember when your family got bigger?</p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 3 [ 8:23 pm on 19 March, 2023 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>18 March, 2023</b>: Yangyang's empathy shines when she comforts a friend who is going through a tough time.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hey Yangyang, I've been loving your mooncake recipe. Reminds me of Grandma's cooking sessions. Got any cooking stories that stick out?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>On March 18, I cheered up a friend. It felt like the cozy vibe from my mom's dumpling lessons.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>That's awesome, Yangyang. Cooking can be comforting. Have you ever found a dish that feels extra special?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Cooking makes me feel cozy. Making cabbage and mushroom dumplings with Mom reminds me of being a kid. Do you have any dishes like that?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I love making my grandma's pork and shrimp dumplings—it always makes me feel at home. Her laughter filled the kitchen. Do you have a favorite memory of cooking with your mom?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>One rainy day, my mom showed me how to fold dumplings prettily. Felt special. How about you?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I cherish making mooncakes with Grandma during the Moon Festival. Do you think cooking shows love over time?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Yes, totally! Cooking together helps build memories and bonds, kinda like being there for a friend. What does food mean to you?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>It's like storytelling you can eat—happy and cozy. That's Grandma showing me how to make dumplings in our tiny kitchen.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Food tells a story you can eat. I have a comforting photo of my friend grinning after I made her favorite dumplings.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Found an old pic of me and Grandma making dumplings. Memories like that mean a lot to me.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That's awesome, Chenmo! Those times with Grandma are special. Love this pic of my mom making dumplings fun.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>When my grandma made mooncakes, her hands moved smoothly. Do you find cooking calming too?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Making soup or dumplings calms me. Check me out chilling with lemon tarts last week!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>That sounds great, Yangyang. Cooking is cozy. I tried a new stew yesterday and it was a bit much. Ever feel like that when cooking?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>For sure! I once attempted some fancy stuffed pasta and it was a total disaster, but I had a blast. Got any stew stories?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Last Friday, I was messing around in the kitchen, and my stew accidentally turned into a super garlicky curry! It was a shocker but tasted awesome.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wow, that's crazy! Kitchen surprises can turn into fun stories, like when my lasagna pancakes were actually good. Do you still try out new things a lot?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Totally! Trying new stuff makes cooking fun. I made chocolate mousse yesterday—first try was a bit messy, but worth it. Have you tried making any desserts?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>When I was ten, I loved making pineapple tarts with my aunt. Crumbs everywhere! What's your favorite dessert?</p>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>

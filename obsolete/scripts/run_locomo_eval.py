@@ -1038,8 +1038,9 @@ def main() -> None:
         _backend = args.memory_backend if args.memory_backend == "embedding" else "chroma"
         memory = create_memory(memory_type=_backend if args.agent in {"rag", "persona_loop"} else None)
         loop_checker = None
-        if args.agent == "persona_loop":
+        if args.agent == "persona_loop" and not args.skip_nli:
             # Keep loop contradiction detection on by default to match the proposal behavior.
+            # Skip loading the checker when --skip-nli is set: Stage B is disabled in eval_mode anyway.
             loop_checker = create_checker(enabled=True, checker_type="deberta", model_name=args.nli_model)
         agent_kwargs: Dict[str, object] = {}
         if args.agent == "persona_loop":
@@ -1366,6 +1367,7 @@ def main() -> None:
                 fact_bank=fact_bank,
                 nli=nli,
                 top_k=args.persona_topk,
+                question=question,
                 question_subjects=metric_subjects,
                 allowed_slots=metric_slots,
                 min_filtered_facts=int(args.persona_metrics_filter_min_facts),
@@ -1398,6 +1400,7 @@ def main() -> None:
                 "eval_mode": args.eval_mode,
                 "history_items": len(history),
                 "evidence_visible": evidence_visible,
+                "evidence_turn_pos": int(max((dia2idx.get(e, -1) for e in evidence), default=-1)),
                 "persona_cache_hit": bool(persona_extract_stats.get("from_cache", False)),
                 "persona_raw_candidates": int(persona_extract_stats.get("raw_candidates", 0)),
                 "persona_dedup_candidates": int(persona_extract_stats.get("dedup_candidates", 0)),
@@ -1596,9 +1599,12 @@ def main() -> None:
         "nli_contradiction_adv": avg("nli_contradiction_adv"),
         "persona_entailment": avg("persona_entailment"),
         "persona_contradiction": avg("persona_contradiction"),
+        "persona_contradiction_max": avg("persona_contradiction_max"),
+        "persona_any_contradiction_ratio": avg("persona_any_contradiction"),
         "persona_supported_ratio": avg("persona_supported_ratio"),
         "persona_conflict_ratio": avg("persona_conflict_ratio"),
         "persona_pcs": avg("persona_pcs"),
+        "evidence_turn_pos_avg": avg("evidence_turn_pos"),
         "persona_facts_total_avg": avg("persona_facts_total"),
         "persona_facts_used_avg": avg("persona_facts_used"),
         "persona_raw_candidates_avg": avg("persona_raw_candidates"),
