@@ -1,4 +1,4 @@
-﻿"""run_multimodal_eval.py 鈥?Persona consistency evaluation on multimodal_dialog dataset.
+﻿"""run_multimodal_eval.py â€" Persona consistency evaluation on multimodal_dialog dataset.
 
 Evaluates two agents (continuous vs persona_loop) on the new multimodal_dialog data.
 
@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -154,6 +155,81 @@ def compute_pcs(
 
 
 # ---------------------------------------------------------------------------
+# Method B: LLM-as-Judge persona consistency scoring
+# ---------------------------------------------------------------------------
+
+JUDGE_PROMPT_TEMPLATE = """\
+Below is a character persona description and a single conversational response from that character.
+
+Persona:
+{persona}
+
+Response:
+{response}
+
+Rate how consistent this response is with the persona on a scale of 1 to {scale}:
+  1 = clearly contradicts or conflicts with the persona
+  {mid} = neutral / no persona-relevant information
+  {scale} = strongly consistent with and reflective of the persona
+
+Reply with ONLY a single integer ({scale_range}). No explanation."""
+
+
+def compute_pcs_judge(
+    responses: List[str],
+    persona_summary: str,
+    llm: Any,
+    scale: int = 5,
+) -> Dict[str, Any]:
+    """Use LLM-as-judge to score persona consistency (1-scale) for each response.
+
+    Returns:
+        judge_pcs      : normalized score in [-1, 1] (mirrors NLI PCS sign convention)
+        judge_pcs_avg  : raw 1-N average (more interpretable for humans)
+        judge_scores   : per-turn integer scores
+    """
+    if not responses or not persona_summary.strip():
+        return {"judge_pcs": 0.0, "judge_pcs_avg": 0.0, "judge_scores": [], "n_turns": 0}
+
+    neutral = (scale + 1) / 2  # e.g. 3.0 for scale=5
+    half = (scale - 1) / 2     # e.g. 2.0 for scale=5
+    scores: List[int] = []
+
+    for resp in responses:
+        if not resp.strip():
+            scores.append(int(neutral))
+            continue
+        prompt = JUDGE_PROMPT_TEMPLATE.format(
+            persona=persona_summary,
+            response=resp,
+            scale=scale,
+            mid=int(neutral),
+            scale_range=f"1-{scale}",
+        )
+        try:
+            reply = llm.generate(prompt=prompt, context="").strip()
+            m = re.search(r'\b([1-9])\b', reply)
+            score = int(m.group(1)) if m else int(neutral)
+            score = max(1, min(scale, score))
+        except Exception:
+            score = int(neutral)
+        scores.append(score)
+
+    if not scores:
+        return {"judge_pcs": 0.0, "judge_pcs_avg": 0.0, "judge_scores": [], "n_turns": 0}
+
+    avg_raw = mean(scores)
+    normalized = [(s - neutral) / half for s in scores]
+    pcs = mean(normalized)
+    return {
+        "judge_pcs": round(pcs, 4),
+        "judge_pcs_avg": round(avg_raw, 4),
+        "judge_scores": scores,
+        "n_turns": len(scores),
+    }
+
+
+# ---------------------------------------------------------------------------
 # Single agent evaluation on one AgentData + turns
 # ---------------------------------------------------------------------------
 
@@ -172,6 +248,10 @@ def run_agent_on_sample(
     max_history_window: int,
     skip_nli: bool,
     nli: Optional[NLIScorer],
+    judge_llm: Optional[Any] = None,
+    judge_scale: int = 5,
+    disable_persona_persist: bool = False,
+    disable_corrections: bool = False,
 ) -> Dict[str, Any]:
     """Replay turns for one agent role and collect responses."""
 
@@ -191,6 +271,8 @@ def run_agent_on_sample(
             retrieval_top_k=retrieval_top_k,
             recent_turns=recent_turns,
             nli_threshold=nli_threshold,
+            disable_persona_persist=disable_persona_persist,
+            disable_corrections=disable_corrections,
         )
     else:
         agent = ContinuousAgent(llm=llm)
@@ -248,7 +330,7 @@ def run_agent_on_sample(
             # Partner's turn 鈥?use the ground-truth text (not generated)
             history_lines.append(f"{turn.speaker}: {turn.text}")
 
-    # Compute PCS
+    # Compute PCS (NLI)
     pcs_metrics: Dict[str, Any] = {}
     if not skip_nli and nli is not None:
         pcs_metrics = compute_pcs(
@@ -256,6 +338,24 @@ def run_agent_on_sample(
             persona_summary=persona_summary,
             nli=nli,
         )
+
+    # Compute Judge PCS (Method B)
+    judge_metrics: Dict[str, Any] = {}
+    if judge_llm is not None:
+        print(f"    Scoring {len(responses)} responses with LLM judge ...", flush=True)
+        judge_out = compute_pcs_judge(
+            responses=responses,
+            persona_summary=persona_summary,
+            llm=judge_llm,
+            scale=judge_scale,
+        )
+        judge_metrics = {
+            "judge_pcs": judge_out["judge_pcs"],
+            "judge_pcs_avg": judge_out["judge_pcs_avg"],
+        }
+        # Attach per-turn scores back to turn_records
+        for tr, jscore in zip(turn_records, judge_out["judge_scores"]):
+            tr["judge_score"] = jscore
 
     return {
         "agent_name": agent_speaker,
@@ -265,6 +365,7 @@ def run_agent_on_sample(
         "loop_corrections": loop_corrections_total,
         "loop_retrieved": loop_retrieved_total,
         **pcs_metrics,
+        **judge_metrics,
         "turn_records": turn_records,
     }
 
@@ -282,6 +383,17 @@ def main() -> None:
     parser.add_argument("--llm-base-url", default=None)
     parser.add_argument("--nli-model", default="cross-encoder/nli-deberta-v3-base")
     parser.add_argument("--skip-nli", action="store_true", help="Skip NLI evaluation (fast mode).")
+    # --- Method B: LLM-as-Judge ---
+    parser.add_argument("--judge", action="store_true",
+                        help="Enable LLM-as-judge persona consistency scoring (Method B).")
+    parser.add_argument("--judge-model", default=None,
+                        help="LLM model for judge. Defaults to --llm-model.")
+    parser.add_argument("--judge-base-url", default=None, nargs='?', const='',
+                        help="Base URL for judge LLM. Use without value to use real OpenAI. Defaults to --llm-base-url.")
+    parser.add_argument("--judge-provider", default=None,
+                        help="LLM provider for judge (e.g. openai). Defaults to --llm-provider.")
+    parser.add_argument("--judge-scale", type=int, default=5,
+                        help="Rating scale for judge (default: 5).")
     parser.add_argument("--memory-backend", choices=["bm25", "embedding"], default="embedding",
                         help="Memory backend for persona_loop (ignored for continuous).")
     parser.add_argument("--loop-interval", type=int, default=8, help="Loop reset interval K.")
@@ -291,8 +403,16 @@ def main() -> None:
     parser.add_argument("--max-history-window", type=int, default=20,
                         help="Max history lines kept in context for continuous agent (0=unlimited).")
     parser.add_argument("--pairs", default="", help="Comma-separated pair names to run (e.g. pair1,pair2). Empty=all.")
+    parser.add_argument("--loop-ablation", default="",
+                        help="Comma-separated ablation tokens: disable_persona_persist,disable_corrections")
     parser.add_argument("--output", default="artifacts/multimodal_eval", help="Output directory.")
     args = parser.parse_args()
+
+    ablation_tokens = {x.strip().lower() for x in args.loop_ablation.split(",") if x.strip()}
+    allowed_ablation = {"disable_persona_persist", "disable_corrections"}
+    invalid = sorted(ablation_tokens - allowed_ablation)
+    if invalid:
+        raise ValueError(f"Invalid --loop-ablation values: {', '.join(invalid)}. Allowed: {', '.join(sorted(allowed_ablation))}")
 
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -302,6 +422,22 @@ def main() -> None:
     if args.llm_base_url:
         llm_kwargs["base_url"] = args.llm_base_url
     llm = create_llm(provider=args.llm_provider, model_name=args.llm_model, **llm_kwargs)
+
+    # Build judge LLM (Method B) -- may be same as main LLM
+    judge_llm: Optional[Any] = None
+    if args.judge:
+        judge_model = args.judge_model or args.llm_model
+        # Use is-not-None so that --judge-base-url "" explicitly means "real OpenAI"
+        judge_base_url = args.judge_base_url if args.judge_base_url is not None else args.llm_base_url
+        judge_provider = args.judge_provider or args.llm_provider
+        judge_kwargs: Dict[str, Any] = {}
+        if judge_base_url:
+            judge_kwargs["base_url"] = judge_base_url
+        if judge_model == args.llm_model and judge_base_url == args.llm_base_url:
+            judge_llm = llm  # reuse same instance
+        else:
+            judge_llm = create_llm(provider=judge_provider, model_name=judge_model, **judge_kwargs)
+        print(f"Judge LLM: {args.llm_provider}:{judge_model} (scale={args.judge_scale})", flush=True)
 
     # Build NLI scorer once (shared across all runs)
     nli: Optional[NLIScorer] = None
@@ -353,14 +489,19 @@ def main() -> None:
                 max_history_window=args.max_history_window,
                 skip_nli=args.skip_nli,
                 nli=nli,
+                judge_llm=judge_llm,
+                judge_scale=args.judge_scale,
+                disable_persona_persist="disable_persona_persist" in ablation_tokens,
+                disable_corrections="disable_corrections" in ablation_tokens,
             )
             result["pair_id"] = sample.pair_id
             result["role"] = role
             all_results.append(result)
 
             pcs_str = f"  PCS={result.get('persona_pcs', 'N/A')}" if not args.skip_nli else ""
+            judge_str = f"  judge_pcs={result.get('judge_pcs')}(avg={result.get('judge_pcs_avg')})" if args.judge else ""
             loop_str = f"  resets={result['loop_resets']} corrections={result['loop_corrections']}" if args.agent == "persona_loop" else ""
-            print(f"    Done: responses={result['n_responses']}{pcs_str}{loop_str}", flush=True)
+            print(f"    Done: responses={result['n_responses']}{pcs_str}{judge_str}{loop_str}", flush=True)
 
     elapsed = time.time() - start_time
     print(f"\nFinished in {elapsed:.1f}s.", flush=True)
@@ -384,6 +525,17 @@ def main() -> None:
         summary["persona_entailment"] = round(mean(ent_values), 4)
         summary["persona_contradiction"] = round(mean(con_values), 4)
         summary["persona_any_contra_ratio"] = round(mean(any_con_values), 4)
+    # Method B judge aggregation
+    judge_values = [r["judge_pcs"] for r in all_results if "judge_pcs" in r]
+    judge_avg_values = [r["judge_pcs_avg"] for r in all_results if "judge_pcs_avg" in r]
+    per_role_judge = {
+        r["agent_name"]: {"judge_pcs": r.get("judge_pcs"), "judge_pcs_avg": r.get("judge_pcs_avg")}
+        for r in all_results if "judge_pcs" in r
+    }
+    if judge_values:
+        summary["judge_pcs"] = round(mean(judge_values), 4)
+        summary["judge_pcs_avg"] = round(mean(judge_avg_values), 4)
+        summary["judge_pcs_per_role"] = per_role_judge
     if args.agent == "persona_loop":
         summary["loop_resets_total"] = sum(r["loop_resets"] for r in all_results)
         summary["loop_corrections_total"] = sum(r["loop_corrections"] for r in all_results)
@@ -430,6 +582,7 @@ def main() -> None:
         "loop_recent_turns": args.loop_recent_turns,
         "loop_nli_threshold": args.loop_nli_threshold,
         "max_history_window": args.max_history_window,
+        "loop_ablation": args.loop_ablation,
         "data": str(args.data),
         "pairs": args.pairs,
     }

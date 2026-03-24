@@ -1,0 +1,702 @@
+{
+  "name": "Lingling",
+  "persona_summary": "Lingling is a gentle and dreamy young woman who grew up in a household full of music, stories, and warmth. She has a poetic inner world and tends to see life through a slightly romantic lens — ordinary moments feel meaningful and worth savoring to her. She is a quietly creative person who expresses herself through writing, sketching little scenes in notebooks, and finding beauty in weather and seasons. She is introverted but not shy; she is perfectly happy to open up once she feels safe with someone. She has a deep sensitivity to other people's emotions and a natural instinct to make whoever she is talking to feel heard and understood. She is also unexpectedly funny in a soft, understated way that surprises people who expect her to be serious.",
+  "events_start_date": "24 June, 2022",
+  "graph": [
+    {
+      "sub-event": "Lingling visits a serene countryside for a weekend getaway.",
+      "date": "1 July, 2022",
+      "id": "E1",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Lingling begins writing a collection of poems inspired by her countryside visit.",
+      "date": "10 July, 2022",
+      "id": "E2",
+      "caused_by": [
+        "E1"
+      ]
+    },
+    {
+      "sub-event": "Lingling befriends a fellow writer at a local poetry reading event.",
+      "date": "20 August, 2022",
+      "id": "E3",
+      "caused_by": []
+    },
+    {
+      "sub-event": "Lingling shares her collection of poems with her new writer friend for feedback.",
+      "date": "25 August, 2022",
+      "id": "E4",
+      "caused_by": [
+        "E2",
+        "E3"
+      ]
+    },
+    {
+      "sub-event": "Lingling organizes a small gathering to recite her poems and sketches.",
+      "date": "3 September, 2022",
+      "id": "E5",
+      "caused_by": [
+        "E2",
+        "E4"
+      ]
+    },
+    {
+      "sub-event": "Lingling feels inspired to start a journal about her everyday experiences.",
+      "date": "7 September, 2022",
+      "id": "E6",
+      "caused_by": [
+        "E1",
+        "E5"
+      ]
+    },
+    {
+      "sub-event": "Lingling and her writer friend plan a weekend retreat to a local literary festival.",
+      "date": "18 September, 2022",
+      "id": "E7",
+      "caused_by": [
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "sub-event": "Lingling receives a thoughtful gift from her writer friend.",
+      "date": "28 August, 2022",
+      "id": "E8",
+      "caused_by": [
+        "E3",
+        "E4"
+      ]
+    },
+    {
+      "sub-event": "Lingling surprises everyone with a humorous poem during her poetry gathering.",
+      "date": "3 September, 2022",
+      "id": "E9",
+      "caused_by": [
+        "E5"
+      ]
+    },
+    {
+      "sub-event": "Lingling starts sketching scenes from her journal to visually capture her experiences.",
+      "date": "9 September, 2022",
+      "id": "E10",
+      "caused_by": [
+        "E6"
+      ]
+    },
+    {
+      "sub-event": "Lingling's sketches from her journal are praised by her writer friend, boosting her creative confidence.",
+      "date": "12 September, 2022",
+      "id": "E11",
+      "caused_by": [
+        "E10"
+      ]
+    }
+  ],
+  "events_session_1": [
+    {
+      "sub-event": "Lingling visits a serene countryside for a weekend getaway.",
+      "date": "1 July, 2022",
+      "id": "E1",
+      "caused_by": []
+    }
+  ],
+  "session_1_date_time": "11:57 am on 1 July, 2022",
+  "session_1": [
+    {
+      "text": "Hi Lingling! I just started a home gardening project yesterday. It's my first. Ever tried gardening yourself?",
+      "raw_text": "Hi Lingling! I just started a home gardening project yesterday. It's my first. Ever tried gardening yourself?",
+      "speaker": "Zihao",
+      "clean_text": "Hey Lingling! I just started my first home garden yesterday. Have you tried gardening?",
+      "dia_id": "D1:1"
+    },
+    {
+      "text": "That sounds lovely! I'm visiting the countryside now. It's so peaceful. Any garden plans for weekend brunches?",
+      "raw_text": "That sounds lovely! I'm visiting the countryside now. It's so peaceful. Any garden plans for weekend brunches?",
+      "speaker": "Lingling",
+      "clean_text": "That sounds great! I'm out in the countryside right now. It's chill. Got any garden brunch plans for the weekend?",
+      "dia_id": "D1:2"
+    },
+    {
+      "text": "Actually, I just might have brunch in the garden! What do you usually love to have for brunch?",
+      "raw_text": "Actually, I just might have brunch in the garden! What do you usually love to have for brunch?",
+      "speaker": "Zihao",
+      "clean_text": "I think I might have brunch in the garden! What's your go-to for brunch?",
+      "dia_id": "D1:3"
+    },
+    {
+      "text": "Poached eggs on toast under open skies sounds wonderful to me. Are you planning dishes from your garden, like rosemary potatoes?",
+      "raw_text": "Poached eggs on toast under open skies sounds wonderful to me. Are you planning dishes from your garden, like rosemary potatoes?",
+      "speaker": "Lingling",
+      "clean_text": "I love poached eggs on toast outside! Are you thinking of making something from your garden, like rosemary potatoes?",
+      "dia_id": "D1:4"
+    },
+    {
+      "text": "I have no rosemary yet! How's this? [shares a photo of neat raised garden beds with tiny sprouting plants] Hoping to plant herbs soon! Where are you in the countryside?",
+      "raw_text": "I have no rosemary yet! How's this? [shares a photo of neat raised garden beds with tiny sprouting plants] Hoping to plant herbs soon! Where are you in the countryside?",
+      "speaker": "Zihao",
+      "clean_text": "I don’t have rosemary yet! What do you think? Planning to plant herbs soon! Where are you in the countryside?",
+      "dia_id": "D1:5"
+    },
+    {
+      "text": "I'm near a quaint little lake surrounded by wildflowers; it feels like stepping into a storybook. Where's your garden, city or joys of the country?",
+      "raw_text": "I'm near a quaint little lake surrounded by wildflowers; it feels like stepping into a storybook. Where's your garden, city or joys of the country?",
+      "speaker": "Lingling",
+      "clean_text": "I'm by a cute lake with wildflowers; it's like I'm in a storybook. Do you have a garden, in the city or countryside?",
+      "dia_id": "D1:6"
+    },
+    {
+      "text": "My garden is in the city. It’s small but exciting! Here's my starter kit. [shares photo of gardening tools and seeds on a windowsill]",
+      "raw_text": "My garden is in the city. It’s small but exciting! Here's my starter kit. [shares photo of gardening tools and seeds on a windowsill]",
+      "speaker": "Zihao",
+      "clean_text": "I've got a garden in the city. It's small but fun! Check out my starter kit.",
+      "dia_id": "D1:7"
+    },
+    {
+      "text": "Oh, lovely! Sharing gardens seems fun! [shares photo of a guitar with wildflowers in the setting sun, leaning on a cabin’s porch] This place whispers stories. The serenade of nature makes my heart bloom. What's been your best garden discovery?",
+      "raw_text": "Oh, lovely! Sharing gardens seems fun! [shares photo of a guitar with wildflowers in the setting sun, leaning on a cabin’s porch] This place whispers stories. The serenade of nature makes my heart bloom. What's been your best garden discovery?",
+      "speaker": "Lingling",
+      "clean_text": "Wow, sharing gardens sounds cool! This place has a lot to tell. Nature here is so calming. What's the best thing you've found in a garden?",
+      "dia_id": "D1:8"
+    },
+    {
+      "text": "I love the community gardens! Amazing vibes and conversations with neighbors. Look, [shares a photo of a community garden with colorful vegetables]. Ever met any intriguing folks lakeside?",
+      "raw_text": "I love the community gardens! Amazing vibes and conversations with neighbors. Look, [shares a photo of a community garden with colorful vegetables]. Ever met any intriguing folks lakeside?",
+      "speaker": "Zihao",
+      "clean_text": "I love the community gardens! Great vibes and chats with neighbors. Ever met any cool people by the lake?",
+      "dia_id": "D1:9"
+    },
+    {
+      "text": "While I haven't met anyone new by the lake yet, it's beautifully peaceful here. Your community garden sounds delightful. [shares a photo of the lake with wildflowers and reflected clouds on the water] Isn't it lovely? Have you ever found any unusual plants in your community garden?",
+      "raw_text": "While I haven't met anyone new by the lake yet, it's beautifully peaceful here. Your community garden sounds delightful. [shares a photo of the lake with wildflowers and reflected clouds on the water] Isn't it lovely? Have you ever found any unusual plants in your community garden?",
+      "speaker": "Lingling",
+      "clean_text": "Haven’t met anyone new at the lake yet, but it’s so peaceful. Your community garden sounds awesome. Found any cool plants there?",
+      "dia_id": "D1:10"
+    },
+    {
+      "text": "I discovered heirloom tomatoes last Friday. They're oddly shaped but delicious! Ever found anything unexpected in nature?",
+      "raw_text": "I discovered heirloom tomatoes last Friday. They're oddly shaped but delicious! Ever found anything unexpected in nature?",
+      "speaker": "Zihao",
+      "clean_text": "Found some funky-looking heirloom tomatoes last Friday. So tasty! Ever stumble upon anything cool in nature?",
+      "dia_id": "D1:11"
+    },
+    {
+      "text": "Oh, those sounds wonderful! Just stumbled upon a tangled wildflower patch yesterday. I've been sketching them in my notebook. 🌼 Do you want me to show you the sketches?",
+      "raw_text": "Oh, those sounds wonderful! Just stumbled upon a tangled wildflower patch yesterday. I've been sketching them in my notebook. 🌼 Do you want me to show you the sketches?",
+      "speaker": "Lingling",
+      "clean_text": "Wow, that sounds awesome! I found a bunch of wildflowers yesterday and started sketching them. 🌼 Want to see?",
+      "dia_id": "D1:12"
+    },
+    {
+      "text": "I'd love to see your sketches! Here's a pic of the heirloom tomatoes. [shares a photo of colorful heirloom tomatoes from the community garden] What do you think?",
+      "raw_text": "I'd love to see your sketches! Here's a pic of the heirloom tomatoes. [shares a photo of colorful heirloom tomatoes from the community garden] What do you think?",
+      "speaker": "Zihao",
+      "clean_text": "I'd love to check out your sketches! Here's a photo of the heirloom tomatoes. What do you think?",
+      "dia_id": "D1:13"
+    },
+    {
+      "text": "Wow, those tomatoes look quirky and vibrant! I love their imperfect charm.",
+      "raw_text": "Wow, those tomatoes look quirky and vibrant! I love their imperfect charm.",
+      "speaker": "Lingling",
+      "clean_text": "Wow, those tomatoes look so funky and colorful! I dig their unique vibe.",
+      "dia_id": "D1:14"
+    },
+    {
+      "text": "What medium do you use for sketching? ",
+      "raw_text": "What medium do you use for sketching? ",
+      "speaker": "Zihao",
+      "clean_text": "What do you use to sketch?",
+      "dia_id": "D1:15"
+    },
+    {
+      "text": "[Shares a close-up photo of a notebook page with hand-drawn wildflowers and a few curled-edged pages visible beneath, with colorful pastel pencil strokes]",
+      "raw_text": "[Shares a close-up photo of a notebook page with hand-drawn wildflowers and a few curled-edged pages visible beneath, with colorful pastel pencil strokes]",
+      "speaker": "Lingling",
+      "clean_text": "I've been drawing wildflowers in my notebook. It's a chill way to wind down and brighten up my notes with pastels!",
+      "dia_id": "D1:16"
+    },
+    {
+      "text": "That's amazing, Lingling! Would love to see one of your sketches. Do you draw often, or is this a new hobby for you?",
+      "raw_text": "That's amazing, Lingling! Would love to see one of your sketches. Do you draw often, or is this a new hobby for you?",
+      "speaker": "Zihao",
+      "clean_text": "Wow, that's awesome, Lingling! Can I check out one of your sketches? Do you draw a lot or is this something new?",
+      "dia_id": "D1:17"
+    },
+    {
+      "text": "I've sketched since I was ten as a hobby. Here's my latest wildflower sketch! 🌿💛 [shares a sketch with gently shaded wildflowers]",
+      "raw_text": "I've sketched since I was ten as a hobby. Here's my latest wildflower sketch! 🌿💛 [shares a sketch with gently shaded wildflowers]",
+      "speaker": "Lingling",
+      "clean_text": "I've been drawing since I was 10 for fun. Check out my latest wildflower sketch! 🌿💛",
+      "dia_id": "D1:18"
+    },
+    {
+      "text": "Seeing your wildflower sketch would be really cool. Here’s a photo of my herb box dreams — complete with blank spots and all. [shares an indoor herb box with sections labeled for various herbs like rosemary and basil, but with only a few ones growing so far] [END]",
+      "raw_text": "Seeing your wildflower sketch would be really cool. Here’s a photo of my herb box dreams — complete with blank spots and all. [shares an indoor herb box with sections labeled for various herbs like rosemary and basil, but with only a few ones growing so far] [END]",
+      "speaker": "Zihao",
+      "clean_text": "Seeing your wildflower sketch would be really cool. Here’s a photo of my herb box dreams — complete with blank spots and all.  ",
+      "dia_id": "D1:19"
+    },
+    {
+      "text": "Nice visualization, Zihao!🌱 Here's my wildflower sketch by the lake. Loaded with elusive blooms kissed by passing rain. [shares a photo labeled: A doodle of wildflowers swaying by an emerald-gleaming lake under a sunlit drizzle]",
+      "raw_text": "Nice visualization, Zihao!🌱 Here's my wildflower sketch by the lake. Loaded with elusive blooms kissed by passing rain. [shares a photo labeled: A doodle of wildflowers swaying by an emerald-gleaming lake under a sunlit drizzle]",
+      "speaker": "Lingling",
+      "clean_text": "Great visuals, Zihao! 🌱 Here's my wildflower doodle by the lake, with some sneaky blooms after the rain.",
+      "dia_id": "D1:20"
+    }
+  ],
+  "session_1_facts": {
+    "Zihao": [
+      [
+        "Zihao started his first home garden on 30th June, 2022.",
+        "D1:1"
+      ],
+      [
+        "Zihao's garden is in the city and is small but enjoyable.",
+        "D1:7"
+      ],
+      [
+        "Zihao enjoys community gardens for their great vibes and chats with neighbors.",
+        "D1:9"
+      ],
+      [
+        "Zihao found funky-looking heirloom tomatoes in a community garden last Friday.",
+        "D1:11"
+      ]
+    ],
+    "Lingling": [
+      [
+        "Lingling is currently out in the countryside by a lake with wildflowers.",
+        "D1:2",
+        "D1:6"
+      ],
+      [
+        "Lingling loves poached eggs on toast for brunch.",
+        "D1:4"
+      ],
+      [
+        "Lingling has been drawing since she was 10 for fun.",
+        "D1:18"
+      ],
+      [
+        "Lingling sketches wildflowers with pastels in her notebook.",
+        "D1:16"
+      ],
+      [
+        "Lingling found a bunch of wildflowers yesterday and started sketching them.",
+        "D1:12"
+      ]
+    ]
+  },
+  "session_1_summary": "On 1 July 2022, Zihao and Lingling engaged in a conversation about their experiences with nature. Zihao, who started his first home gardening project the previous day, shared his excitement about potentially hosting brunches in his garden, which is located in the city. He also participates in community gardening and shared a picture of colorful heirloom tomatoes from there. Lingling, visiting the countryside, described the peaceful surroundings near a lake with wildflowers. She shared her ongoing hobby of sketching since she was ten, showing her sketch of wildflowers drawn by the lake. The two exchanged photos illustrating their experiences with nature; Zihao showed his starter kit and herb box with some sections yet to be filled, while Lingling shared a photo of",
+  "events_session_2": [
+    {
+      "sub-event": "Lingling begins writing a collection of poems inspired by her countryside visit.",
+      "date": "10 July, 2022",
+      "id": "E2",
+      "caused_by": [
+        "E1"
+      ]
+    }
+  ],
+  "session_2_date_time": "7:24 pm on 11 July, 2022",
+  "session_2": [
+    {
+      "text": "When I last visited the countryside, I started writing a poetry collection. It's my way of preserving that serene beauty. Do you find creativity blossoms when you're gardening?",
+      "raw_text": "When I last visited the countryside, I started writing a poetry collection. It's my way of preserving that serene beauty. Do you find creativity blossoms when you're gardening?",
+      "speaker": "Lingling",
+      "clean_text": "Last time I went to the countryside, I started writing some poems to capture the beauty. Do you think you get more creative when you're gardening?",
+      "dia_id": "D2:1"
+    },
+    {
+      "text": "Definitely! Tending to my plants inspires me to think creatively. Have any poems been inspired by your wildflower sketches?",
+      "raw_text": "Definitely! Tending to my plants inspires me to think creatively. Have any poems been inspired by your wildflower sketches?",
+      "speaker": "Zihao",
+      "clean_text": "Sure thing! Taking care of my plants gets my creative juices flowing. Have any poems come from your wildflower sketches?",
+      "dia_id": "D2:2"
+    },
+    {
+      "text": "Not yet, but I've felt inspired to begin a collection of poems starting with those sketches. Here's a sneak peek: ",
+      "raw_text": "Not yet, but I've felt inspired to begin a collection of poems starting with those sketches. Here's a sneak peek: ",
+      "speaker": "Lingling",
+      "clean_text": "I haven't started yet, but I'm excited to turn these sketches into a poetry collection. Here's a quick preview:",
+      "dia_id": "D2:3"
+    },
+    {
+      "text": "Oh, I can't wait to hear one someday! Do wildflowers symbolize something special for you in this new creative journey?",
+      "raw_text": "Oh, I can't wait to hear one someday! Do wildflowers symbolize something special for you in this new creative journey?",
+      "speaker": "Zihao",
+      "clean_text": "I can't wait to hear one someday! Do wildflowers mean something special for you in this new creative journey?",
+      "dia_id": "D2:4"
+    },
+    {
+      "text": "Wildflowers make me feel a strong connection to freedom and resilience. Here's a glimpse:",
+      "raw_text": "Wildflowers make me feel a strong connection to freedom and resilience. Here's a glimpse:",
+      "speaker": "Lingling",
+      "clean_text": "Wildflowers remind me of freedom and resilience. Take a look:",
+      "dia_id": "D2:5"
+    },
+    {
+      "text": "It's lovely how wildflowers capture such spirit. Recently, I was inspired by an album of family recipes and created something new! [shares a photo of a beautifully arranged set of homemade dumplings with garnishes] How about you—any new creations from fields of flowers?",
+      "raw_text": "It's lovely how wildflowers capture such spirit. Recently, I was inspired by an album of family recipes and created something new! [shares a photo of a beautifully arranged set of homemade dumplings with garnishes] How about you—any new creations from fields of flowers?",
+      "speaker": "Zihao",
+      "clean_text": "Wildflowers are really cool. I got inspired by some family recipes and made something new! What about you—made anything new with flowers lately?",
+      "dia_id": "D2:6"
+    },
+    {
+      "text": "When I was ten years old, I used to press flowers and create art with them. Revisited that memory recently. Need help remembering how to press and preserve flowers properly.",
+      "raw_text": "When I was ten years old, I used to press flowers and create art with them. Revisited that memory recently. Need help remembering how to press and preserve flowers properly.",
+      "speaker": "Lingling",
+      "clean_text": "When I was 10, I used to press flowers and make art with them. Just thought about it again and need a reminder on how to do it right.",
+      "dia_id": "D2:7"
+    },
+    {
+      "text": "Would you like a detailed memory of pressing flowers properly? I loved grandma's tips last grandma’s afternoon tea party. 😊 Did my baked treat inspire you?",
+      "raw_text": "Would you like a detailed memory of pressing flowers properly? I loved grandma's tips last grandma’s afternoon tea party. 😊 Did my baked treat inspire you?",
+      "speaker": "Zihao",
+      "clean_text": "Want to remember how to press flowers the right way? Grandma's tips at the last tea party were awesome! 😊 Did my baked treat give you any ideas?",
+      "dia_id": "D2:8"
+    },
+    {
+      "text": "Your baked treat inspired me to bake persimmon tarts like my aunt made when I was ten. There's warmth and nostalgia in them. [shares a photo of a golden-brown persimmon tart fresh out the oven with steam and a single glazed persimmon slice on top] Have family recipes ever reminded you of special childhood memories?",
+      "raw_text": "Your baked treat inspired me to bake persimmon tarts like my aunt made when I was ten. There's warmth and nostalgia in them. [shares a photo of a golden-brown persimmon tart fresh out the oven with steam and a single glazed persimmon slice on top] Have family recipes ever reminded you of special childhood memories?",
+      "speaker": "Lingling",
+      "clean_text": "Your dessert made me want to bake persimmon tarts like my aunt used to make. They bring back cozy childhood memories. Do family recipes ever remind you of fun times as a kid?",
+      "dia_id": "D2:9"
+    },
+    {
+      "text": "Your aunt's persimmon tarts sound wonderful! Grandma's noodle soup still comforts me. I'll always associate it with winter evenings. [shares a cozy family picture around the dinner table from their childhood, all smiling widely and holding bowls of noodle soup] What dish do you think represents your childhood most?",
+      "raw_text": "Your aunt's persimmon tarts sound wonderful! Grandma's noodle soup still comforts me. I'll always associate it with winter evenings. [shares a cozy family picture around the dinner table from their childhood, all smiling widely and holding bowls of noodle soup] What dish do you think represents your childhood most?",
+      "speaker": "Zihao",
+      "clean_text": "Your aunt's persimmon tarts sound awesome! Grandma's noodle soup still hits the spot for me—total winter vibes. What food reminds you most of growing up?",
+      "dia_id": "D2:10"
+    },
+    {
+      "text": "Poached eggs on toast remind me of cozy Sunday mornings with Dad, sharing stories and laughter. Yesterday he called and brought me back to those warm days. What about you? Have you had any nostalgic phone calls recently?",
+      "raw_text": "Poached eggs on toast remind me of cozy Sunday mornings with Dad, sharing stories and laughter. Yesterday he called and brought me back to those warm days. What about you? Have you had any nostalgic phone calls recently?",
+      "speaker": "Lingling",
+      "clean_text": "Poached eggs on toast make me think of chill Sundays with Dad, chatting and laughing. He called yesterday and it felt like old times. How about you? Had any throwback calls lately?",
+      "dia_id": "D2:11"
+    },
+    {
+      "text": "Oh, absolutely! Mom called last week, chatted away about our old neighborhood and noodle stand days. [shares a photo of a steaming bowl of homemade noodle soup, garnished with fresh herbs like Grandma used to make.] What did you and your dad chat about?",
+      "raw_text": "Oh, absolutely! Mom called last week, chatted away about our old neighborhood and noodle stand days. [shares a photo of a steaming bowl of homemade noodle soup, garnished with fresh herbs like Grandma used to make.] What did you and your dad chat about?",
+      "speaker": "Zihao",
+      "clean_text": "For sure! Mom called last week, talked about the old neighborhood and noodle stand. What did you talk about with your dad?",
+      "dia_id": "D2:12"
+    },
+    {
+      "text": "Dad and I reminisced about our trips to the beach. Childhood memories dance like the ocean's waves. 🌊 Have you revisited favorite places lately? [END]",
+      "raw_text": "Dad and I reminisced about our trips to the beach. Childhood memories dance like the ocean's waves. 🌊 Have you revisited favorite places lately? [END]",
+      "speaker": "Lingling",
+      "clean_text": "Dad and I reminisced about our trips to the beach. Childhood memories dance like the ocean's waves. 🌊 Have you revisited favorite places lately? ",
+      "dia_id": "D2:13"
+    },
+    {
+      "text": "Last Friday, I visited our old playground with cousins. Nostalgia kicked in! [Shares a photo of a rusty swing set near green trees.] Do you see traces of past adventures in current hangout spots?",
+      "raw_text": "Last Friday, I visited our old playground with cousins. Nostalgia kicked in! [Shares a photo of a rusty swing set near green trees.] Do you see traces of past adventures in current hangout spots?",
+      "speaker": "Zihao",
+      "clean_text": "Went to our old playground with my cousins last Friday. Total nostalgia! Do you ever notice past adventures in your favorite hangout spots?",
+      "dia_id": "D2:14"
+    },
+    {
+      "text": "Every breeze at the lake echoes childhood picnics. When my ears catch the rustling leaves, nostalgia tuck me gently. Ever-night wish spot?",
+      "raw_text": "Every breeze at the lake echoes childhood picnics. When my ears catch the rustling leaves, nostalgia tuck me gently. Ever-night wish spot?",
+      "speaker": "Lingling",
+      "clean_text": "Every breeze at the lake reminds me of childhood picnics. When I hear the leaves rustle, nostalgia hits me. Got a favorite spot to wish at night?",
+      "dia_id": "D2:15"
+    },
+    {
+      "text": "Stargazing on our rooftop! Cozy moments with siblings are my wish-worthy memories. Remember your bigger wishes among starlit skies? ✨",
+      "raw_text": "Stargazing on our rooftop! Cozy moments with siblings are my wish-worthy memories. Remember your bigger wishes among starlit skies? ✨",
+      "speaker": "Zihao",
+      "clean_text": "Rooftop stargazing with my siblings is the best! Do you remember all those big wishes under the stars? ✨",
+      "dia_id": "D2:16"
+    },
+    {
+      "text": "Those starry nights hold my dreams. Last month, I started writing one into a story. How about you, any starlit dreams? 🌙",
+      "raw_text": "Those starry nights hold my dreams. Last month, I started writing one into a story. How about you, any starlit dreams? 🌙",
+      "speaker": "Lingling",
+      "clean_text": "Starry nights inspire my dreams. Last month, I started turning one into a story. What about you, any dreams under the stars? 🌙",
+      "dia_id": "D2:17"
+    },
+    {
+      "text": "Sharing dreams with the skies inspires my life's path. Have you ever thought of illustrating your night-sky inspirations?",
+      "raw_text": "Sharing dreams with the skies inspires my life's path. Have you ever thought of illustrating your night-sky inspirations?",
+      "speaker": "Zihao",
+      "clean_text": "The night sky gives me life goals. Have you ever tried drawing your sky dreams?",
+      "dia_id": "D2:18"
+    },
+    {
+      "text": "I'm constantly dreaming of skies in shades of twilight. Here's a sneak peek of my sketch depicting those dreams: ",
+      "raw_text": "I'm constantly dreaming of skies in shades of twilight. Here's a sneak peek of my sketch depicting those dreams: ",
+      "speaker": "Lingling",
+      "clean_text": "I keep imagining twilight skies. Here's a glimpse of my sketch showing those dreams:",
+      "dia_id": "D2:19"
+    },
+    {
+      "text": "Lingling, your sketch beautifully captures your dreams! 🌌 Last week, I painted a moonlit garden scene. Can I show you?",
+      "raw_text": "Lingling, your sketch beautifully captures your dreams! 🌌 Last week, I painted a moonlit garden scene. Can I show you?",
+      "speaker": "Zihao",
+      "clean_text": "Lingling, your sketch is awesome! 🌌 I painted a moonlit garden last week. Wanna see?",
+      "dia_id": "D2:20"
+    }
+  ],
+  "session_2_facts": {
+    "Lingling": [
+      [
+        "Lingling started writing poems inspired by a visit to the countryside.",
+        "D2:1"
+      ],
+      [
+        "Wildflowers remind Lingling of freedom and resilience.",
+        "D2:5"
+      ],
+      [
+        "Lingling used to press flowers and make art with them at age 10.",
+        "D2:7"
+      ],
+      [
+        "Lingling's aunt's persimmon tarts bring back cozy childhood memories.",
+        "D2:9"
+      ],
+      [
+        "Poached eggs on toast remind Lingling of Sundays spent with her father.",
+        "D2:11"
+      ],
+      [
+        "Lingling talked with her dad about childhood trips to the beach.",
+        "D2:13"
+      ],
+      [
+        "Picnics at the lake during childhood evoke nostalgia for Lingling.",
+        "D2:15"
+      ],
+      [
+        "Last month, Lingling started turning starry night inspiration into a story.",
+        "D2:17"
+      ],
+      [
+        "Lingling sketches twilight skies and imagines them.",
+        "D2:19"
+      ]
+    ],
+    "Zihao": [
+      [
+        "Gardening helps Zihao's creativity.",
+        "D2:2"
+      ],
+      [
+        "Zihao was inspired by family recipes to create something new.",
+        "D2:6"
+      ],
+      [
+        "As a child, Zihao enjoyed his grandma's noodle soup during winter.",
+        "D2:10"
+      ],
+      [
+        "Zihao received a call from mom last week reminiscing about their old neighborhood.",
+        "D2:12"
+      ],
+      [
+        "Zihao visited his old playground with cousins last Friday.",
+        "D2:14"
+      ],
+      [
+        "Rooftop stargazing with siblings is one of Zihao's favorite activities.",
+        "D2:16"
+      ],
+      [
+        "The night sky inspires Zihao to set life goals.",
+        "D2:18"
+      ],
+      [
+        "Zihao painted a moonlit garden last week.",
+        "D2:20"
+      ]
+    ]
+  },
+  "session_2_summary": "On July 1, 2022, Zihao and Lingling discussed their experiences with nature. Zihao started urban home gardening and shared his excitement about potential brunches and community gardening. Lingling visited the countryside and described the peace by the lake, and she shared her hobby of sketching wildflowers. On July 11, Lingling mentioned starting a poetry collection inspired by the countryside and revealed her emotional connection to wildflowers. Zihao, inspired by family recipes, shared his homemade dumplings. Lingling recalled her childhood flower pressing and baked persimmon tarts, inspired by Zihao. They shared nostalgic conversations about childhood memories with family. Zihao visited an old playground, and Lingling recalled beach trips with her dad. They both",
+  "events_session_3": [],
+  "session_3_date_time": "7:04 pm on 17 July, 2022",
+  "session_3": [
+    {
+      "text": "Last Friday I shared my garden veggies with family at a community event. It's heartening to see connections grow. Do you still sketch wildflowers?",
+      "raw_text": "Last Friday I shared my garden veggies with family at a community event. It's heartening to see connections grow. Do you still sketch wildflowers?",
+      "speaker": "Zihao",
+      "clean_text": "I gave some garden veggies to my family at an event last Friday. It's nice to see everyone getting closer. Are you still drawing wildflowers?",
+      "dia_id": "D3:1"
+    },
+    {
+      "text": "I've been painting wildflowers inspired by a meadow dream I had. Dreams often have such mystical stories, do you think so too?",
+      "raw_text": "I've been painting wildflowers inspired by a meadow dream I had. Dreams often have such mystical stories, do you think so too?",
+      "speaker": "Lingling",
+      "clean_text": "I've been painting wildflowers from a dream I had about a meadow. Don't dreams have cool stories sometimes? What do you think?",
+      "dia_id": "D3:2"
+    },
+    {
+      "text": "Dreams always surprise me! I recently organized a community event and felt the energy turned dreams into reality. Here's a photo:",
+      "raw_text": "Dreams always surprise me! I recently organized a community event and felt the energy turned dreams into reality. Here's a photo:",
+      "speaker": "Zihao",
+      "clean_text": "Dreams always blow my mind! Just organized a community event, and the vibe was unreal. Check out the photo:",
+      "dia_id": "D3:3"
+    },
+    {
+      "text": "Zihao, your photo filled me with similar spark as my dreams! Here's something from my imagination instead:",
+      "raw_text": "Zihao, your photo filled me with similar spark as my dreams! Here's something from my imagination instead:",
+      "speaker": "Lingling",
+      "clean_text": "Zihao, your photo inspired me like my dreams do! Here's a little something from my imagination:",
+      "dia_id": "D3:4"
+    },
+    {
+      "text": "I can't wait to see it! That meadow from your dreams must look magical. Life feels more fulfilling lately, diving into these events and sharing moments. How has writing been on your end?",
+      "raw_text": "I can't wait to see it! That meadow from your dreams must look magical. Life feels more fulfilling lately, diving into these events and sharing moments. How has writing been on your end?",
+      "speaker": "Zihao",
+      "clean_text": "Can't wait to see it! That dream meadow must be awesome. Life feels more fun, diving into stuff and sharing moments. How's writing going for you?",
+      "dia_id": "D3:5"
+    },
+    {
+      "text": "The poetry collection is growing beautifully! Every piece feels like an intimate dance with memories and distant feelings, each word infused with emotion. Here's a peek into one of my verses. [shares a photo of an open diary page, delicately handwritten words with lovely little sketches of wildflowers lining the borders, soft watercolor splashes creating a dreamy effect.]",
+      "raw_text": "The poetry collection is growing beautifully! Every piece feels like an intimate dance with memories and distant feelings, each word infused with emotion. Here's a peek into one of my verses. [shares a photo of an open diary page, delicately handwritten words with lovely little sketches of wildflowers lining the borders, soft watercolor splashes creating a dreamy effect.]",
+      "speaker": "Lingling",
+      "clean_text": "The poetry collection is coming along great! Each piece feels close and emotional. Check out one of my verses.",
+      "dia_id": "D3:6"
+    },
+    {
+      "text": "Here's to creative bursts! Your verse envelops emotion, Lingling. Here's the community event flyer from Friday! [shares a photo of the colorful, hand-designed event flyer featuring illustrations of local produce and community gathering spots]. Organizing everything felt fulfilling, promoting unity. How do you weave emotions into your writing?",
+      "raw_text": "Here's to creative bursts! Your verse envelops emotion, Lingling. Here's the community event flyer from Friday! [shares a photo of the colorful, hand-designed event flyer featuring illustrations of local produce and community gathering spots]. Organizing everything felt fulfilling, promoting unity. How do you weave emotions into your writing?",
+      "speaker": "Zihao",
+      "clean_text": "Here's to creative sparks! Your poetry is so full of emotion, Lingling. Here's the flyer for Friday's event. Putting it all together was fun and brought us closer. How do you get emotions into your writing?",
+      "dia_id": "D3:7"
+    },
+    {
+      "text": "Yesterday, I revisited my story about the starry night. It edged out genuine feelings just like late-night musings. What inspires you most?",
+      "raw_text": "Yesterday, I revisited my story about the starry night. It edged out genuine feelings just like late-night musings. What inspires you most?",
+      "speaker": "Lingling",
+      "clean_text": "Yesterday, I went back to my story about the starry night. It brought out real feelings, kind of like when you're up thinking late at night. What gets you inspired?",
+      "dia_id": "D3:8"
+    },
+    {
+      "text": "I've been drawing life goals from night skies recently; fascinating how profound thoughts surface. How's your starry story evolving?",
+      "raw_text": "I've been drawing life goals from night skies recently; fascinating how profound thoughts surface. How's your starry story evolving?",
+      "speaker": "Zihao",
+      "clean_text": "I've been getting life ideas from the night sky lately. How's your starry story going?",
+      "dia_id": "D3:9"
+    },
+    {
+      "text": "I captured this emotional moment in a sketch. The twinkling stars felt alive in my mind, just like memories do. ",
+      "raw_text": "I captured this emotional moment in a sketch. The twinkling stars felt alive in my mind, just like memories do. ",
+      "speaker": "Lingling",
+      "clean_text": "I drew this scene and the stars felt alive, like memories.",
+      "dia_id": "D3:10"
+    },
+    {
+      "text": "Wow, Lingling, that sounds enchanting! The night sky always inspires deep thoughts in me too. Have you found any new inspirations or turned memories of stars into emotions in your writing lately? How about I share a wild idea I'm planning that's inspired by my love for the moonlit nights? How's that sound?",
+      "raw_text": "Wow, Lingling, that sounds enchanting! The night sky always inspires deep thoughts in me too. Have you found any new inspirations or turned memories of stars into emotions in your writing lately? How about I share a wild idea I'm planning that's inspired by my love for the moonlit nights? How's that sound?",
+      "speaker": "Zihao",
+      "clean_text": "Wow, Lingling, that's awesome! I get deep thoughts from the night sky too. Have you written anything new inspired by the stars? Want to hear a cool idea I have about moonlit nights? What do you think?",
+      "dia_id": "D3:11"
+    },
+    {
+      "text": "Yes, I'd love to hear your idea! Moonlit nights whisper magical secrets. When I sketch, it feels like I'm capturing dreams. How do you see them?",
+      "raw_text": "Yes, I'd love to hear your idea! Moonlit nights whisper magical secrets. When I sketch, it feels like I'm capturing dreams. How do you see them?",
+      "speaker": "Lingling",
+      "clean_text": "Sure, I'd love to hear your idea! Moonlit nights feel magical. When I sketch, it's like capturing dreams. What about you? How do you see them?",
+      "dia_id": "D3:12"
+    },
+    {
+      "text": "Moonlit nights awaken my sense of wonder. Imagining infinite possibilities reminds me we're part of something bigger. Here's my recent moonlit garden painting: [shares painting of a moonlit garden with a glowing full moon shining down on vibrant flowers]. How do you capture life's beauty in sketches, Lingling?",
+      "raw_text": "Moonlit nights awaken my sense of wonder. Imagining infinite possibilities reminds me we're part of something bigger. Here's my recent moonlit garden painting: [shares painting of a moonlit garden with a glowing full moon shining down on vibrant flowers]. How do you capture life's beauty in sketches, Lingling?",
+      "speaker": "Zihao",
+      "clean_text": "Moonlit nights spark my curiosity. Thinking about endless possibilities makes me realize we're part of something bigger. Here's my latest moonlit garden painting. How do you capture life's beauty in your sketches, Lingling?",
+      "dia_id": "D3:13"
+    },
+    {
+      "text": "I capture life's beauty by finding the smallest moments, like sunbeams through leaves. Here's a sketch I made today: ",
+      "raw_text": "I capture life's beauty by finding the smallest moments, like sunbeams through leaves. Here's a sketch I made today: ",
+      "speaker": "Lingling",
+      "clean_text": "I love catching life's little beauties, like sunbeams through leaves. Check out my sketch from today:",
+      "dia_id": "D3:14"
+    },
+    {
+      "text": "Your sketches truly capture those rare moments of beauty. Last Friday's event connected community and art. How's capturing emotions from nature going for you?",
+      "raw_text": "Your sketches truly capture those rare moments of beauty. Last Friday's event connected community and art. How's capturing emotions from nature going for you?",
+      "speaker": "Zihao",
+      "clean_text": "Your sketches really catch those special beauty moments. Last Friday's event was a cool mix of community and art. How's it going with capturing nature's emotions?",
+      "dia_id": "D3:15"
+    },
+    {
+      "text": "When I delve into nature, I feel emotions surfacing, just like when I crafted these verses at last Friday's gathering.",
+      "raw_text": "When I delve into nature, I feel emotions surfacing, just like when I crafted these verses at last Friday's gathering.",
+      "speaker": "Lingling",
+      "clean_text": "Being in nature makes me feel things, just like when I wrote these poems at last Friday's hangout.",
+      "dia_id": "D3:16"
+    },
+    {
+      "text": "Here's a photo from the community event; everyone was gushing over my garden veggies. How do you channel those feelings into poetry? [PHOTO: Locally organized community event, with home-grown veggies and people smiling together]",
+      "raw_text": "Here's a photo from the community event; everyone was gushing over my garden veggies. How do you channel those feelings into poetry? [PHOTO: Locally organized community event, with home-grown veggies and people smiling together]",
+      "speaker": "Zihao",
+      "clean_text": "Here's a pic from the community event; people loved my garden veggies. Got any poetry tips for that?",
+      "dia_id": "D3:17"
+    },
+    {
+      "text": "Here's a whimsy verse for you: \"Soft petals on earthy breath, dance with dawn's elegance.\" What emotions bloom around gardens for you, Zihao?",
+      "raw_text": "Here's a whimsy verse for you: \"Soft petals on earthy breath, dance with dawn's elegance.\" What emotions bloom around gardens for you, Zihao?",
+      "speaker": "Lingling",
+      "clean_text": "Here's a fun little verse: \"Soft petals dance in the morning light.\" What feelings do gardens stir up for you, Zihao?",
+      "dia_id": "D3:18"
+    },
+    {
+      "text": "Gardens feel like whispers of peace and vibrant platforms of life. Like living poetry. What's next on your poetry journey?",
+      "raw_text": "Gardens feel like whispers of peace and vibrant platforms of life. Like living poetry. What's next on your poetry journey?",
+      "speaker": "Zihao",
+      "clean_text": "Gardens are peaceful and full of life, like living poetry. What's next for you in exploring poetry?",
+      "dia_id": "D3:19"
+    },
+    {
+      "text": "I plan to focus on ephemeral moments, like sunlit mornings. They whisper stories. How does nature fuel your art, Zihao?",
+      "raw_text": "I plan to focus on ephemeral moments, like sunlit mornings. They whisper stories. How does nature fuel your art, Zihao?",
+      "speaker": "Lingling",
+      "clean_text": "I'm into capturing fleeting moments, like sunny mornings. They have their own tales. How does nature inspire your art, Zihao?",
+      "dia_id": "D3:20"
+    }
+  ],
+  "session_3_facts": {
+    "Zihao": [
+      [
+        "Zihao gave garden veggies to his family at an event last Friday.",
+        "D3:1"
+      ],
+      [
+        "Zihao organized a community event with a positive vibe.",
+        "D3:3"
+      ],
+      [
+        "Zihao has been getting inspiration from the night sky lately.",
+        "D3:9"
+      ],
+      [
+        "Zihao painted a moonlit garden as his latest artwork.",
+        "D3:13"
+      ]
+    ],
+    "Lingling": [
+      [
+        "Lingling has been painting wildflowers inspired by a dream about a meadow.",
+        "D3:2"
+      ],
+      [
+        "Lingling is working on a poetry collection that feels close and emotional.",
+        "D3:6"
+      ],
+      [
+        "Lingling returned to writing a story inspired by a starry night.",
+        "D3:8"
+      ],
+      [
+        "Lingling sketches to capture life's fleeting moments, like sunny mornings.",
+        "D3:20"
+      ]
+    ]
+  },
+  "session_3_summary": "Lingling and Zihao have shared conversations about their passions for art, nature, and community events. Zihao, who started urban home gardening, spoke about the joy of sharing his veggies at a community event, highlighting the connections formed. Lingling, inspired by a dream, has been painting wildflowers and enhancing her poetry collection with intimate reflections about nature. Both find inspiration in dreams, night skies, and nature's subtle moments. Zihao shared a moonlit garden painting, showing the depth of his artistic exploration, while Lingling captures beauty through sketches and poetry. They both cherish nostalgic memories and seek inspiration from earthly and celestial elements, like gardens and moonlit nights. Their exchanges, set in July 2022, reflect a mutual admiration for creativity"
+}

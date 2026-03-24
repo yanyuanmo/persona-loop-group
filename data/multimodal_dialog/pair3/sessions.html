@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat {
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .sender1 {
+            background-color: #e2f0cb;
+            align-self: flex-start;
+        }
+        .sender2 {
+            background-color: #b2ebf2;
+            align-self: flex-end;
+        }
+        .date {
+            background-color: #ffb6c1;
+            align-self: center;
+        }
+        .message img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat">
+    
+        <div class="message sender1">
+            <p><b>Name</b>: Lingling<br><b>Persona</b>: Lingling is a gentle and dreamy young woman who grew up in a household full of music, stories, and warmth. She has a poetic inner world and tends to see life through a slightly romantic lens — ordinary moments feel meaningful and worth savoring to her. She is a quietly creative person who expresses herself through writing, sketching little scenes in notebooks, and finding beauty in weather and seasons. She is introverted but not shy; she is perfectly happy to open up once she feels safe with someone. She has a deep sensitivity to other people's emotions and a natural instinct to make whoever she is talking to feel heard and understood. She is also unexpectedly funny in a soft, understated way that surprises people who expect her to be serious.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Name</b>: Zihao<br><b>Persona</b>: Zihao is an easygoing and warmhearted young man who approaches life with a kind of relaxed confidence. He grew up in a big, noisy, affectionate family and absorbed a genuine ease around people from a very young age. He is the kind of person who remembers things you mentioned in passing months ago and brings them up at exactly the right moment, not to impress you but because he was actually listening. He has a broad and enthusiastic curiosity about the world — food, history, how things work, random trivia — and can get genuinely excited talking about almost any topic. He is dependable and steady, and underneath his easy cheerfulness there is a thoughtful, principled core. He believes strongly in showing up for people.<br></p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 1 [ 11:57 am on 1 July, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>1 July, 2022</b>: Lingling visits a serene countryside for a weekend getaway.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br><b>30 June, 2022</b>: Zihao starts a home gardening project as part of his interest in how things work.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>Hey Lingling! I just started my first home garden yesterday. Have you tried gardening?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>That sounds great! I'm out in the countryside right now. It's chill. Got any garden brunch plans for the weekend?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I think I might have brunch in the garden! What's your go-to for brunch?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love poached eggs on toast outside! Are you thinking of making something from your garden, like rosemary potatoes?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I don’t have rosemary yet! What do you think? Planning to plant herbs soon! Where are you in the countryside?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I'm by a cute lake with wildflowers; it's like I'm in a storybook. Do you have a garden, in the city or countryside?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I've got a garden in the city. It's small but fun! Check out my starter kit.</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wow, sharing gardens sounds cool! This place has a lot to tell. Nature here is so calming. What's the best thing you've found in a garden?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I love the community gardens! Great vibes and chats with neighbors. Ever met any cool people by the lake?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Haven’t met anyone new at the lake yet, but it’s so peaceful. Your community garden sounds awesome. Found any cool plants there?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Found some funky-looking heirloom tomatoes last Friday. So tasty! Ever stumble upon anything cool in nature?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wow, that sounds awesome! I found a bunch of wildflowers yesterday and started sketching them. 🌼 Want to see?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I'd love to check out your sketches! Here's a photo of the heirloom tomatoes. What do you think?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wow, those tomatoes look so funky and colorful! I dig their unique vibe.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>What do you use to sketch?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I've been drawing wildflowers in my notebook. It's a chill way to wind down and brighten up my notes with pastels!</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Wow, that's awesome, Lingling! Can I check out one of your sketches? Do you draw a lot or is this something new?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I've been drawing since I was 10 for fun. Check out my latest wildflower sketch! 🌿💛</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Seeing your wildflower sketch would be really cool. Here’s a photo of my herb box dreams — complete with blank spots and all.  </p>
+        </div>
+
+        <div class="message sender1">
+            <p>Great visuals, Zihao! 🌱 Here's my wildflower doodle by the lake, with some sneaky blooms after the rain.</p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 2 [ 7:24 pm on 11 July, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br><b>10 July, 2022</b>: Lingling begins writing a collection of poems inspired by her countryside visit.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender1">
+            <p>Last time I went to the countryside, I started writing some poems to capture the beauty. Do you think you get more creative when you're gardening?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Sure thing! Taking care of my plants gets my creative juices flowing. Have any poems come from your wildflower sketches?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I haven't started yet, but I'm excited to turn these sketches into a poetry collection. Here's a quick preview:</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I can't wait to hear one someday! Do wildflowers mean something special for you in this new creative journey?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Wildflowers remind me of freedom and resilience. Take a look:</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Wildflowers are really cool. I got inspired by some family recipes and made something new! What about you—made anything new with flowers lately?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>When I was 10, I used to press flowers and make art with them. Just thought about it again and need a reminder on how to do it right.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Want to remember how to press flowers the right way? Grandma's tips at the last tea party were awesome! 😊 Did my baked treat give you any ideas?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Your dessert made me want to bake persimmon tarts like my aunt used to make. They bring back cozy childhood memories. Do family recipes ever remind you of fun times as a kid?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Your aunt's persimmon tarts sound awesome! Grandma's noodle soup still hits the spot for me—total winter vibes. What food reminds you most of growing up?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Poached eggs on toast make me think of chill Sundays with Dad, chatting and laughing. He called yesterday and it felt like old times. How about you? Had any throwback calls lately?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>For sure! Mom called last week, talked about the old neighborhood and noodle stand. What did you talk about with your dad?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Dad and I reminisced about our trips to the beach. Childhood memories dance like the ocean's waves. 🌊 Have you revisited favorite places lately? </p>
+        </div>
+
+        <div class="message sender2">
+            <p>Went to our old playground with my cousins last Friday. Total nostalgia! Do you ever notice past adventures in your favorite hangout spots?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Every breeze at the lake reminds me of childhood picnics. When I hear the leaves rustle, nostalgia hits me. Got a favorite spot to wish at night?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Rooftop stargazing with my siblings is the best! Do you remember all those big wishes under the stars? ✨</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Starry nights inspire my dreams. Last month, I started turning one into a story. What about you, any dreams under the stars? 🌙</p>
+        </div>
+
+        <div class="message sender2">
+            <p>The night sky gives me life goals. Have you ever tried drawing your sky dreams?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I keep imagining twilight skies. Here's a glimpse of my sketch showing those dreams:</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Lingling, your sketch is awesome! 🌌 I painted a moonlit garden last week. Wanna see?</p>
+        </div>
+
+            <div class="message date">
+                <p> &nbsp; &nbsp;Session 3 [ 7:04 pm on 17 July, 2022 ]&nbsp; &nbsp;</p>
+            </div>
+
+        <div class="message sender1">
+            <p><b>Events</b><br></p>
+        </div>
+
+        <div class="message sender2">
+            <p><b>Events</b><br><b>15 July, 2022</b>: Zihao volunteers to help organize a local community event as part of being dependable and showing up for people.<br><b>15 July, 2022</b>: Zihao shares vegetables from his home garden with family and friends, reinforcing his warmhearted personality.<br></p>
+        </div>
+
+        <div class="message sender2">
+            <p>I gave some garden veggies to my family at an event last Friday. It's nice to see everyone getting closer. Are you still drawing wildflowers?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I've been painting wildflowers from a dream I had about a meadow. Don't dreams have cool stories sometimes? What do you think?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Dreams always blow my mind! Just organized a community event, and the vibe was unreal. Check out the photo:</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Zihao, your photo inspired me like my dreams do! Here's a little something from my imagination:</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Can't wait to see it! That dream meadow must be awesome. Life feels more fun, diving into stuff and sharing moments. How's writing going for you?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>The poetry collection is coming along great! Each piece feels close and emotional. Check out one of my verses.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Here's to creative sparks! Your poetry is so full of emotion, Lingling. Here's the flyer for Friday's event. Putting it all together was fun and brought us closer. How do you get emotions into your writing?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Yesterday, I went back to my story about the starry night. It brought out real feelings, kind of like when you're up thinking late at night. What gets you inspired?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>I've been getting life ideas from the night sky lately. How's your starry story going?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I drew this scene and the stars felt alive, like memories.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Wow, Lingling, that's awesome! I get deep thoughts from the night sky too. Have you written anything new inspired by the stars? Want to hear a cool idea I have about moonlit nights? What do you think?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Sure, I'd love to hear your idea! Moonlit nights feel magical. When I sketch, it's like capturing dreams. What about you? How do you see them?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Moonlit nights spark my curiosity. Thinking about endless possibilities makes me realize we're part of something bigger. Here's my latest moonlit garden painting. How do you capture life's beauty in your sketches, Lingling?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I love catching life's little beauties, like sunbeams through leaves. Check out my sketch from today:</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Your sketches really catch those special beauty moments. Last Friday's event was a cool mix of community and art. How's it going with capturing nature's emotions?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Being in nature makes me feel things, just like when I wrote these poems at last Friday's hangout.</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Here's a pic from the community event; people loved my garden veggies. Got any poetry tips for that?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>Here's a fun little verse: "Soft petals dance in the morning light." What feelings do gardens stir up for you, Zihao?</p>
+        </div>
+
+        <div class="message sender2">
+            <p>Gardens are peaceful and full of life, like living poetry. What's next for you in exploring poetry?</p>
+        </div>
+
+        <div class="message sender1">
+            <p>I'm into capturing fleeting moments, like sunny mornings. They have their own tales. How does nature inspire your art, Zihao?</p>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>

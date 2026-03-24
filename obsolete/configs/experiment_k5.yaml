@@ -1,6 +1,0 @@
-defaults:
-  - experiment_baseline
-
-experiment:
-  run_name: persona_loop_k5
-  k: 5

@@ -60,6 +60,8 @@ class PersonaLoopAgent(BaseAgent):
         recent_turns: int = 3,
         nli_threshold: float = 0.3,
         max_corrections: int = 2,
+        disable_persona_persist: bool = False,
+        disable_corrections: bool = False,
     ):
         super().__init__(llm=llm, memory=memory, checker=checker)
         self.loop_interval = max(1, int(loop_interval))
@@ -67,6 +69,8 @@ class PersonaLoopAgent(BaseAgent):
         self.recent_turns = max(1, int(recent_turns))
         self.nli_threshold = float(nli_threshold)
         self.max_corrections = max(0, int(max_corrections))
+        self.disable_persona_persist = bool(disable_persona_persist)
+        self.disable_corrections = bool(disable_corrections)
 
         self._turn_count: int = 0
         # Rolling buffer: stores "[SPEAKER] text" strings for the current K-window.
@@ -85,13 +89,13 @@ class PersonaLoopAgent(BaseAgent):
         """Execute Stage A-D and return rebuilt context string + diagnostics."""
 
         # --- Stage A: persist recent K turns into external memory ---
-        if self.memory is not None:
+        if self.memory is not None and not self.disable_persona_persist:
             for snippet in self._recent_buffer:
                 self.memory.add(text=snippet)
 
         # --- Stage B: detect contradictions in agent's own responses ---
         corrections: List[str] = []
-        if self.checker is not None and persona_text.strip() and self.max_corrections > 0:
+        if not self.disable_corrections and self.checker is not None and persona_text.strip() and self.max_corrections > 0:
             threshold = -max(0.0, self.nli_threshold)
             for response in self._agent_responses:
                 score = float(self.checker.score(premise=persona_text, hypothesis=response))
