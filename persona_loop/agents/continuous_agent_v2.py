@@ -11,12 +11,17 @@ generates a response. No memory database, no context reset.
 """
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from persona_loop.agents.base_agent import BaseAgent
 
 
 class ContinuousAgent(BaseAgent):
+    def __init__(self, llm: Any, max_history: int = 20):
+        super().__init__(llm=llm)
+        self.max_history = max_history
+        self._history: List[str] = []
+
     def run_turn(self, prompt: str, context: str) -> Dict[str, Any]:
         response = self.llm.generate(prompt=prompt, context=context)
         return {
@@ -32,14 +37,17 @@ class ContinuousAgent(BaseAgent):
         partner_text: str,
         persona_summary: str,
     ) -> Dict[str, Any]:
-        """Generate a roleplay response as speaker_name (no loop, no memory)."""
+        """Generate a roleplay response as speaker_name, with windowed history."""
+        hist = self._history[-self.max_history:] if self.max_history > 0 else self._history
+        context_extra = "\n".join(f"[HISTORY] {h}" for h in hist)
         response = self.llm.generate_roleplay(
             speaker_name=speaker_name,
             partner_name=partner_name,
             partner_text=partner_text,
             persona_summary=persona_summary,
-            context_extra="",
+            context_extra=context_extra,
         )
+        self._history.append(f"{partner_name}: {partner_text}\n{speaker_name}: {response}")
         return {
             "agent": "continuous",
             "response": response,

@@ -68,39 +68,6 @@ from persona_loop.eval.nli_scorer import NLIScorer
 
 
 # ---------------------------------------------------------------------------
-# System prompt for roleplay (different from QA mode)
-# ---------------------------------------------------------------------------
-
-def build_roleplay_context(
-    persona_summary: str,
-    history_lines: List[str],
-    memory_lines: Optional[List[str]] = None,
-    correction_lines: Optional[List[str]] = None,
-    max_history: int = 0,
-) -> str:
-    """Build [PERSONA]+[MEMORY]+[CORRECTION]+[HISTORY] context string."""
-    blocks: List[str] = []
-    blocks.append(f"[PERSONA] {persona_summary}")
-    for c in (correction_lines or []):
-        blocks.append(f"[CORRECTION] {c}")
-    for m in (memory_lines or []):
-        blocks.append(f"[MEMORY] {m}")
-    hist = history_lines[-max_history:] if max_history > 0 else history_lines
-    for h in hist:
-        blocks.append(f"[HISTORY] {h}")
-    return "\n".join(blocks)
-
-
-def build_roleplay_prompt(speaker_name: str, partner_name: str, partner_text: str) -> str:
-    """Build the user-turn prompt for roleplay."""
-    return (
-        f"You are {speaker_name}. Stay fully in character based on your [PERSONA].\n"
-        f"{partner_name} says: \"{partner_text}\"\n"
-        f"Respond naturally as {speaker_name} in 1-3 sentences."
-    )
-
-
-# ---------------------------------------------------------------------------
 # PCS computation (using NLIScorer directly)
 # ---------------------------------------------------------------------------
 
@@ -275,14 +242,14 @@ def run_agent_on_sample(
             disable_corrections=disable_corrections,
         )
     else:
-        agent = ContinuousAgent(llm=llm)
+        agent = ContinuousAgent(llm=llm, max_history=max_history_window)
 
     persona_summary = agent_data.persona_summary
     agent_speaker = agent_data.name
 
     responses: List[str] = []
     turn_records: List[Dict[str, Any]] = []
-    history_lines: List[str] = []
+    last_partner_text: str = ""
 
     loop_resets_total = 0
     loop_corrections_total = 0
@@ -294,18 +261,12 @@ def run_agent_on_sample(
 
     for turn in turns:
         if turn.speaker == agent_speaker:
-            # This is the agent's turn to speak 鈥?generate a response
-            prompt = build_roleplay_prompt(
+            result = agent.run_roleplay_turn(
                 speaker_name=agent_speaker,
                 partner_name=partner_name,
-                partner_text=history_lines[-1].replace(f"{partner_name}: ", "", 1) if history_lines else "",
-            )
-            context = build_roleplay_context(
+                partner_text=last_partner_text,
                 persona_summary=persona_summary,
-                history_lines=history_lines,
-                max_history=max_history_window,
             )
-            result = agent.run_turn(prompt=prompt, context=context)
             response = result["response"]
             responses.append(response)
             agent_turn_idx += 1
@@ -325,10 +286,9 @@ def run_agent_on_sample(
                 "response": response,
                 "loop_reset": result.get("loop_reset", False),
             })
-            history_lines.append(f"{agent_speaker}: {response}")
         else:
-            # Partner's turn 鈥?use the ground-truth text (not generated)
-            history_lines.append(f"{turn.speaker}: {turn.text}")
+            # Partner's turn — record text for next agent turn
+            last_partner_text = turn.text
 
     # Compute PCS (NLI)
     pcs_metrics: Dict[str, Any] = {}
