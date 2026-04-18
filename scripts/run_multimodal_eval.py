@@ -278,26 +278,49 @@ def run_agent_on_sample(
             reset_tag = " [LOOP RESET]" if result.get("loop_reset") else ""
             print(f"    [{agent_turn_idx}/{total_agent_turns}] {agent_speaker} turn {turn.dia_id}{reset_tag}: {response[:60].replace(chr(10), ' ')!r}", flush=True)
 
-            turn_records.append({
+            turn_record: Dict[str, Any] = {
                 "dia_id": turn.dia_id,
                 "session": turn.session,
                 "speaker": agent_speaker,
                 "gold_text": turn.text,
                 "response": response,
                 "loop_reset": result.get("loop_reset", False),
-            })
+            }
+            if not skip_nli and nli is not None and response.strip():
+                _nli_scores = nli.score(premise=persona_summary, hypothesis=response)
+                turn_record["nli_entailment"] = round(float(_nli_scores.get("entailment", 0.0)), 4)
+                turn_record["nli_contradiction"] = round(float(_nli_scores.get("contradiction", 0.0)), 4)
+                turn_record["nli_pcs"] = round(turn_record["nli_entailment"] - turn_record["nli_contradiction"], 4)
+            turn_records.append(turn_record)
         else:
             # Partner's turn — record text for next agent turn
             last_partner_text = turn.text
 
-    # Compute PCS (NLI)
+    # Compute PCS (NLI) — reuse per-turn scores already computed above if available
     pcs_metrics: Dict[str, Any] = {}
     if not skip_nli and nli is not None:
-        pcs_metrics = compute_pcs(
-            responses=responses,
-            persona_summary=persona_summary,
-            nli=nli,
-        )
+        scored = [tr for tr in turn_records if "nli_pcs" in tr]
+        if scored:
+            from statistics import mean as _mean
+            contradiction_threshold = 0.5
+            entailments = [tr["nli_entailment"] for tr in scored]
+            contradictions = [tr["nli_contradiction"] for tr in scored]
+            pcs_metrics = {
+                "persona_pcs": round(_mean(e - c for e, c in zip(entailments, contradictions)), 4),
+                "persona_entailment": round(_mean(entailments), 4),
+                "persona_contradiction": round(_mean(contradictions), 4),
+                "persona_contradiction_max": round(max(contradictions), 4),
+                "persona_any_contra_ratio": round(
+                    sum(1 for c in contradictions if c >= contradiction_threshold) / len(contradictions), 4
+                ),
+                "n_turns": len(scored),
+            }
+        else:
+            pcs_metrics = compute_pcs(
+                responses=responses,
+                persona_summary=persona_summary,
+                nli=nli,
+            )
 
     # Compute Judge PCS (Method B)
     judge_metrics: Dict[str, Any] = {}
