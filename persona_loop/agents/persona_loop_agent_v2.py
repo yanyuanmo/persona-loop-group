@@ -267,6 +267,7 @@ class PersonaLoopAgent(BaseAgent):
             "response": response,
             "loop_reset": loop_reset,
             "loop_corrections_count": len(corrections),
+            "loop_corrections_texts": corrections,
             "loop_retrieved_count": len(retrieved),
         }
 

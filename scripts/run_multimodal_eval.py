@@ -285,6 +285,8 @@ def run_agent_on_sample(
                 "gold_text": turn.text,
                 "response": response,
                 "loop_reset": result.get("loop_reset", False),
+                "loop_corrections_count": result.get("loop_corrections_count", 0),
+                "loop_corrections_texts": result.get("loop_corrections_texts", []),
             }
             if not skip_nli and nli is not None and response.strip():
                 _nli_scores = nli.score(premise=persona_summary, hypothesis=response)
