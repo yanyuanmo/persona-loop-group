@@ -275,7 +275,13 @@ def run_agent_on_sample(
             loop_corrections_total += int(result.get("loop_corrections_count", 0))
             loop_retrieved_total += int(result.get("loop_retrieved_count", 0))
 
-            reset_tag = " [LOOP RESET]" if result.get("loop_reset") else ""
+            corr_count = result.get("loop_corrections_count", 0)
+            if result.get("loop_reset"):
+                reset_tag = f" [LOOP RESET | corrections={corr_count}]"
+            elif corr_count > 0:
+                reset_tag = f" [corrections={corr_count}]"
+            else:
+                reset_tag = ""
             print(f"    [{agent_turn_idx}/{total_agent_turns}] {agent_speaker} turn {turn.dia_id}{reset_tag}: {response[:60].replace(chr(10), ' ')!r}", flush=True)
 
             turn_record: Dict[str, Any] = {
@@ -388,6 +394,8 @@ def main() -> None:
     parser.add_argument("--max-history-window", type=int, default=20,
                         help="Max history lines kept in context for continuous agent (0=unlimited).")
     parser.add_argument("--pairs", default="", help="Comma-separated pair names to run (e.g. pair1,pair2). Empty=all.")
+    parser.add_argument("--max-sessions", type=int, default=0,
+                        help="Max number of sessions to use per pair (0=all). E.g. --max-sessions 2 uses session 1-2 only.")
     parser.add_argument("--loop-ablation", default="",
                         help="Comma-separated ablation tokens: disable_persona_persist,disable_corrections")
     parser.add_argument("--output", default="artifacts/multimodal_eval", help="Output directory.")
@@ -451,7 +459,11 @@ def main() -> None:
     start_time = time.time()
 
     for sample in samples:
-        print(f"\n--- Pair: {sample.pair_id} ({len(sample.turns)} turns across {sample.session_count} sessions) ---", flush=True)
+        turns = sample.turns
+        if args.max_sessions > 0:
+            turns = sample.turns_up_to_session(args.max_sessions)
+        session_count = sample.session_count if args.max_sessions <= 0 else min(args.max_sessions, sample.session_count)
+        print(f"\n--- Pair: {sample.pair_id} ({len(turns)} turns across {session_count} sessions) ---", flush=True)
 
         # Evaluate both agent roles
         for role, agent_data, partner_data in [
@@ -462,7 +474,7 @@ def main() -> None:
             result = run_agent_on_sample(
                 agent_data=agent_data,
                 partner_name=partner_data.name,
-                turns=sample.turns,
+                turns=turns,
                 agent_name=args.agent,
                 llm=llm,
                 memory_backend=memory_backend,
@@ -570,6 +582,7 @@ def main() -> None:
         "loop_ablation": args.loop_ablation,
         "data": str(args.data),
         "pairs": args.pairs,
+        "max_sessions": args.max_sessions,
     }
     (output_dir / "run_manifest.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8"

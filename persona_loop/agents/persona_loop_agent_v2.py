@@ -45,7 +45,7 @@ class PersonaLoopAgent(BaseAgent):
     recent_turns : int
         Stage D 保留多少最近轮次的原始 [HISTORY]。默认 3。
     nli_threshold : float
-        Stage B 矛盾判定阈值（NLI score < -threshold 视为矛盾）。默认 0.3。
+        Stage B 矛盾判定阈值（NLI score < -threshold 视为矛盾）。默认 0.1。
     max_corrections : int
         Stage B 最多生成多少条修正提示。默认 2。
     """
@@ -58,7 +58,7 @@ class PersonaLoopAgent(BaseAgent):
         loop_interval: int = 8,
         retrieval_top_k: int = 3,
         recent_turns: int = 3,
-        nli_threshold: float = 0.3,
+        nli_threshold: float = 0.1,
         max_corrections: int = 2,
         disable_persona_persist: bool = False,
         disable_corrections: bool = False,
@@ -97,13 +97,19 @@ class PersonaLoopAgent(BaseAgent):
         corrections: List[str] = []
         if not self.disable_corrections and self.checker is not None and persona_text.strip() and self.max_corrections > 0:
             threshold = -max(0.0, self.nli_threshold)
+            # Collect all contradicting responses with their scores first,
+            # then sort by severity (most contradictory first) and cap at
+            # min(loop_interval, 5) to avoid context bloat.
+            flagged: List[tuple] = []
             for response in self._agent_responses:
                 score = float(self.checker.score(premise=persona_text, hypothesis=response))
                 if score < threshold:
-                    short = response[:120].replace("\n", " ").strip()
-                    corrections.append(f"CORRECTION: You said '{short}' — this contradicts your persona. Please maintain consistency.")
-                    if len(corrections) >= self.max_corrections:
-                        break
+                    flagged.append((score, response))
+            flagged.sort(key=lambda x: x[0])  # lowest score = most contradictory
+            cap = min(self.loop_interval, 5)
+            for score, response in flagged[:cap]:
+                short = response[:120].replace("\n", " ").strip()
+                corrections.append(f"CORRECTION: You said '{short}' — this contradicts your persona. Please maintain consistency.")
 
         # --- Stage C: retrieve relevant history from memory ---
         retrieved: List[str] = []
