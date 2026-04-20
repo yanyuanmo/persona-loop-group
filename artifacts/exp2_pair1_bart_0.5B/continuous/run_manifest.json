@@ -1,0 +1,16 @@
+{
+  "agent": "continuous",
+  "llm_provider": "openai",
+  "llm_model": "Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "nli_model": "facebook/bart-large-mnli",
+  "skip_nli": false,
+  "memory_backend": "embedding",
+  "loop_interval": 8,
+  "loop_retrieval_topk": 3,
+  "loop_recent_turns": 3,
+  "loop_nli_threshold": 0.1,
+  "max_history_window": 20,
+  "loop_ablation": "",
+  "data": "/home/yanyuan/cs5100/persona-loop-group/data/multimodal_dialog",
+  "pairs": "pair1"
+}

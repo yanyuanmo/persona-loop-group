@@ -1,0 +1,28 @@
+{
+  "continuous": {
+    "agent": "continuous",
+    "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+    "n_samples": 2,
+    "total_turns": 60,
+    "loop_interval": null,
+    "memory_backend": null,
+    "persona_pcs": 0.2081,
+    "persona_entailment": 0.2136,
+    "persona_contradiction": 0.0055,
+    "persona_any_contra_ratio": 0.0
+  },
+  "K=4": {
+    "agent": "persona_loop",
+    "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+    "n_samples": 2,
+    "total_turns": 60,
+    "loop_interval": 4,
+    "memory_backend": "embedding",
+    "persona_pcs": 0.2764,
+    "persona_entailment": 0.297,
+    "persona_contradiction": 0.0207,
+    "persona_any_contra_ratio": 0.0,
+    "loop_resets_total": 14,
+    "loop_corrections_total": 2
+  }
+}

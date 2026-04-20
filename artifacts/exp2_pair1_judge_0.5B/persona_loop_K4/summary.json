@@ -1,0 +1,26 @@
+{
+  "agent": "persona_loop",
+  "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "n_samples": 2,
+  "total_turns": 60,
+  "loop_interval": 4,
+  "memory_backend": "embedding",
+  "persona_pcs": 0.0379,
+  "persona_entailment": 0.0381,
+  "persona_contradiction": 0.0001,
+  "persona_any_contra_ratio": 0.0,
+  "judge_pcs": 0.6083,
+  "judge_pcs_avg": 4.2166,
+  "judge_pcs_per_role": {
+    "Yangyang": {
+      "judge_pcs": 0.65,
+      "judge_pcs_avg": 4.3
+    },
+    "Chenmo": {
+      "judge_pcs": 0.5667,
+      "judge_pcs_avg": 4.1333
+    }
+  },
+  "loop_resets_total": 14,
+  "loop_corrections_total": 0
+}

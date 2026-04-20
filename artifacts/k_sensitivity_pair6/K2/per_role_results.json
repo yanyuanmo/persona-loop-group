@@ -1,0 +1,38 @@
+[
+  {
+    "agent_name": "Mingzhi",
+    "agent_type": "persona_loop",
+    "n_responses": 60,
+    "loop_resets": 30,
+    "loop_corrections": 0,
+    "loop_retrieved": 88,
+    "persona_pcs": 0.0633,
+    "persona_entailment": 0.0636,
+    "persona_contradiction": 0.0003,
+    "persona_contradiction_max": 0.0017,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 60,
+    "judge_pcs": 0.7917,
+    "judge_pcs_avg": 4.5833,
+    "pair_id": "pair6",
+    "role": "agent_a"
+  },
+  {
+    "agent_name": "Feifei",
+    "agent_type": "persona_loop",
+    "n_responses": 60,
+    "loop_resets": 30,
+    "loop_corrections": 0,
+    "loop_retrieved": 88,
+    "persona_pcs": 0.0028,
+    "persona_entailment": 0.0037,
+    "persona_contradiction": 0.0009,
+    "persona_contradiction_max": 0.0052,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 60,
+    "judge_pcs": 0.475,
+    "judge_pcs_avg": 3.95,
+    "pair_id": "pair6",
+    "role": "agent_b"
+  }
+]

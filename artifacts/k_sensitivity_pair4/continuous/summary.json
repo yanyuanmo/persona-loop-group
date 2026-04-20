@@ -1,0 +1,24 @@
+{
+  "agent": "continuous",
+  "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "n_samples": 2,
+  "total_turns": 60,
+  "loop_interval": null,
+  "memory_backend": null,
+  "persona_pcs": 0.0154,
+  "persona_entailment": 0.0157,
+  "persona_contradiction": 0.0003,
+  "persona_any_contra_ratio": 0.0,
+  "judge_pcs": 0.4166,
+  "judge_pcs_avg": 3.8334,
+  "judge_pcs_per_role": {
+    "Qingqing": {
+      "judge_pcs": 0.6,
+      "judge_pcs_avg": 4.2
+    },
+    "Ruochen": {
+      "judge_pcs": 0.2333,
+      "judge_pcs_avg": 3.4667
+    }
+  }
+}

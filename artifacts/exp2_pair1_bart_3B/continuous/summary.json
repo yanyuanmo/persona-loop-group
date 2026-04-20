@@ -1,0 +1,12 @@
+{
+  "agent": "continuous",
+  "llm": "openai:Qwen2.5-3B-Instruct-Q4_K_M.gguf",
+  "n_samples": 2,
+  "total_turns": 60,
+  "loop_interval": null,
+  "memory_backend": null,
+  "persona_pcs": 0.0087,
+  "persona_entailment": 0.0164,
+  "persona_contradiction": 0.0077,
+  "persona_any_contra_ratio": 0.0
+}

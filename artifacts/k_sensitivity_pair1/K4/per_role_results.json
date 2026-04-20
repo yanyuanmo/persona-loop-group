@@ -1,0 +1,38 @@
+[
+  {
+    "agent_name": "Yangyang",
+    "agent_type": "persona_loop",
+    "n_responses": 30,
+    "loop_resets": 7,
+    "loop_corrections": 0,
+    "loop_retrieved": 21,
+    "persona_pcs": 0.0034,
+    "persona_entailment": 0.0034,
+    "persona_contradiction": 0.0,
+    "persona_contradiction_max": 0.0001,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 30,
+    "judge_pcs": 0.8333,
+    "judge_pcs_avg": 4.6667,
+    "pair_id": "pair1",
+    "role": "agent_a"
+  },
+  {
+    "agent_name": "Chenmo",
+    "agent_type": "persona_loop",
+    "n_responses": 30,
+    "loop_resets": 7,
+    "loop_corrections": 0,
+    "loop_retrieved": 21,
+    "persona_pcs": 0.0719,
+    "persona_entailment": 0.0721,
+    "persona_contradiction": 0.0001,
+    "persona_contradiction_max": 0.0012,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 30,
+    "judge_pcs": 0.6833,
+    "judge_pcs_avg": 4.3667,
+    "pair_id": "pair1",
+    "role": "agent_b"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "agent": "persona_loop",
+  "llm_provider": "openai",
+  "llm_model": "Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "nli_model": "cross-encoder/nli-deberta-v3-base",
+  "skip_nli": false,
+  "memory_backend": "embedding",
+  "loop_interval": 4,
+  "loop_retrieval_topk": 3,
+  "loop_recent_turns": 3,
+  "loop_nli_threshold": 0.1,
+  "max_history_window": 20,
+  "loop_ablation": "",
+  "data": "data/multimodal_dialog",
+  "pairs": "pair1",
+  "max_sessions": 0
+}

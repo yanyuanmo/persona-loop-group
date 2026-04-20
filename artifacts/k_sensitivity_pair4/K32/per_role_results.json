@@ -1,0 +1,38 @@
+[
+  {
+    "agent_name": "Qingqing",
+    "agent_type": "persona_loop",
+    "n_responses": 30,
+    "loop_resets": 0,
+    "loop_corrections": 0,
+    "loop_retrieved": 0,
+    "persona_pcs": 0.0011,
+    "persona_entailment": 0.0013,
+    "persona_contradiction": 0.0002,
+    "persona_contradiction_max": 0.0007,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 30,
+    "judge_pcs": 0.4667,
+    "judge_pcs_avg": 3.9333,
+    "pair_id": "pair4",
+    "role": "agent_a"
+  },
+  {
+    "agent_name": "Ruochen",
+    "agent_type": "persona_loop",
+    "n_responses": 30,
+    "loop_resets": 0,
+    "loop_corrections": 0,
+    "loop_retrieved": 0,
+    "persona_pcs": 0.0476,
+    "persona_entailment": 0.0481,
+    "persona_contradiction": 0.0005,
+    "persona_contradiction_max": 0.0009,
+    "persona_any_contra_ratio": 0.0,
+    "n_turns": 30,
+    "judge_pcs": 0.45,
+    "judge_pcs_avg": 3.9,
+    "pair_id": "pair4",
+    "role": "agent_b"
+  }
+]

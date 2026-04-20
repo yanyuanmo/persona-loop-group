@@ -1,0 +1,26 @@
+{
+  "agent": "persona_loop",
+  "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "n_samples": 2,
+  "total_turns": 120,
+  "loop_interval": 8,
+  "memory_backend": "embedding",
+  "persona_pcs": 0.0282,
+  "persona_entailment": 0.0288,
+  "persona_contradiction": 0.0005,
+  "persona_any_contra_ratio": 0.0,
+  "judge_pcs": 0.5333,
+  "judge_pcs_avg": 4.0667,
+  "judge_pcs_per_role": {
+    "Mingzhi": {
+      "judge_pcs": 0.8167,
+      "judge_pcs_avg": 4.6333
+    },
+    "Feifei": {
+      "judge_pcs": 0.25,
+      "judge_pcs_avg": 3.5
+    }
+  },
+  "loop_resets_total": 14,
+  "loop_corrections_total": 0
+}

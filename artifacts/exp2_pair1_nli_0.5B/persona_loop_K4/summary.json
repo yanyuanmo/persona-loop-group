@@ -1,0 +1,14 @@
+{
+  "agent": "persona_loop",
+  "llm": "openai:Qwen2.5-0.5B-Instruct-Q4_K_M.gguf",
+  "n_samples": 2,
+  "total_turns": 60,
+  "loop_interval": 4,
+  "memory_backend": "embedding",
+  "persona_pcs": 0.2533,
+  "persona_entailment": 0.2534,
+  "persona_contradiction": 0.0002,
+  "persona_any_contra_ratio": 0.0,
+  "loop_resets_total": 14,
+  "loop_corrections_total": 0
+}
